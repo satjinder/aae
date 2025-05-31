@@ -47,22 +47,29 @@ class ArchitectureService {
   }
 
   public getRelatedNodes(nodeId: string): { nodes: Node[]; edges: Edge[] } {
+    const sourceNode = this.getNodeById(nodeId);
+    if (!sourceNode) return { nodes: [], edges: [] };
+
+    // Get all edges where this node is either source or target
     const relatedEdges = this.data.edges.filter(
       edge => edge.source === nodeId || edge.target === nodeId
     );
 
+    // Get all node IDs that are connected to this node
     const relatedNodeIds = new Set<string>();
     relatedEdges.forEach(edge => {
       if (edge.source !== nodeId) relatedNodeIds.add(edge.source);
       if (edge.target !== nodeId) relatedNodeIds.add(edge.target);
     });
 
+    // Get all nodes that are connected
     const relatedNodes = this.data.nodes.filter(node => 
       relatedNodeIds.has(node.id)
     );
 
+    // Always include the source node in the result
     return {
-      nodes: relatedNodes,
+      nodes: [sourceNode, ...relatedNodes],
       edges: relatedEdges
     };
   }

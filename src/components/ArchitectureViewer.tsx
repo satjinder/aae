@@ -9,6 +9,7 @@ import ReactFlow, {
 } from 'reactflow';
 import type { Node, Edge, NodeTypes } from 'reactflow';
 import 'reactflow/dist/style.css';
+import ELK from 'elkjs/lib/elk.bundled.js';
 import { 
   TextField, 
   Box, 
@@ -42,6 +43,24 @@ const NODE_WIDTH = 250;
 const NODE_HEIGHT = 200;
 const HORIZONTAL_SPACING = 300;
 const VERTICAL_SPACING = 250;
+
+const elk = new ELK();
+
+// Layout options for ELK
+const layoutOptions = {
+  'elk.algorithm': 'layered',
+  'elk.direction': 'DOWN',
+  'elk.spacing.nodeNode': '80',
+  'elk.layered.spacing.nodeNodeBetweenLayers': '100',
+  'elk.layered.crossingMinimization.strategy': 'LAYER_SWEEP',
+  'elk.layered.nodePlacement.strategy': 'NETWORK_SIMPLEX',
+  'elk.layered.spacing.edgeNodeBetweenLayers': '50',
+  'elk.layered.spacing.edgeEdgeBetweenLayers': '50',
+  'elk.layered.spacing.edgeNode': '50',
+  'elk.layered.spacing.edgeEdge': '50',
+  'elk.layered.spacing.baseValue': '80',
+  'elk.layered.spacing.layer': '100'
+};
 
 // Helper functions
 const calculateNodePositions = (nodes: Node[], parentNode?: Node) => {
@@ -106,7 +125,7 @@ const ArchitectureViewer: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set());
   const [showSearch, setShowSearch] = useState(true);
-  const [hiddenNodes, setHiddenNodes] = useState<Set<string>>(new Set());
+  const [visibleNodes, setVisibleNodes] = useState<Set<string>>(new Set());
   const [boardContext, setBoardContext] = useState<{
     nodes: ArchitectureNode[];
     edges: Array<{ source: string; target: string; label?: string }>;
@@ -122,6 +141,56 @@ const ArchitectureViewer: React.FC = () => {
         newSet.add(nodeId);
         return newSet;
       });
+
+      // Get the current node
+      const currentNode = nodes.find(n => n.id === nodeId);
+      if (!currentNode) return;
+
+      // Get related nodes from the node's data
+      const relatedNodes = currentNode.data.relatedNodes || [];
+      
+      // Add related nodes to the board
+      relatedNodes.forEach((relatedNode: ArchitectureNode) => {
+        // Skip if the node is already visible
+        if (visibleNodes.has(relatedNode.id)) return;
+
+        const newNode: Node = {
+          id: relatedNode.id,
+          position: { 
+            x: currentNode.position.x + HORIZONTAL_SPACING, 
+            y: currentNode.position.y + VERTICAL_SPACING 
+          },
+          type: 'custom',
+          data: {
+            ...relatedNode,
+            onExpand: nodeHandlers.handleExpand,
+            onCollapse: nodeHandlers.handleCollapse,
+            onToggleNode: nodeHandlers.handleToggleNode,
+            onToggleVisibility: nodeHandlers.handleToggleVisibility,
+            isExpanded: expandedNodes.has(relatedNode.id),
+            relatedNodes: architectureService.getRelatedNodes(relatedNode.id).nodes,
+            boardContext
+          }
+        };
+
+        setNodes(prevNodes => [...prevNodes, newNode]);
+        setVisibleNodes(prev => new Set([...prev, relatedNode.id]));
+
+        // Add edge between current node and related node
+        const edge: Edge = {
+          id: `${nodeId}-${relatedNode.id}`,
+          source: nodeId,
+          target: relatedNode.id,
+          type: 'smoothstep',
+          animated: true,
+          style: { stroke: '#555', strokeWidth: 2 },
+          markerEnd: {
+            type: MarkerType.ArrowClosed,
+            color: '#555'
+          }
+        };
+        setEdges(prevEdges => [...prevEdges, edge]);
+      });
     },
     handleCollapse: (nodeId: string) => {
       setExpandedNodes(prev => {
@@ -129,31 +198,74 @@ const ArchitectureViewer: React.FC = () => {
         newSet.delete(nodeId);
         return newSet;
       });
+
+      // Get the current node
+      const currentNode = nodes.find(n => n.id === nodeId);
+      if (!currentNode) return;
+
+      // Get related nodes from the node's data
+      const relatedNodes = currentNode.data.relatedNodes || [];
+      
+      // Remove related nodes and their edges
+      setNodes(prevNodes => prevNodes.filter(n => 
+        n.id === nodeId || !relatedNodes.some((rn: { id: string }) => rn.id === n.id)
+      ));
+      setEdges(prevEdges => prevEdges.filter(e => 
+        e.source !== nodeId && e.target !== nodeId
+      ));
+
+      // Update visible nodes
+      setVisibleNodes(prev => {
+        const newSet = new Set(prev);
+        relatedNodes.forEach((rn: { id: string }) => newSet.delete(rn.id));
+        return newSet;
+      });
     },
     handleToggleNode: (nodeId: string, type: string) => {
-      setHiddenNodes(prev => {
-        const newSet = new Set(prev);
-        if (newSet.has(nodeId)) {
+      // If the node is not visible, add it
+      if (!visibleNodes.has(nodeId)) {
+        // Get the node details from the architecture service
+        const nodeToAdd = architectureService.getNodeById(nodeId);
+        if (!nodeToAdd) return;
+
+        handleAddNode(nodeToAdd);
+      
+      }
+      // If the node is visible, hide it
+      else {
+        setVisibleNodes(prev => {
+          const newSet = new Set(prev);
           newSet.delete(nodeId);
-          loadNodeAndRelations(nodeId);
-        } else {
-          newSet.add(nodeId);
-        }
-        return newSet;
-      });
+          return newSet;
+        });
+      }
     },
     handleToggleVisibility: (nodeId: string) => {
-      setHiddenNodes(prev => {
+      // Remove only this node from visible nodes
+      setVisibleNodes(prev => {
         const newSet = new Set(prev);
-        if (newSet.has(nodeId)) {
-          newSet.delete(nodeId);
-        } else {
-          newSet.add(nodeId);
-        }
+        newSet.delete(nodeId);
         return newSet;
       });
+
+      // Remove only this node from the board
+      setNodes(prevNodes => prevNodes.filter(n => n.id !== nodeId));
+      
+      // Remove edges that have this node as source or target
+      setEdges(prevEdges => prevEdges.filter(e => 
+        e.source !== nodeId && e.target !== nodeId
+      ));
+
+      // Update edges to only show relations between visible nodes
+      setEdges(prevEdges => {
+        return prevEdges.filter(edge => {
+          const sourceVisible = visibleNodes.has(edge.source);
+          const targetVisible = visibleNodes.has(edge.target);
+          return sourceVisible && targetVisible;
+        });
+      });
     }
-  }), []);
+  }), [nodes, expandedNodes, visibleNodes, boardContext]);
 
   // Memoized board context update
   const updateBoardContext = useCallback((currentNodes: Node[], currentEdges: Edge[]) => {
@@ -184,6 +296,63 @@ const ArchitectureViewer: React.FC = () => {
   }, [nodes, edges, updateBoardContext]);
 
   useEffect(() => {
+    // Check relations between all visible nodes
+    const visibleNodeIds = Array.from(visibleNodes);
+    
+    // Create a set to track all edges we want to keep
+    const edgesToKeep = new Set<string>();
+    
+    // For each visible node, check its relations with other visible nodes
+    visibleNodeIds.forEach(nodeId => {
+      // Get relations for this node
+      const { edges: nodeEdges } = architectureService.getRelatedNodes(nodeId);
+      
+      // Find edges that connect to other visible nodes
+      nodeEdges.forEach(edge => {
+        const sourceVisible = visibleNodes.has(edge.source);
+        const targetVisible = visibleNodes.has(edge.target);
+        
+        // If both nodes are visible, keep this edge
+        if (sourceVisible && targetVisible) {
+          edgesToKeep.add(edge.id);
+        }
+      });
+    });
+
+    // Update edges to only keep those between visible nodes
+    setEdges(prevEdges => {
+      // First remove edges that aren't between visible nodes
+      const filteredEdges = prevEdges.filter(edge => edgesToKeep.has(edge.id));
+      
+      // Then add any missing edges between visible nodes
+      const existingEdgeIds = new Set(filteredEdges.map(e => e.id));
+      
+      visibleNodeIds.forEach(nodeId => {
+        const { edges: nodeEdges } = architectureService.getRelatedNodes(nodeId);
+        nodeEdges.forEach(edge => {
+          if (!existingEdgeIds.has(edge.id) && edgesToKeep.has(edge.id)) {
+            filteredEdges.push({
+              id: edge.id,
+              source: edge.source,
+              target: edge.target,
+              type: 'smoothstep',
+              animated: true,
+              style: { stroke: '#555', strokeWidth: 2 },
+              markerEnd: {
+                type: MarkerType.ArrowClosed,
+                color: '#555'
+              },
+              label: edge.label
+            });
+          }
+        });
+      });
+
+      return filteredEdges;
+    });
+  }, [visibleNodes]);
+
+  useEffect(() => {
     const loadAvailableNodes = async () => {
       const allData = await architectureService.getAllData();
       setAvailableNodes(allData.nodes);
@@ -192,11 +361,9 @@ const ArchitectureViewer: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setNodes(prevNodes => prevNodes.filter(node => !hiddenNodes.has(node.id)));
-    setEdges(prevEdges => prevEdges.filter(edge => 
-      !hiddenNodes.has(edge.source) && !hiddenNodes.has(edge.target)
-    ));
-  }, [hiddenNodes]);
+    // Remove nodes that are not visible
+    setNodes(prevNodes => prevNodes.filter(node => visibleNodes.has(node.id)));
+  }, [visibleNodes]);
 
   // Node loading functions
   const loadNodeAndRelations = useCallback(async (nodeId: string) => {
@@ -218,7 +385,6 @@ const ArchitectureViewer: React.FC = () => {
         onToggleNode: nodeHandlers.handleToggleNode,
         onToggleVisibility: nodeHandlers.handleToggleVisibility,
         isExpanded: expandedNodes.has(targetNode.id),
-        hiddenNodes,
         relatedNodes: relatedNodes,
         boardContext
       }
@@ -231,12 +397,27 @@ const ArchitectureViewer: React.FC = () => {
       }
       return prevNodes;
     });
-  }, [nodes, expandedNodes, nodeHandlers, hiddenNodes, boardContext]);
+  }, [nodes, expandedNodes, nodeHandlers, visibleNodes, boardContext]);
 
   const handleAddNode = useCallback((node: ArchitectureNode) => {
+    // Get related nodes and edges
+    const { nodes: relatedNodes, edges: relatedEdges } = architectureService.getRelatedNodes(node.id);
+
+    // Calculate a temporary position for the new node
+    // Place it to the right of the rightmost node, or at (0,0) if no nodes exist
+    const rightmostNode = nodes.reduce((rightmost, current) => {
+      return (current.position.x > rightmost.position.x) ? current : rightmost;
+    }, { position: { x: -HORIZONTAL_SPACING, y: 0 } });
+
+    const position = {
+      x: rightmostNode.position.x + HORIZONTAL_SPACING,
+      y: 0
+    };
+
+    // Create the main node
     const newNode: Node = {
       id: node.id,
-      position: { x: nodes.length * 250, y: 0 },
+      position,
       type: 'custom',
       data: {
         ...node,
@@ -245,111 +426,17 @@ const ArchitectureViewer: React.FC = () => {
         onToggleNode: nodeHandlers.handleToggleNode,
         onToggleVisibility: nodeHandlers.handleToggleVisibility,
         isExpanded: expandedNodes.has(node.id),
-        hiddenNodes,
-        relatedNodes: architectureService.getRelatedNodes(node.id).nodes,
+        relatedNodes,
         boardContext
       }
     };
 
-    if (node.type === 'capability') {
-      const relatedEdges = architectureService.getAllData().edges.filter(
-        edge => edge.source === node.id && edge.label === 'implements'
-      );
-      
-      const domainServices = relatedEdges.map(edge => 
-        availableNodes.find(n => n.id === edge.target)
-      ).filter((n): n is ArchitectureNode => n !== undefined);
-
-      domainServices.forEach((service, index) => {
-        const serviceNode: Node = {
-          id: service.id,
-          position: { 
-            x: nodes.length * 250 + (index * 250), 
-            y: 200 
-          },
-          type: 'custom',
-          data: {
-            ...service,
-            onExpand: nodeHandlers.handleExpand,
-            onCollapse: nodeHandlers.handleCollapse,
-            onToggleNode: nodeHandlers.handleToggleNode,
-            onToggleVisibility: nodeHandlers.handleToggleVisibility,
-            isExpanded: expandedNodes.has(service.id),
-            hiddenNodes,
-            relatedNodes: availableNodes,
-            boardContext
-          }
-        };
-        setNodes(prevNodes => [...prevNodes, serviceNode]);
-
-        const edge: Edge = {
-          id: `${node.id}-${service.id}`,
-          source: node.id,
-          target: service.id,
-          type: 'smoothstep',
-          animated: true,
-          style: { stroke: '#555', strokeWidth: 2 },
-          markerEnd: {
-            type: MarkerType.ArrowClosed,
-            color: '#555'
-          },
-          label: 'implements'
-        };
-        setEdges(prevEdges => [...prevEdges, edge]);
-      });
-    }
-
-    if (node.type === 'domainService') {
-      const relatedEdges = architectureService.getAllData().edges.filter(
-        edge => edge.source === node.id && 
-        (edge.label === 'exposes' || edge.label === 'publishes' || edge.label === 'produces')
-      );
-      
-      const interfaces = relatedEdges.map(edge => 
-        availableNodes.find(n => n.id === edge.target)
-      ).filter((n): n is ArchitectureNode => n !== undefined);
-
-      interfaces.forEach((interface_, index) => {
-        const interfaceNode: Node = {
-          id: interface_.id,
-          position: { 
-            x: nodes.length * 250 + (index * 250), 
-            y: 400 
-          },
-          type: 'custom',
-          data: {
-            ...interface_,
-            onExpand: nodeHandlers.handleExpand,
-            onCollapse: nodeHandlers.handleCollapse,
-            onToggleNode: nodeHandlers.handleToggleNode,
-            onToggleVisibility: nodeHandlers.handleToggleVisibility,
-            isExpanded: expandedNodes.has(interface_.id),
-            hiddenNodes,
-            relatedNodes: availableNodes,
-            boardContext
-          }
-        };
-        setNodes(prevNodes => [...prevNodes, interfaceNode]);
-
-        const edge: Edge = {
-          id: `${node.id}-${interface_.id}`,
-          source: node.id,
-          target: interface_.id,
-          type: 'smoothstep',
-          animated: true,
-          style: { stroke: '#555', strokeWidth: 2 },
-          markerEnd: {
-            type: MarkerType.ArrowClosed,
-            color: '#555'
-          },
-          label: relatedEdges.find(e => e.target === interface_.id)?.label
-        };
-        setEdges(prevEdges => [...prevEdges, edge]);
-      });
-    }
-
+    // Add the main node
     setNodes(prevNodes => [...prevNodes, newNode]);
-  }, [nodes, expandedNodes, nodeHandlers, hiddenNodes, availableNodes, boardContext]);
+    setVisibleNodes(prev => new Set([...prev, node.id]));
+
+
+  }, [nodes, expandedNodes, nodeHandlers, visibleNodes, boardContext]);
 
   // Memoized grouped nodes
   const groupedNodes = useMemo(() => {

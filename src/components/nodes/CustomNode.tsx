@@ -32,7 +32,7 @@ interface CustomNodeProps {
 }
 
 const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
-  const getNodeIcon = (type: string) => {
+  const getNodeIcon = (type: string): JSX.Element | null => {
     switch (type) {
       case 'api':
         return <ApiIcon />;
@@ -56,17 +56,8 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
   const getRelatedNodesByType = (type: string) => {
     if (!data.relatedNodes) return [];
     
-    // Get nodes that are directly connected to this node
-    const connectedNodes = data.relatedNodes.filter(node => 
-      node.type === type && 
-      // Check if this node is in the related nodes list
-      data.relatedNodes?.some(relatedNode => 
-        relatedNode.id === data.id || relatedNode.id === node.id
-      )
-    );
-    
-    // Ensure unique nodes by id
-    return Array.from(new Map(connectedNodes.map(node => [node.id, node])).values());
+    // Get nodes of the specified type that are related to this node
+    return data.relatedNodes.filter(node => node.type === type);
   };
 
   const getVisibleRelatedNodesByType = (type: string) => {
@@ -74,20 +65,26 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
   };
 
   const handleIconClick = (type: string) => {
-    if (data.onToggleNode) {
-      const relatedNodes = getRelatedNodesByType(type);
-      const visibleNodes = getVisibleRelatedNodesByType(type);
-      
-      // If there are visible nodes of this type, hide them all
-      if (visibleNodes.length > 0) {
-        visibleNodes.forEach(node => {
-          data.onToggleNode?.(node.id, type);
-        });
-      } 
-      // If all nodes of this type are hidden, show the first one
-      else if (relatedNodes.length > 0) {
-        data.onToggleNode(relatedNodes[0].id, type);
-      }
+    if (!data.onToggleNode) return;
+    
+    const relatedNodes = getRelatedNodesByType(type);
+    const visibleNodes = getVisibleRelatedNodesByType(type);
+    
+    // If there are visible nodes of this type, hide them all
+    if (visibleNodes.length > 0) {
+      visibleNodes.forEach(node => {
+        if (node.id !== data.id) { // Don't hide the current node
+          data.onToggleNode(node.id, type);
+        }
+      });
+    } 
+    // If all nodes of this type are hidden, show all of them
+    else if (relatedNodes.length > 0) {
+      relatedNodes.forEach(node => {
+        if (node.id !== data.id) { // Don't show the current node
+          data.onToggleNode(node.id, type);
+        }
+      });
     }
   };
 
@@ -188,6 +185,9 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
                            type === 'event' ? 'Event' :
                            'Data Product';
 
+              const icon = getNodeIcon(type);
+              if (!icon) return null;
+
               return (
                 <Badge
                   key={type}
@@ -201,7 +201,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
                   }}
                 >
                   <Chip
-                    icon={getNodeIcon(type)}
+                    icon={icon}
                     label={label}
                     size="small"
                     onClick={() => handleIconClick(type)}

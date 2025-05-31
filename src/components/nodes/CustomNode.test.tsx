@@ -21,7 +21,9 @@ describe('CustomNode', () => {
     onExpand: vi.fn(),
     onCollapse: vi.fn(),
     onToggleVisibility: vi.fn(),
-    isExpanded: false
+    onToggleNode: vi.fn(),
+    isExpanded: false,
+    hiddenNodes: new Set<string>()
   };
 
   const expandedData = {
@@ -29,9 +31,9 @@ describe('CustomNode', () => {
     isExpanded: true,
     relatedNodes: [
       {
-        id: 'related-api',
-        type: 'api',
-        name: 'Related API',
+        id: 'related-domain-service',
+        type: 'domainService',
+        name: 'Related Domain Service',
         description: 'Related Description'
       }
     ]
@@ -75,7 +77,7 @@ describe('CustomNode', () => {
   it('shows related nodes when expanded', () => {
     renderWithWrapper(<CustomNode data={expandedData} />);
     // The component shows related nodes in a Badge component
-    const badge = screen.getByRole('button', { name: /api/i });
+    const badge = screen.getByRole('button', { name: /domain service/i });
     expect(badge).toBeInTheDocument();
   });
 
