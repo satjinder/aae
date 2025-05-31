@@ -1,0 +1,367 @@
+{
+  "nodes": [
+    {
+      "id": "cap_core_banking",
+      "type": "capability",
+      "label": "Core Banking",
+      "description": "Core banking operations and account management",
+      "data": {
+        "owner": "Core Banking Team",
+        "status": "Active",
+        "priority": "High"
+      }
+    },
+    {
+      "id": "cap_payments",
+      "type": "capability",
+      "label": "Payments",
+      "description": "Payment processing and money transfer capabilities",
+      "data": {
+        "owner": "Payments Team",
+        "status": "Active",
+        "priority": "High"
+      }
+    },
+    {
+      "id": "cap_customer_management",
+      "type": "capability",
+      "label": "Customer Management",
+      "description": "Customer onboarding and relationship management",
+      "data": {
+        "owner": "Customer Experience Team",
+        "status": "Active",
+        "priority": "High"
+      }
+    },
+    {
+      "id": "ds_account_management",
+      "type": "domainService",
+      "label": "Account Management Service",
+      "description": "Manages customer accounts and balances",
+      "data": {
+        "owner": "Core Banking Team",
+        "status": "Active",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "ds_payment_processing",
+      "type": "domainService",
+      "label": "Payment Processing Service",
+      "description": "Handles payment transactions and transfers",
+      "data": {
+        "owner": "Payments Team",
+        "status": "Active",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "ds_customer_onboarding",
+      "type": "domainService",
+      "label": "Customer Onboarding Service",
+      "description": "Handles customer registration and KYC processes",
+      "data": {
+        "owner": "Customer Experience Team",
+        "status": "Active",
+        "version": "1.0"
+      }
+    },
+    {
+      "id": "api_accounts",
+      "type": "api",
+      "label": "Accounts API",
+      "description": "REST API for account operations",
+      "data": {
+        "version": "1.0",
+        "status": "Active",
+        "type": "REST",
+        "endpoints": [
+          "GET /accounts",
+          "POST /accounts",
+          "GET /accounts/{id}",
+          "PUT /accounts/{id}",
+          "GET /accounts/{id}/balance",
+          "GET /accounts/{id}/transactions"
+        ]
+      }
+    },
+    {
+      "id": "evt_account_created",
+      "type": "event",
+      "label": "Account Created Event",
+      "description": "Published when a new account is created",
+      "data": {
+        "type": "Domain Event",
+        "status": "Active",
+        "schema": {
+          "accountId": "string",
+          "customerId": "string",
+          "accountType": "string",
+          "timestamp": "datetime"
+        }
+      }
+    },
+    {
+      "id": "evt_account_updated",
+      "type": "event",
+      "label": "Account Updated Event",
+      "description": "Published when account details are updated",
+      "data": {
+        "type": "Domain Event",
+        "status": "Active",
+        "schema": {
+          "accountId": "string",
+          "updatedFields": "object",
+          "timestamp": "datetime"
+        }
+      }
+    },
+    {
+      "id": "dp_account_analytics",
+      "type": "dataProduct",
+      "label": "Account Analytics",
+      "description": "Account usage and behavior analytics",
+      "data": {
+        "owner": "Data Team",
+        "status": "Active",
+        "type": "Analytics",
+        "schema": {
+          "accountId": "string",
+          "usageMetrics": "object",
+          "behaviorPatterns": "array",
+          "lastUpdated": "datetime"
+        },
+        "updateFrequency": "Daily"
+      }
+    },
+    {
+      "id": "api_payments",
+      "type": "api",
+      "label": "Payments API",
+      "description": "REST API for payment operations",
+      "data": {
+        "version": "1.0",
+        "status": "Active",
+        "type": "REST",
+        "endpoints": [
+          "POST /payments",
+          "GET /payments/{id}",
+          "GET /payments/status/{id}",
+          "POST /payments/batch",
+          "GET /payments/history"
+        ]
+      }
+    },
+    {
+      "id": "evt_payment_processed",
+      "type": "event",
+      "label": "Payment Processed Event",
+      "description": "Published when a payment is processed",
+      "data": {
+        "type": "Domain Event",
+        "status": "Active",
+        "schema": {
+          "paymentId": "string",
+          "amount": "decimal",
+          "currency": "string",
+          "status": "string",
+          "timestamp": "datetime"
+        }
+      }
+    },
+    {
+      "id": "evt_payment_failed",
+      "type": "event",
+      "label": "Payment Failed Event",
+      "description": "Published when a payment fails",
+      "data": {
+        "type": "Domain Event",
+        "status": "Active",
+        "schema": {
+          "paymentId": "string",
+          "errorCode": "string",
+          "errorMessage": "string",
+          "timestamp": "datetime"
+        }
+      }
+    },
+    {
+      "id": "dp_payment_analytics",
+      "type": "dataProduct",
+      "label": "Payment Analytics",
+      "description": "Payment processing analytics and metrics",
+      "data": {
+        "owner": "Data Team",
+        "status": "Active",
+        "type": "Analytics",
+        "schema": {
+          "paymentId": "string",
+          "amount": "decimal",
+          "status": "string",
+          "processingTime": "number",
+          "timestamp": "datetime"
+        },
+        "updateFrequency": "Hourly"
+      }
+    },
+    {
+      "id": "api_customers",
+      "type": "api",
+      "label": "Customers API",
+      "description": "REST API for customer operations",
+      "data": {
+        "version": "1.0",
+        "status": "Active",
+        "type": "REST",
+        "endpoints": [
+          "POST /customers",
+          "GET /customers/{id}",
+          "PUT /customers/{id}",
+          "GET /customers/{id}/accounts",
+          "POST /customers/{id}/verify",
+          "GET /customers/{id}/status"
+        ]
+      }
+    },
+    {
+      "id": "evt_customer_verified",
+      "type": "event",
+      "label": "Customer Verified Event",
+      "description": "Published when customer KYC is completed",
+      "data": {
+        "type": "Domain Event",
+        "status": "Active",
+        "schema": {
+          "customerId": "string",
+          "verificationStatus": "string",
+          "timestamp": "datetime"
+        }
+      }
+    },
+    {
+      "id": "evt_customer_updated",
+      "type": "event",
+      "label": "Customer Updated Event",
+      "description": "Published when customer details are updated",
+      "data": {
+        "type": "Domain Event",
+        "status": "Active",
+        "schema": {
+          "customerId": "string",
+          "updatedFields": "object",
+          "timestamp": "datetime"
+        }
+      }
+    },
+    {
+      "id": "dp_customer_profile",
+      "type": "dataProduct",
+      "label": "Customer Profile Data",
+      "description": "Customer profile and relationship data",
+      "data": {
+        "owner": "Data Team",
+        "status": "Active",
+        "type": "Analytics",
+        "schema": {
+          "customerId": "string",
+          "personalInfo": "object",
+          "accounts": "array",
+          "riskScore": "number"
+        },
+        "updateFrequency": "Daily"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "source": "cap_core_banking",
+      "target": "ds_account_management",
+      "label": "implements"
+    },
+    {
+      "id": "e2",
+      "source": "cap_payments",
+      "target": "ds_payment_processing",
+      "label": "implements"
+    },
+    {
+      "id": "e3",
+      "source": "cap_customer_management",
+      "target": "ds_customer_onboarding",
+      "label": "implements"
+    },
+    {
+      "id": "e4",
+      "source": "ds_account_management",
+      "target": "api_accounts",
+      "label": "exposes"
+    },
+    {
+      "id": "e5",
+      "source": "ds_account_management",
+      "target": "evt_account_created",
+      "label": "publishes"
+    },
+    {
+      "id": "e6",
+      "source": "ds_account_management",
+      "target": "evt_account_updated",
+      "label": "publishes"
+    },
+    {
+      "id": "e7",
+      "source": "ds_account_management",
+      "target": "dp_account_analytics",
+      "label": "produces"
+    },
+    {
+      "id": "e8",
+      "source": "ds_payment_processing",
+      "target": "api_payments",
+      "label": "exposes"
+    },
+    {
+      "id": "e9",
+      "source": "ds_payment_processing",
+      "target": "evt_payment_processed",
+      "label": "publishes"
+    },
+    {
+      "id": "e10",
+      "source": "ds_payment_processing",
+      "target": "evt_payment_failed",
+      "label": "publishes"
+    },
+    {
+      "id": "e11",
+      "source": "ds_payment_processing",
+      "target": "dp_payment_analytics",
+      "label": "produces"
+    },
+    {
+      "id": "e12",
+      "source": "ds_customer_onboarding",
+      "target": "api_customers",
+      "label": "exposes"
+    },
+    {
+      "id": "e13",
+      "source": "ds_customer_onboarding",
+      "target": "evt_customer_verified",
+      "label": "publishes"
+    },
+    {
+      "id": "e14",
+      "source": "ds_customer_onboarding",
+      "target": "evt_customer_updated",
+      "label": "publishes"
+    },
+    {
+      "id": "e15",
+      "source": "ds_customer_onboarding",
+      "target": "dp_customer_profile",
+      "label": "produces"
+    }
+  ]
+} 
