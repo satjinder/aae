@@ -11,26 +11,14 @@ import type { Node, Edge, NodeTypes } from 'reactflow';
 import 'reactflow/dist/style.css';
 import ELK from 'elkjs/lib/elk.bundled.js';
 import { 
-  TextField, 
   Box, 
   IconButton, 
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Typography,
-  Divider,
   Drawer
 } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
-import ApiIcon from '@mui/icons-material/Api';
-import EventIcon from '@mui/icons-material/Event';
-import StorageIcon from '@mui/icons-material/Storage';
-import DomainIcon from '@mui/icons-material/Domain';
 import AddIcon from '@mui/icons-material/Add';
-import BusinessIcon from '@mui/icons-material/Business';
 import CustomNode from './nodes/CustomNode';
+import { NodeBrowser } from './NodeBrowser';
 import { architectureService } from '../services/architectureService';
 import type { Node as ArchitectureNode } from '../services/architectureService';
 
@@ -132,8 +120,19 @@ const ArchitectureViewer: React.FC = () => {
   }>({ nodes: [], edges: [] });
   const [availableNodes, setAvailableNodes] = useState<ArchitectureNode[]>([]);
   const [showNodeList, setShowNodeList] = useState(true);
+  const [groupedNodes, setGroupedNodes] = useState<Record<string, ArchitectureNode[]>>({});
 
   // Memoized handlers
+  const handleRefreshNodes = useCallback(() => {
+    const allData = architectureService.getAllData();
+    setAvailableNodes(allData.nodes);
+  }, []);
+
+  // Add effect to refresh nodes when they change
+  useEffect(() => {
+    handleRefreshNodes();
+  }, [handleRefreshNodes]);
+
   const nodeHandlers = useMemo(() => ({
     handleExpand: (nodeId: string) => {
       setExpandedNodes(prev => {
@@ -167,29 +166,15 @@ const ArchitectureViewer: React.FC = () => {
             onCollapse: nodeHandlers.handleCollapse,
             onToggleNode: nodeHandlers.handleToggleNode,
             onToggleVisibility: nodeHandlers.handleToggleVisibility,
+            onRefreshNodes: handleRefreshNodes,
             isExpanded: expandedNodes.has(relatedNode.id),
-            relatedNodes: architectureService.getRelatedNodes(relatedNode.id).nodes,
+            relatedNodes: architectureService.getRelatedNodes(relatedNode.id),
             boardContext
           }
         };
 
         setNodes(prevNodes => [...prevNodes, newNode]);
         setVisibleNodes(prev => new Set([...prev, relatedNode.id]));
-
-        // Add edge between current node and related node
-        const edge: Edge = {
-          id: `${nodeId}-${relatedNode.id}`,
-          source: nodeId,
-          target: relatedNode.id,
-          type: 'smoothstep',
-          animated: true,
-          style: { stroke: '#555', strokeWidth: 2 },
-          markerEnd: {
-            type: MarkerType.ArrowClosed,
-            color: '#555'
-          }
-        };
-        setEdges(prevEdges => [...prevEdges, edge]);
       });
     },
     handleCollapse: (nodeId: string) => {
@@ -265,7 +250,7 @@ const ArchitectureViewer: React.FC = () => {
         });
       });
     }
-  }), [nodes, expandedNodes, visibleNodes, boardContext]);
+  }), [nodes, expandedNodes, visibleNodes, boardContext, handleRefreshNodes]);
 
   // Memoized board context update
   const updateBoardContext = useCallback((currentNodes: Node[], currentEdges: Edge[]) => {
@@ -303,9 +288,9 @@ const ArchitectureViewer: React.FC = () => {
     const edgesToKeep = new Set<string>();
     
     // For each visible node, check its relations with other visible nodes
-    visibleNodeIds.forEach(nodeId => {
+    visibleNodeIds && visibleNodeIds.forEach(nodeId => {
       // Get relations for this node
-      const { edges: nodeEdges } = architectureService.getRelatedNodes(nodeId);
+      const nodeEdges = architectureService.getEdgesByNodeId(nodeId);
       
       // Find edges that connect to other visible nodes
       nodeEdges.forEach(edge => {
@@ -327,9 +312,9 @@ const ArchitectureViewer: React.FC = () => {
       // Then add any missing edges between visible nodes
       const existingEdgeIds = new Set(filteredEdges.map(e => e.id));
       
-      visibleNodeIds.forEach(nodeId => {
-        const { edges: nodeEdges } = architectureService.getRelatedNodes(nodeId);
-        nodeEdges.forEach(edge => {
+      visibleNodeIds && visibleNodeIds.forEach(nodeId => {
+        const nodeEdges = architectureService.getEdgesByNodeId(nodeId);
+        nodeEdges.forEach((edge: Edge) => {
           if (!existingEdgeIds.has(edge.id) && edgesToKeep.has(edge.id)) {
             filteredEdges.push({
               id: edge.id,
@@ -352,11 +337,12 @@ const ArchitectureViewer: React.FC = () => {
     });
   }, [visibleNodes]);
 
+  const loadAvailableNodes = async () => {
+    const allData = await architectureService.getAllData();
+    setAvailableNodes(allData.nodes);
+  };
+
   useEffect(() => {
-    const loadAvailableNodes = async () => {
-      const allData = await architectureService.getAllData();
-      setAvailableNodes(allData.nodes);
-    };
     loadAvailableNodes();
   }, []);
 
@@ -367,8 +353,8 @@ const ArchitectureViewer: React.FC = () => {
 
   // Node loading functions
   const loadNodeAndRelations = useCallback(async (nodeId: string) => {
-    const { nodes: relatedNodes } = await architectureService.getRelatedNodes(nodeId);
-    const targetNode = relatedNodes.find(node => node.id === nodeId);
+    const relatedNodes = architectureService.getRelatedNodes(nodeId);
+    const targetNode = relatedNodes.find((node: ArchitectureNode) => node.id === nodeId);
     if (!targetNode) return;
 
     const newNode: Node = {
@@ -384,6 +370,7 @@ const ArchitectureViewer: React.FC = () => {
         onCollapse: nodeHandlers.handleCollapse,
         onToggleNode: nodeHandlers.handleToggleNode,
         onToggleVisibility: nodeHandlers.handleToggleVisibility,
+        onRefreshNodes: handleRefreshNodes,
         isExpanded: expandedNodes.has(targetNode.id),
         relatedNodes: relatedNodes,
         boardContext
@@ -397,14 +384,13 @@ const ArchitectureViewer: React.FC = () => {
       }
       return prevNodes;
     });
-  }, [nodes, expandedNodes, nodeHandlers, visibleNodes, boardContext]);
+  }, [nodes, expandedNodes, nodeHandlers, visibleNodes, boardContext, handleRefreshNodes]);
 
   const handleAddNode = useCallback((node: ArchitectureNode) => {
     // Get related nodes and edges
-    const { nodes: relatedNodes, edges: relatedEdges } = architectureService.getRelatedNodes(node.id);
-
+    const relatedNodes = architectureService.getRelatedNodes(node.id);
+  
     // Calculate a temporary position for the new node
-    // Place it to the right of the rightmost node, or at (0,0) if no nodes exist
     const rightmostNode = nodes.reduce((rightmost, current) => {
       return (current.position.x > rightmost.position.x) ? current : rightmost;
     }, { position: { x: -HORIZONTAL_SPACING, y: 0 } });
@@ -425,6 +411,7 @@ const ArchitectureViewer: React.FC = () => {
         onCollapse: nodeHandlers.handleCollapse,
         onToggleNode: nodeHandlers.handleToggleNode,
         onToggleVisibility: nodeHandlers.handleToggleVisibility,
+        onRefreshNodes: handleRefreshNodes,
         isExpanded: expandedNodes.has(node.id),
         relatedNodes,
         boardContext
@@ -434,12 +421,11 @@ const ArchitectureViewer: React.FC = () => {
     // Add the main node
     setNodes(prevNodes => [...prevNodes, newNode]);
     setVisibleNodes(prev => new Set([...prev, node.id]));
-
-
-  }, [nodes, expandedNodes, nodeHandlers, visibleNodes, boardContext]);
+    loadAvailableNodes();
+  }, [nodes, expandedNodes, nodeHandlers, visibleNodes, boardContext, handleRefreshNodes]);
 
   // Memoized grouped nodes
-  const groupedNodes = useMemo(() => {
+  useEffect(() => {
     const groups: Record<string, ArchitectureNode[]> = {
       capability: [],
       domainService: [],
@@ -454,7 +440,9 @@ const ArchitectureViewer: React.FC = () => {
       }
     });
 
-    return groups;
+    setGroupedNodes(groups);
+
+    //return groups;
   }, [availableNodes]);
 
   return (
@@ -506,63 +494,12 @@ const ArchitectureViewer: React.FC = () => {
           },
         }}
       >
-        <Box sx={{ p: 2 }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>Available Nodes</Typography>
-          <TextField
-            fullWidth
-            size="small"
-            placeholder="Search nodes..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            sx={{ mb: 2 }}
-          />
-          {Object.entries(groupedNodes).map(([type, typeNodes]) => (
-            <Box key={type} sx={{ mb: 2 }}>
-              <Typography variant="subtitle1" sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                {getNodeIcon(type)}
-                {getTypeLabel(type)}
-              </Typography>
-              <List dense>
-                {typeNodes
-                  .filter(node => {
-                    const searchLower = searchQuery.toLowerCase();
-                    const nameMatch = node.label?.toLowerCase().includes(searchLower) || false;
-                    const descMatch = node.description?.toLowerCase().includes(searchLower) || false;
-                    return nameMatch || descMatch;
-                  })
-                  .map(node => (
-                    <ListItem
-                      key={node.id}
-                      component="div"
-                      onClick={() => handleAddNode(node)}
-                      sx={{ 
-                        borderRadius: 1,
-                        mb: 0.5,
-                        cursor: 'pointer',
-                        '&:hover': {
-                          bgcolor: 'action.hover'
-                        }
-                      }}
-                    >
-                      <ListItemIcon>
-                        {getNodeIcon(node.type)}
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={node.label || 'Unnamed Node'}
-                        secondary={node.description || 'No description available'}
-                        primaryTypographyProps={{ variant: 'body2' }}
-                        secondaryTypographyProps={{ variant: 'caption' }}
-                      />
-                      <IconButton size="small">
-                        <AddIcon fontSize="small" />
-                      </IconButton>
-                    </ListItem>
-                  ))}
-              </List>
-              <Divider />
-            </Box>
-          ))}
-        </Box>
+        <NodeBrowser
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          groupedNodes={groupedNodes}
+          onAddNode={handleAddNode}
+        />
       </Drawer>
 
       <Box sx={{ 

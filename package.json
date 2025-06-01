@@ -15,10 +15,12 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.10",
     "@mui/material": "^5.15.10",
+    "@types/uuid": "^10.0.0",
     "elkjs": "^0.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "reactflow": "^11.10.3"
+    "reactflow": "^11.10.3",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",

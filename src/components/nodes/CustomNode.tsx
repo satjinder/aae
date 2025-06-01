@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import { Handle, Position } from 'reactflow';
-import { Box, Typography, Paper, Chip, Badge, IconButton, Tooltip } from '@mui/material';
+import { Box, Typography, Paper, Chip, Badge, IconButton, Tooltip, Button } from '@mui/material';
 import ApiIcon from '@mui/icons-material/Api';
 import EventIcon from '@mui/icons-material/Event';
 import StorageIcon from '@mui/icons-material/Storage';
@@ -9,30 +10,47 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import AddIcon from '@mui/icons-material/Add';
+import { CreateNodeDialog } from '../CreateNodeDialog';
+import { architectureService } from '../../services/architectureService';
+import { NodeIcon } from '../NodeIcon';
+import type { Node } from '../../services/architectureService';
+
+type NodeType = Node['type'];
 
 interface CustomNodeProps {
   data: {
     id: string;
-    name: string;
-    type: string;
+    label: string;
+    type: NodeType;
     description?: string;
     data?: Record<string, any>;
     relatedNodes?: Array<{
       id: string;
-      name: string;
-      type: string;
+      label: string;
+      type: NodeType;
     }>;
     onExpand?: (nodeId: string) => void;
     onCollapse?: (nodeId: string) => void;
     isExpanded?: boolean;
-    onToggleNode?: (nodeId: string, type: string) => void;
+    onToggleNode?: (nodeId: string, type: NodeType) => void;
     onToggleVisibility?: (nodeId: string) => void;
     hiddenNodes?: Set<string>;
+    onRefreshNodes?: () => void;
   };
 }
 
 const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
-  const getNodeIcon = (type: string): JSX.Element | null => {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const connectedNodes = architectureService.getConnectedNodes(data.id);
+  const incomingConnections = connectedNodes.filter(node => 
+    architectureService.getEdgesByNodeId(data.id).some(edge => edge.target === data.id)
+  );
+  const outgoingConnections = connectedNodes.filter(node => 
+    architectureService.getEdgesByNodeId(data.id).some(edge => edge.source === data.id)
+  );
+
+  const getNodeIcon = (type: NodeType): JSX.Element | null => {
     switch (type) {
       case 'api':
         return <ApiIcon />;
@@ -47,48 +65,81 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
     }
   };
 
+  const getNodeTypeColor = (type: NodeType) => {
+    switch (type) {
+      case 'capability':
+        return '#4caf50';
+      case 'domainService':
+        return '#2196f3';
+      case 'api':
+        return '#ff9800';
+      case 'event':
+        return '#9c27b0';
+      case 'dataProduct':
+        return '#f44336';
+      default:
+        return '#757575';
+    }
+  };
+
   const formatDataValue = (value: any): string => {
     if (value === null || value === undefined) return 'null';
     if (typeof value === 'object') return JSON.stringify(value);
     return String(value);
   };
 
-  const getRelatedNodesByType = (type: string) => {
+  const getRelatedNodesByType = (type: NodeType) => {
     if (!data.relatedNodes) return [];
-    
-    // Get nodes of the specified type that are related to this node
     return data.relatedNodes.filter(node => node.type === type);
   };
 
-  const getVisibleRelatedNodesByType = (type: string) => {
+  const getVisibleRelatedNodesByType = (type: NodeType) => {
     return getRelatedNodesByType(type).filter(node => !data.hiddenNodes?.has(node.id));
   };
 
-  const handleIconClick = (type: string) => {
+  const handleIconClick = (type: NodeType) => {
     if (!data.onToggleNode) return;
     
     const relatedNodes = getRelatedNodesByType(type);
-    const visibleNodes = getVisibleRelatedNodesByType(type);
-    
-    // If there are visible nodes of this type, hide them all
-    if (visibleNodes.length > 0) {
-      visibleNodes.forEach(node => {
-        if (node.id !== data.id) { // Don't hide the current node
-          data.onToggleNode(node.id, type);
-        }
-      });
-    } 
-    // If all nodes of this type are hidden, show all of them
-    else if (relatedNodes.length > 0) {
-      relatedNodes.forEach(node => {
-        if (node.id !== data.id) { // Don't show the current node
-          data.onToggleNode(node.id, type);
-        }
-      });
+    relatedNodes.forEach(node => {
+      if (node.id !== data.id) {
+        data.onToggleNode(node.id, type);
+      }
+    });
+  };
+
+  const handleShowNode = (newNodeData: { type: NodeType; label: string; description?: string }) => {
+    const newNode = architectureService.createNode({
+      ...newNodeData,
+      relatedNodes: [{ nodeId: data.id }]
+    });
+
+    // Force a refresh of the node list
+    if (data.onToggleNode) {
+      data.onToggleNode(newNode.id, newNode.type);
+    }
+
+    // Force a refresh of available nodes
+    if (data.onRefreshNodes) {
+      data.onRefreshNodes();
     }
   };
 
   const isNodeHidden = data.hiddenNodes?.has(data.id);
+
+  const handleToggleVisibility = () => {
+    if (data.onToggleVisibility) {
+      data.onToggleVisibility(data.id);
+    }
+  };
+
+  const handleExpandCollapse = () => {
+    if (data.isExpanded && data.onCollapse) {
+      data.onCollapse(data.id);
+    } else if (!data.isExpanded && data.onExpand) {
+      data.onExpand(data.id);
+    }
+  };
 
   return (
     <Paper
@@ -99,21 +150,36 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         maxWidth: 300,
         backgroundColor: 'white',
         position: 'relative',
+        border: `2px solid ${getNodeTypeColor(data.type)}`
       }}
     >
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={Position.Top} style={{ background: getNodeTypeColor(data.type) }} />
+      <Tooltip title={`Incoming connections: ${incomingConnections.length}`}>
+        <Badge
+          badgeContent={incomingConnections.length}
+          color="primary"
+          sx={{
+            position: 'absolute',
+            top: -10,
+            right: 10,
+            '& .MuiBadge-badge': {
+              backgroundColor: getNodeTypeColor(data.type)
+            }
+          }}
+        />
+      </Tooltip>
       
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-        {getNodeIcon(data.type)}
+        <NodeIcon type={data.type} color={getNodeTypeColor(data.type)} />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          {data.name}
+          {data.label}
         </Typography>
         <Box sx={{ display: 'flex', gap: 0.5 }}>
           {data.onToggleVisibility && (
             <Tooltip title="Hide node">
               <IconButton
                 size="small"
-                onClick={() => data.onToggleVisibility?.(data.id)}
+                onClick={handleToggleVisibility}
               >
                 <VisibilityIcon />
               </IconButton>
@@ -123,7 +189,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
             <Tooltip title={data.isExpanded ? "Collapse" : "Expand"}>
               <IconButton
                 size="small"
-                onClick={() => data.isExpanded ? data.onCollapse?.(data.id) : data.onExpand?.(data.id)}
+                onClick={handleExpandCollapse}
               >
                 {data.isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </IconButton>
@@ -138,7 +204,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         </Typography>
       )}
 
-      {data.data && Object.entries(data.data).length > 0 && (
+      {data.data && Object.keys(data.data).length > 0 && (
         <Box sx={{ mb: 2 }}>
           <Typography variant="subtitle2" sx={{ mb: 1 }}>Data:</Typography>
           {Object.entries(data.data).map(([key, value]) => (
@@ -155,42 +221,32 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
       )}
 
       {data.relatedNodes && data.relatedNodes.length > 0 && (
-        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
           {(() => {
-            // Only show relevant type icons based on node type
-            let relevantTypes: string[] = [];
-            switch (data.type) {
-              case 'capability':
-                relevantTypes = ['domainService'];
-                break;
-              case 'domainService':
-                relevantTypes = ['capability', 'api', 'event', 'dataProduct'];
-                break;
-              case 'api':
-              case 'event':
-              case 'dataProduct':
-                relevantTypes = ['domainService'];
-                break;
-              default:
-                relevantTypes = [];
-            }
+            // Get all possible node types
+            const allTypes: NodeType[] = ['capability', 'domainService', 'api', 'event', 'dataProduct'];
+            
+            // Get all possible relations for this node type
+            const possibleRelations = allTypes.flatMap(targetType => {
+              const relations = architectureService.getAllowedRelations(data.type, targetType);
+              return relations.map(relation => ({
+                type: targetType,
+                relation
+              }));
+            });
 
-            const elements = relevantTypes.map((type) => {
-              const relatedNodes = getRelatedNodesByType(type);
+            const elements = possibleRelations.map(({ type, relation }) => {
               const visibleNodes = getVisibleRelatedNodesByType(type);
-              if (relatedNodes.length === 0) return null;
-
+              
               const label = type === 'domainService' ? 'Domain Service' :
                            type === 'api' ? 'API' :
                            type === 'event' ? 'Event' :
-                           'Data Product';
-
-              const icon = getNodeIcon(type);
-              if (!icon) return null;
+                           type === 'dataProduct' ? 'Data Product' :
+                           'Capability';
 
               return (
                 <Badge
-                  key={type}
+                  key={`${type}-${relation}`}
                   badgeContent={visibleNodes.length}
                   color="primary"
                   sx={{
@@ -201,8 +257,8 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
                   }}
                 >
                   <Chip
-                    icon={icon}
-                    label={label}
+                    icon={<NodeIcon type={type} fontSize="small" />}
+                    label={`${label} (${relation})`}
                     size="small"
                     onClick={() => handleIconClick(type)}
                     sx={{
@@ -217,12 +273,58 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
               );
             }).filter((element): element is JSX.Element => element !== null);
 
+            // Add the add button as the last element
+            elements.push(
+              <IconButton
+                key="add"
+                onClick={() => setDialogOpen(true)}
+                size="small"
+                sx={{
+                  color: 'text.secondary',
+                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                    color: getNodeTypeColor(data.type),
+                  }
+                }}
+              >
+                <AddIcon fontSize="small" />
+              </IconButton>
+            );
+
             return elements;
           })()}
         </Box>
       )}
 
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={Position.Bottom} style={{ background: getNodeTypeColor(data.type) }} />
+      <Tooltip title={`Outgoing connections: ${outgoingConnections.length}`}>
+        <Badge
+          badgeContent={outgoingConnections.length}
+          color="primary"
+          sx={{
+            position: 'absolute',
+            bottom: -10,
+            right: 10,
+            '& .MuiBadge-badge': {
+              backgroundColor: getNodeTypeColor(data.type)
+            }
+          }}
+        />
+      </Tooltip>
+
+      <CreateNodeDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        onAdd={handleShowNode}
+        sourceNode={{
+          id: data.id,
+          label: data.label,
+          type: data.type,
+          description: data.description,
+          data: data.data || {}
+        }}
+      />
     </Paper>
   );
 };
