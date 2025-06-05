@@ -65,7 +65,7 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
             {typeNodes
               .filter(node => {
                 const searchLower = searchQuery.toLowerCase();
-                const nameMatch = node.label?.toLowerCase().includes(searchLower) || false;
+                const nameMatch = node.name?.toLowerCase().includes(searchLower) || false;
                 const descMatch = node.description?.toLowerCase().includes(searchLower) || false;
                 return nameMatch || descMatch;
               })
@@ -87,7 +87,7 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
                     <NodeIcon type={node.type} />
                   </ListItemIcon>
                   <ListItemText
-                    primary={node.label || 'Unnamed Node'}
+                    primary={node.name || 'Unnamed Node'}
                     secondary={node.description || 'No description available'}
                     primaryTypographyProps={{ variant: 'body2' }}
                     secondaryTypographyProps={{ variant: 'caption' }}

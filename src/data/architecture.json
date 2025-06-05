@@ -3,7 +3,7 @@
     {
       "id": "cap_core_banking",
       "type": "capability",
-      "label": "Core Banking",
+      "name": "Core Banking",
       "description": "Core banking operations and account management",
       "data": {
         "owner": "Core Banking Team",
@@ -14,7 +14,7 @@
     {
       "id": "cap_payments",
       "type": "capability",
-      "label": "Payments",
+      "name": "Payments",
       "description": "Payment processing and money transfer capabilities",
       "data": {
         "owner": "Payments Team",
@@ -25,7 +25,7 @@
     {
       "id": "cap_customer_management",
       "type": "capability",
-      "label": "Customer Management",
+      "name": "Customer Management",
       "description": "Customer onboarding and relationship management",
       "data": {
         "owner": "Customer Experience Team",
@@ -36,7 +36,7 @@
     {
       "id": "ds_account_management",
       "type": "domainService",
-      "label": "Account Management Service",
+      "name": "Account Management Service",
       "description": "Manages customer accounts and balances",
       "data": {
         "owner": "Core Banking Team",
@@ -47,7 +47,7 @@
     {
       "id": "ds_payment_processing",
       "type": "domainService",
-      "label": "Payment Processing Service",
+      "name": "Payment Processing Service",
       "description": "Handles payment transactions and transfers",
       "data": {
         "owner": "Payments Team",
@@ -58,7 +58,7 @@
     {
       "id": "ds_customer_onboarding",
       "type": "domainService",
-      "label": "Customer Onboarding Service",
+      "name": "Customer Onboarding Service",
       "description": "Handles customer registration and KYC processes",
       "data": {
         "owner": "Customer Experience Team",
@@ -69,7 +69,7 @@
     {
       "id": "api_accounts",
       "type": "api",
-      "label": "Accounts API",
+      "name": "Accounts API",
       "description": "REST API for account operations",
       "data": {
         "version": "1.0",
@@ -88,7 +88,7 @@
     {
       "id": "evt_account_created",
       "type": "event",
-      "label": "Account Created Event",
+      "name": "Account Created Event",
       "description": "Published when a new account is created",
       "data": {
         "type": "Domain Event",
@@ -104,7 +104,7 @@
     {
       "id": "evt_account_updated",
       "type": "event",
-      "label": "Account Updated Event",
+      "name": "Account Updated Event",
       "description": "Published when account details are updated",
       "data": {
         "type": "Domain Event",
@@ -119,7 +119,7 @@
     {
       "id": "dp_account_analytics",
       "type": "dataProduct",
-      "label": "Account Analytics",
+      "name": "Account Analytics",
       "description": "Account usage and behavior analytics",
       "data": {
         "owner": "Data Team",
@@ -137,7 +137,7 @@
     {
       "id": "api_payments",
       "type": "api",
-      "label": "Payments API",
+      "name": "Payments API",
       "description": "REST API for payment operations",
       "data": {
         "version": "1.0",
@@ -155,7 +155,7 @@
     {
       "id": "evt_payment_processed",
       "type": "event",
-      "label": "Payment Processed Event",
+      "name": "Payment Processed Event",
       "description": "Published when a payment is processed",
       "data": {
         "type": "Domain Event",
@@ -172,7 +172,7 @@
     {
       "id": "evt_payment_failed",
       "type": "event",
-      "label": "Payment Failed Event",
+      "name": "Payment Failed Event",
       "description": "Published when a payment fails",
       "data": {
         "type": "Domain Event",
@@ -188,7 +188,7 @@
     {
       "id": "dp_payment_analytics",
       "type": "dataProduct",
-      "label": "Payment Analytics",
+      "name": "Payment Analytics",
       "description": "Payment processing analytics and metrics",
       "data": {
         "owner": "Data Team",
@@ -207,7 +207,7 @@
     {
       "id": "api_customers",
       "type": "api",
-      "label": "Customers API",
+      "name": "Customers API",
       "description": "REST API for customer operations",
       "data": {
         "version": "1.0",
@@ -226,7 +226,7 @@
     {
       "id": "evt_customer_verified",
       "type": "event",
-      "label": "Customer Verified Event",
+      "name": "Customer Verified Event",
       "description": "Published when customer KYC is completed",
       "data": {
         "type": "Domain Event",
@@ -241,7 +241,7 @@
     {
       "id": "evt_customer_updated",
       "type": "event",
-      "label": "Customer Updated Event",
+      "name": "Customer Updated Event",
       "description": "Published when customer details are updated",
       "data": {
         "type": "Domain Event",
@@ -256,7 +256,7 @@
     {
       "id": "dp_customer_profile",
       "type": "dataProduct",
-      "label": "Customer Profile Data",
+      "name": "Customer Profile Data",
       "description": "Customer profile and relationship data",
       "data": {
         "owner": "Data Team",
@@ -277,91 +277,91 @@
       "id": "e1",
       "source": "cap_core_banking",
       "target": "ds_account_management",
-      "label": "implements"
+      "name": "implements"
     },
     {
       "id": "e2",
       "source": "cap_payments",
       "target": "ds_payment_processing",
-      "label": "implements"
+      "name": "implements"
     },
     {
       "id": "e3",
       "source": "cap_customer_management",
       "target": "ds_customer_onboarding",
-      "label": "implements"
+      "name": "implements"
     },
     {
       "id": "e4",
       "source": "ds_account_management",
       "target": "api_accounts",
-      "label": "exposes"
+      "name": "exposes"
     },
     {
       "id": "e5",
       "source": "ds_account_management",
       "target": "evt_account_created",
-      "label": "publishes"
+      "name": "publishes"
     },
     {
       "id": "e6",
       "source": "ds_account_management",
       "target": "evt_account_updated",
-      "label": "publishes"
+      "name": "publishes"
     },
     {
       "id": "e7",
       "source": "ds_account_management",
       "target": "dp_account_analytics",
-      "label": "produces"
+      "name": "produces"
     },
     {
       "id": "e8",
       "source": "ds_payment_processing",
       "target": "api_payments",
-      "label": "exposes"
+      "name": "exposes"
     },
     {
       "id": "e9",
       "source": "ds_payment_processing",
       "target": "evt_payment_processed",
-      "label": "publishes"
+      "name": "publishes"
     },
     {
       "id": "e10",
       "source": "ds_payment_processing",
       "target": "evt_payment_failed",
-      "label": "publishes"
+      "name": "publishes"
     },
     {
       "id": "e11",
       "source": "ds_payment_processing",
       "target": "dp_payment_analytics",
-      "label": "produces"
+      "name": "produces"
     },
     {
       "id": "e12",
       "source": "ds_customer_onboarding",
       "target": "api_customers",
-      "label": "exposes"
+      "name": "exposes"
     },
     {
       "id": "e13",
       "source": "ds_customer_onboarding",
       "target": "evt_customer_verified",
-      "label": "publishes"
+      "name": "publishes"
     },
     {
       "id": "e14",
       "source": "ds_customer_onboarding",
       "target": "evt_customer_updated",
-      "label": "publishes"
+      "name": "publishes"
     },
     {
       "id": "e15",
       "source": "ds_customer_onboarding",
       "target": "dp_customer_profile",
-      "label": "produces"
+      "name": "produces"
     }
   ]
 } 

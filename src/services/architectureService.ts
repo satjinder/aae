@@ -1,17 +1,23 @@
 // Types for our architecture nodes
+export type NodeType = 'capability' | 'domainService' | 'api' | 'event' | 'dataProduct';
+
 export interface Node {
   id: string;
-  type: 'capability' | 'domainService' | 'api' | 'event' | 'dataProduct';
-  label: string;
-  description?: string;
-  data: Record<string, unknown>;
+  name: string;
+  type: NodeType;
+  description: string;
+  visible: boolean;
+  expanded: boolean;
+  relatedNodes: Node[];
+  position: { x: number; y: number };
+  data?: Record<string, any>;
 }
 
 export interface Edge {
   id: string;
   source: string;
   target: string;
-  label?: string;
+  label: string;
 }
 
 export interface ArchitectureData {
@@ -28,7 +34,7 @@ const typedArchitectureData = architectureData as unknown as ArchitectureData;
 import { v4 as uuidv4 } from 'uuid';
 
 // Define allowed relation types between different node types
-const allowedRelations: Record<Node['type'], Record<Node['type'], string[]>> = {
+export const allowedRelations: Record<Node['type'], Record<Node['type'], string[]>> = {
   capability: {
     capability: ['dependsOn'],
     domainService: ['implements'],
@@ -66,18 +72,27 @@ const allowedRelations: Record<Node['type'], Record<Node['type'], string[]>> = {
   }
 };
 
-class ArchitectureService {
+export class ArchitectureService {
+  private static instance: ArchitectureService;
   private data: ArchitectureData;
 
-  constructor(data: ArchitectureData = typedArchitectureData) {
+  private constructor(data: ArchitectureData = typedArchitectureData) {
     this.data = data;
+  }
+
+  public static getInstance(): ArchitectureService {
+    if (!ArchitectureService.instance) {
+      ArchitectureService.instance = new ArchitectureService();
+    }
+    return ArchitectureService.instance;
   }
 
   public createNode(data: {
     type: Node['type'];
-    label: string;
+    name: string;
     description?: string;
     data?: Record<string, unknown>;
+    position?: { x: number; y: number };
     relatedNodes?: Array<{
       nodeId: string;
       relationType?: string;
@@ -86,9 +101,13 @@ class ArchitectureService {
     const newNode: Node = {
       id: uuidv4(),
       type: data.type,
-      label: data.label,
-      description: data.description,
-      data: data.data || {}
+      name: data.name,
+      description: data.description || '',
+      position: data.position || { x: 0, y: 0 },
+      data: data.data || {},
+      relatedNodes: [],
+      visible: true,
+      expanded: true
     };
 
     // Add the new node to the data
@@ -117,6 +136,10 @@ class ArchitectureService {
     }
 
     return newNode;
+  }
+
+  public allRelations(): Record<Node['type'], Record<Node['type'], string[]>> {
+    return allowedRelations;
   }
 
   public getAllowedRelations(sourceType: Node['type'], targetType: Node['type']): string[] {
@@ -152,12 +175,12 @@ class ArchitectureService {
   }
 
   public searchNodes(query: string): Node[] {
-    const searchLower = query.toLowerCase();
-    return this.data.nodes.filter(node => {
-      const nameMatch = node.label.toLowerCase().includes(searchLower);
-      const descMatch = node.description?.toLowerCase().includes(searchLower) || false;
-      return nameMatch || descMatch;
-    });
+    const searchTerm = query.toLowerCase();
+    return this.data.nodes.filter(node => 
+      node.name.toLowerCase().includes(searchTerm) ||
+      node.description.toLowerCase().includes(searchTerm) ||
+      node.type.toLowerCase().includes(searchTerm)
+    );
   }
 
   public getNodeById(id: string): Node | undefined {
@@ -165,23 +188,21 @@ class ArchitectureService {
   }
 
   public getRelatedNodes(nodeId: string): Node[] {
-    const edges = this.getEdgesByNodeId(nodeId);
-    const relatedNodeIds = new Set<string>();
+    const node = this.data.nodes.find(n => n.id === nodeId);
+    if (!node) return [];
     
-    // Get all node IDs where the passed node is either source or target
+    // Get all edges connected to this node
+    const edges = this.getEdgesByNodeId(nodeId);
+    
+    // Get all connected node IDs
+    const connectedNodeIds = new Set<string>();
     edges.forEach(edge => {
-      if (edge.source === nodeId) {
-        relatedNodeIds.add(edge.target);
-      }
-      if (edge.target === nodeId) {
-        relatedNodeIds.add(edge.source);
-      }
+      if (edge.source === nodeId) connectedNodeIds.add(edge.target);
+      if (edge.target === nodeId) connectedNodeIds.add(edge.source);
     });
     
-    // Convert node IDs to actual nodes
-    return Array.from(relatedNodeIds)
-      .map(id => this.getNodeById(id))
-      .filter((node): node is Node => node !== null);
+    // Return all connected nodes
+    return this.data.nodes.filter(n => connectedNodeIds.has(n.id));
   }
 
   public getAllData(): ArchitectureData {
@@ -209,6 +230,44 @@ class ArchitectureService {
 
     return this.data.nodes.filter(node => connectedNodeIds.has(node.id));
   }
+
+  // public addNode(node: Node) {
+  //   // Ensure the node has a position
+  //   if (!node.position) {
+  //     node.position = { x: 0, y: 0 };
+  //   }
+  //   this.data.nodes.push(node);
+  // }
+
+  public analyzeGaps(): string[] {
+    const allNodes = this.data.nodes;
+    const nodeTypes = new Set(allNodes.map(n => n.type));
+    const allNodeTypes: Node['type'][] = ['capability', 'domainService', 'api', 'event', 'dataProduct'];
+    const missingTypes = allNodeTypes.filter(type => !nodeTypes.has(type));
+    return missingTypes;
+  }
+
+  /**
+   * Search nodes by keyword in name and description, filtered by node type
+   * @param keyword - The search term to look for in node names and descriptions
+   * @param nodeType - Optional node type to filter the results
+   * @returns Array of nodes matching the search criteria
+   */
+  public searchNodesByTypeAndKeyword(keyword: string, nodeType?: Node['type']): Node[] {
+    const searchTerm = keyword.toLowerCase();
+    
+    return this.data.nodes.filter(node => {
+      // First check if node type matches (if specified)
+      if (nodeType && node.type !== nodeType) {
+        return false;
+      }
+      
+      // Then check if name or description contains the keyword
+      return node.name.toLowerCase().includes(searchTerm) ||
+             node.description.toLowerCase().includes(searchTerm);
+    });
+  }
 }
 
-export const architectureService = new ArchitectureService(); 
+// Export a singleton instance
+export const architectureService = ArchitectureService.getInstance(); 

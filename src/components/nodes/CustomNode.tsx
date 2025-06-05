@@ -2,12 +2,7 @@ import React, { useState } from 'react';
 
 import { Handle, Position } from 'reactflow';
 import { Box, Typography, Paper, Chip, Badge, IconButton, Tooltip, Button } from '@mui/material';
-import ApiIcon from '@mui/icons-material/Api';
-import EventIcon from '@mui/icons-material/Event';
-import StorageIcon from '@mui/icons-material/Storage';
-import DomainIcon from '@mui/icons-material/Domain';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AddIcon from '@mui/icons-material/Add';
@@ -21,22 +16,22 @@ type NodeType = Node['type'];
 interface CustomNodeProps {
   data: {
     id: string;
-    label: string;
+    name: string;
     type: NodeType;
     description?: string;
     data?: Record<string, any>;
     relatedNodes?: Array<{
       id: string;
-      label: string;
+      name: string;
       type: NodeType;
     }>;
-    onExpand?: (nodeId: string) => void;
-    onCollapse?: (nodeId: string) => void;
     isExpanded?: boolean;
     onToggleNode?: (nodeId: string, type: NodeType) => void;
     onToggleVisibility?: (nodeId: string) => void;
     hiddenNodes?: Set<string>;
     onRefreshNodes?: () => void;
+    onExpand?: (nodeId: string) => void;
+    onCollapse?: (nodeId: string) => void;
   };
 }
 
@@ -50,20 +45,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
     architectureService.getEdgesByNodeId(data.id).some(edge => edge.source === data.id)
   );
 
-  const getNodeIcon = (type: NodeType): JSX.Element | null => {
-    switch (type) {
-      case 'api':
-        return <ApiIcon />;
-      case 'event':
-        return <EventIcon />;
-      case 'dataProduct':
-        return <StorageIcon />;
-      case 'domainService':
-        return <DomainIcon />;
-      default:
-        return null;
-    }
-  };
 
   const getNodeTypeColor = (type: NodeType) => {
     switch (type) {
@@ -99,7 +80,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
 
   const handleIconClick = (type: NodeType) => {
     if (!data.onToggleNode) return;
-    
     const relatedNodes = getRelatedNodesByType(type);
     relatedNodes.forEach(node => {
       if (node.id !== data.id) {
@@ -108,9 +88,11 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
     });
   };
 
-  const handleShowNode = (newNodeData: { type: NodeType; label: string; description?: string }) => {
+  const handleShowNode = (newNodeData: { type: NodeType; name: string; description?: string }) => {
     const newNode = architectureService.createNode({
-      ...newNodeData,
+      type: newNodeData.type,
+      name: newNodeData.name,
+      description: newNodeData.description,
       relatedNodes: [{ nodeId: data.id }]
     });
 
@@ -172,7 +154,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <NodeIcon type={data.type} color={getNodeTypeColor(data.type)} />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          {data.label}
+          {data.name}
         </Typography>
         <Box sx={{ display: 'flex', gap: 0.5 }}>
           {data.onToggleVisibility && (
@@ -182,16 +164,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
                 onClick={handleToggleVisibility}
               >
                 <VisibilityIcon />
-              </IconButton>
-            </Tooltip>
-          )}
-          {data.onExpand && data.onCollapse && (
-            <Tooltip title={data.isExpanded ? "Collapse" : "Expand"}>
-              <IconButton
-                size="small"
-                onClick={handleExpandCollapse}
-              >
-                {data.isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
               </IconButton>
             </Tooltip>
           )}
@@ -238,7 +210,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
             const elements = possibleRelations.map(({ type, relation }) => {
               const visibleNodes = getVisibleRelatedNodesByType(type);
               
-              const label = type === 'domainService' ? 'Domain Service' :
+              const name = type === 'domainService' ? 'Domain Service' :
                            type === 'api' ? 'API' :
                            type === 'event' ? 'Event' :
                            type === 'dataProduct' ? 'Data Product' :
@@ -258,7 +230,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
                 >
                   <Chip
                     icon={<NodeIcon type={type} fontSize="small" />}
-                    label={`${label} (${relation})`}
+                    label={`${name} (${relation})`}
                     size="small"
                     onClick={() => handleIconClick(type)}
                     sx={{
@@ -319,10 +291,14 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         onAdd={handleShowNode}
         sourceNode={{
           id: data.id,
-          label: data.label,
+          name: data.name,
           type: data.type,
-          description: data.description,
-          data: data.data || {}
+          description: data.description || '',
+          data: data.data || {},
+          visible: true,
+          expanded: true,
+          relatedNodes: [],
+          position: { x: 0, y: 0 }
         }}
       />
     </Paper>

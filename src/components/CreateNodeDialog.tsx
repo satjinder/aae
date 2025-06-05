@@ -19,7 +19,7 @@ import { architectureService } from '../services/architectureService';
 interface CreateNodeDialogProps {
   open: boolean;
   onClose: () => void;
-  onAdd: (data: { type: Node['type']; label: string; description?: string }) => void;
+  onAdd: (data: { type: Node['type']; name: string; description?: string }) => void;
   sourceNode: Node;
 }
 
@@ -29,7 +29,7 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
   onAdd,
   sourceNode
 }) => {
-  const [label, setLabel] = useState('');
+  const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState<Node['type']>('domainService');
 
@@ -52,10 +52,10 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
   const handleSubmit = () => {
     onAdd({
       type,
-      label,
+      name,
       description: description || undefined
     });
-    setLabel('');
+    setName('');
     setDescription('');
     setType(allowedNodeTypes[0] || 'domainService');
     onClose();
@@ -67,7 +67,7 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
       <DialogContent>
         <Box sx={{ mb: 2 }}>
           <Typography variant="subtitle2" color="text.secondary">
-            Creating node from: {sourceNode.label}
+            Creating node from: {sourceNode.name}
           </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
             Node ID: {sourceNode.id}
@@ -78,8 +78,8 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
           margin="dense"
           label="Label"
           fullWidth
-          value={label}
-          onChange={(e) => setLabel(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           sx={{ mb: 2 }}
         />
         <TextField
@@ -116,7 +116,7 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
         <Button 
           onClick={handleSubmit} 
           variant="contained" 
-          disabled={!label.trim()}
+          disabled={!name.trim()}
         >
           Create Node
         </Button>
