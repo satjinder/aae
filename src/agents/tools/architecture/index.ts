@@ -3,6 +3,7 @@ export { FindAndShowNodesWithRelationsTool } from './findAndShowNodesWithRelatio
 export { AnalyzeGapsTool } from './analyzeGapsTool';
 //export { SearchNodesTool } from './searchNodesTool';
 export { FindAndShowNodesByTypeTool } from './findAndShowNodesByTypeTool';
+import { CreateNodeTool } from './createNodeTool';
 
 //import { FindAndShowNodesTool } from './findAndShowNodesTool';
 import { FindAndShowNodesWithRelationsTool } from './findAndShowNodesWithRelationsTool';
@@ -15,5 +16,6 @@ export const architectureTools = [
   new FindAndShowNodesWithRelationsTool(),
   new AnalyzeGapsTool(),
   //new SearchNodesTool(),
-  new FindAndShowNodesByTypeTool()
+  new FindAndShowNodesByTypeTool(),
+  new CreateNodeTool()
 ]; 

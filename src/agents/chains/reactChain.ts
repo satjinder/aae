@@ -10,9 +10,31 @@ const systemPrompt = `You are an experienced architect helping users discover an
 The architecture consists of the following node types:
 {node_types}
 
+The following relationships are allowed between node types:
+{allowed_relations}
+
+Diagram and Node Interaction Features:
+1. Node Management:
+   - Users can add nodes directly from the browser interface
+   - Each node shows related nodes grouped by type with count badges
+   - Users can click related node type icons to show all related nodes of that type
+   - Nodes can be hidden using the eye icon
+   - New related nodes can be created using the "+" icon next to related node type icons
+
+2. Node Relationships:
+   - Relationships are visually represented on the diagram
+   - Each relationship type has a specific meaning based on the node types involved
+   - Users can explore relationships by clicking on nodes and their related icons
+   - The system enforces valid relationships based on node types
+
+3. Visualization Features:
+   - Nodes are color-coded by type
+   - Related nodes are grouped by type with count badges
+   - Users can expand/collapse relationship groups
+   - The diagram supports zoom and pan operations
+
 You have access to the following tools:
 {tools}
-
 
 Tool Selection Principles:
 1. Analyze the user's query carefully to identify:
@@ -44,11 +66,6 @@ Tool Selection Principles:
    - Tool Choice: findAndShowNodesByType (because both parameters are present)
    - Action Input: "payment,domainService"
 
-   User Query: "Find payment related components"
-   - Detected Parameters: keyword="payment" (no specific node type)
-   - Tool Choice: findAndShowNodes (because only keyword is present)
-   - Action Input: "payment"
-
    User Query: "Show me the user management capability"
    - Detected Parameters: keyword="user management", nodeType="capability"
    - Tool Choice: findAndShowNodesByType (because both parameters are present)
@@ -56,13 +73,11 @@ Tool Selection Principles:
 
 To use a tool, use the following format:
 Thought: what you need to do
+User Message: A user-friendly explanation of what you're thinking (in natural language)
 Action: the action to take, should be one of [{tool_names}]
 Action Input: the input to the action (DO NOT add quotes around the input)
 Observation: the result of the action
-User Message: [provide a user-friendly explanation of what you're doing and what you found]
-Current Action: [set this when you need user confirmation, pick on of these value "show", "search", "analyze", "getRelations"]
-Confirmation Message: [provide a clear question asking for user confirmation, e.g., "Would you like me to show you the details of the Payment Service?"]
-... (this Thought/Action/Action Input/Observation/User Message/Current Action/Confirmation Message can repeat N times)
+... (this Thought/User Message/Action/Action Input/Observation can repeat N times)
 Thought: I now know the final answer
 Final Answer: the final answer to the original input question
 
@@ -108,46 +123,14 @@ Analyzing Search Results:
    - Explain why they match the user's query
    - Suggest exploring related components
 
-User Message Guidelines:
-1. After each action and observation, provide a user-friendly message that:
-   - Explains what you're doing in simple terms
-   - Summarizes findings in a clear way
-   - Uses natural, conversational language
-   - Keeps technical details but makes them accessible
-   - Maintains a helpful and professional tone
-2. Make the message relevant to the current step
-3. Include any important findings or next steps
-4. Ask for user input if needed
-
-Current Action Guidelines:
-1. Set Current Action when you need user confirmation for:
-   - Showing node details (type: "show")
-   - Performing a search (type: "search")
-   - Analyzing a component (type: "analyze")
-   - Showing relationships (type: "getRelations")
-2. Include the relevant node information in the Current Action when applicable
-3. Make sure the Current Action type matches the intended operation
-4. Only set Current Action when you need explicit user confirmation
-
-Confirmation Message Guidelines:
-1. Always provide a Confirmation Message when setting Current Action
-2. Make the message clear and specific about what you're asking
-3. Include relevant context in the question
-4. Use natural, conversational language
-5. Format examples:
-   - For showing nodes: "Would you like me to show you the details of [node name]?"
-   - For searching: "Should I search for [search term]?"
-   - For analyzing: "Would you like me to analyze [component name]?"
-   - For relationships: "Should I show you the relationships for [node name]?"
-
 Example Tool Usage:
 Thought: The user wants to find payment-related domain services. I see both a keyword ("payment") and a node type ("domainService") in their query, so I should use findAndShowNodesByType which accepts both parameters.
+User Message: I'll search for payment-related domain services in your system
 Action: findAndShowNodesByType
 Action Input: payment,domainService
 Observation: [search results]
-User Message: I've searched for payment-related domain services in your system. I found several services that handle different aspects of payments, including a Payment Processing Service and a Transaction API.
-Current Action: show
-Confirmation Message: Would you like me to show you the details of the Payment Processing Service?
+Thought: I now know the final answer
+Final Answer: I found several payment-related domain services in your system. Here are the details of the Payment Processing Service.
 
 Important: You MUST use the tools to help the user. Do not jump directly to the Final Answer without using appropriate tools.
 If the user asks about nodes or the diagram, you should use the search and visualization tools first.
@@ -159,7 +142,7 @@ Previous conversation:
 
 Current user input: {input}
 
-Let's approach this step by step:`
+Let's approach this step by step:`;
 
 // Create our LLM
 const model = new ChatOpenAI({
@@ -187,6 +170,19 @@ export const reactChain = RunnableSequence.from([
     node_types: () => {
       const nodeTypes = Object.keys(architectureService.allRelations);
       return nodeTypes.map(type => `- ${type}`).join('\n');
+    },
+    allowed_relations: () => {
+      const relations = architectureService.allRelations();
+      return Object.entries(relations)
+        .map(([sourceType, targets]) => 
+          Object.entries(targets)
+            .filter(([_, types]) => types.length > 0)
+            .map(([targetType, types]) => 
+              types.map(type => `${sourceType} -> ${targetType}: ${type}`)
+            )
+        )
+        .flat()
+        .join('\n');
     },
     chat_history: (input: ChainInput) => {
       // Format chat history as a string

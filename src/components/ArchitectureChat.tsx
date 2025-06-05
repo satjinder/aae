@@ -40,9 +40,6 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [pendingNode, setPendingNode] = useState<Node | null>(null);
-  const [pendingAction, setPendingAction] = useState<AgentResponse['currentAction'] | null>(null);
-  const [isWaitingForConfirmation, setIsWaitingForConfirmation] = useState(false);
 
   // Set up message callback
   useEffect(() => {
@@ -54,38 +51,9 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
     });
   }, []);
 
-  const handleConfirmation = async (confirmed: boolean) => {
-    if (!pendingNode || !pendingAction) return;
-
-    if (confirmed) {
-      // Handle the confirmed action
-      if (pendingAction.type === 'show') {
-        onAddNode(pendingNode);
-        onNodeAdded?.(pendingNode);
-      }
-      // Add more action types as needed
-    }
-
-    // Reset states
-    setPendingNode(null);
-    setPendingAction(null);
-    setIsWaitingForConfirmation(false);
-    setInput('');
-
-    // Notify about diagram changes
-    onDiagramStateChange?.();
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
-
-    // If waiting for confirmation, handle the confirmation
-    if (isWaitingForConfirmation) {
-      const confirmed = input.toLowerCase() === 'yes';
-      await handleConfirmation(confirmed);
-      return;
-    }
 
     // Add user message to chat
     const userMessage: Message = {
@@ -103,15 +71,13 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
         msg.role === 'user' ? new HumanMessage(msg.content) : new AIMessage(msg.content)
       ));
 
-      // Handle confirmation if needed
-      if (response.needsConfirmation && response.currentAction) {
-        setPendingNode(response.currentAction.node || null);
-        setPendingAction(response.currentAction);
-        setIsWaitingForConfirmation(true);
-      } else {
-        setPendingNode(null);
-        setPendingAction(null);
-        setIsWaitingForConfirmation(false);
+      // Add the final answer to messages if it exists
+      if (response.finalAnswer) {
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          content: response.finalAnswer,
+          timestamp: new Date()
+        }]);
       }
 
       // Notify parent about diagram state changes
@@ -193,46 +159,25 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
       </List>
 
       <Box sx={{ p: 2, borderTop: 1, borderColor: 'divider' }}>
-        {isWaitingForConfirmation ? (
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleConfirmation(true)}
-              fullWidth
-            >
-              Yes
-            </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={() => handleConfirmation(false)}
-              fullWidth
-            >
-              No
-            </Button>
-          </Box>
-        ) : (
-          <TextField
-            fullWidth
-            variant="outlined"
-            placeholder="Ask about the architecture..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
-            InputProps={{
-              endAdornment: (
-                <IconButton
-                  onClick={handleSubmit}
-                  disabled={!input.trim() || isProcessing}
-                  color="primary"
-                >
-                  <SendIcon />
-                </IconButton>
-              )
-            }}
-          />
-        )}
+        <TextField
+          fullWidth
+          variant="outlined"
+          placeholder="Ask about the architecture..."
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
+          InputProps={{
+            endAdornment: (
+              <IconButton
+                onClick={handleSubmit}
+                disabled={!input.trim() || isProcessing}
+                color="primary"
+              >
+                <SendIcon />
+              </IconButton>
+            )
+          }}
+        />
       </Box>
     </Paper>
   );

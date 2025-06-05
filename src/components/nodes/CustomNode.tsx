@@ -88,17 +88,41 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
     });
   };
 
-  const handleShowNode = (newNodeData: { type: NodeType; name: string; description?: string }) => {
-    const newNode = architectureService.createNode({
-      type: newNodeData.type,
-      name: newNodeData.name,
-      description: newNodeData.description,
-      relatedNodes: [{ nodeId: data.id }]
-    });
+  const handleCreateNode = (newNodeData: { 
+    type: NodeType; 
+    name: string; 
+    description?: string;
+    relationType?: string;
+    existingNodeId?: string;
+  }) => {
+    if (newNodeData.existingNodeId) {
+      // Create relation with existing node
+      const edge = architectureService.addEdge(
+        data.id,
+        newNodeData.existingNodeId,
+        newNodeData.relationType || ''
+      );
+      
+      if (edge && data.onToggleNode) {
+        // Force a refresh of the node list
+        data.onToggleNode(newNodeData.existingNodeId, newNodeData.type);
+      }
+    } else {
+      // Create new node with relation
+      const newNode = architectureService.createNode({
+        type: newNodeData.type,
+        name: newNodeData.name,
+        description: newNodeData.description,
+        relatedNodes: [{ 
+          nodeId: data.id,
+          relationType: newNodeData.relationType
+        }]
+      });
 
-    // Force a refresh of the node list
-    if (data.onToggleNode) {
-      data.onToggleNode(newNode.id, newNode.type);
+      // Force a refresh of the node list
+      if (data.onToggleNode) {
+        data.onToggleNode(newNode.id, newNode.type);
+      }
     }
 
     // Force a refresh of available nodes
@@ -288,7 +312,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
       <CreateNodeDialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        onAdd={handleShowNode}
+        onCreate={handleCreateNode}
         sourceNode={{
           id: data.id,
           name: data.name,
