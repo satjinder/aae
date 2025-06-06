@@ -74,9 +74,28 @@ export class ArchitectureAgent {
   }
 
   private extractField(lines: string[], prefix: string): string {
-    const line = lines.find((l: string) => l.startsWith(prefix));
-    if (!line) return '';
-    return line.replace(prefix, '').trim();
+    const startIndex = lines.findIndex((l: string) => l.startsWith(prefix));
+    if (startIndex === -1) return '';
+    
+    // Get all lines until the next field prefix
+    const nextPrefixIndex = lines.findIndex((l: string, i) => 
+      i > startIndex && 
+      (l.startsWith('Thought:') || 
+       l.startsWith('User Message:') || 
+       l.startsWith('Action:') || 
+       l.startsWith('Action Input:') || 
+       l.startsWith('Observation:') || 
+       l.startsWith('Final Answer:'))
+    );
+    
+    const endIndex = nextPrefixIndex === -1 ? lines.length : nextPrefixIndex;
+    const fieldLines = lines.slice(startIndex, endIndex);
+    
+    // Remove the prefix from the first line and join all lines
+    return fieldLines
+      .map((line, i) => i === 0 ? line.replace(prefix, '').trim() : line.trim())
+      .join('\n')
+      .trim();
   }
 
   async invoke(input: string, chatHistory: Array<BaseMessage> = []): Promise<AgentResponse> {

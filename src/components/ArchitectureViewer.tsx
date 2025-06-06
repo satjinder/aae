@@ -43,8 +43,6 @@ const getRandomPosition = (): XYPosition => ({
   y: Math.random() * 500
 });
 
-
-
 export const ArchitectureViewer: React.FC = () => {
   const [allNodes, setAllNodes] = useState<ArchitectureNode[]>([]);
   const [nodes, setNodes, onNodesChange] = useNodesState<DiagramNode>([]);
@@ -55,117 +53,97 @@ export const ArchitectureViewer: React.FC = () => {
   const [groupedNodes, setGroupedNodes] = useState<Record<string, ArchitectureNode[]>>({});
 
   // Convert architecture node to ReactFlow node
-const toReactFlowNode = (node: DiagramNode): ReactFlowNode => ({
-  id: node.id,
-  type: 'custom',
-  position: node.position || getRandomPosition(),
-  data: { 
-    ...node,
-    onToggleNode: (nodeId: string) => {
-      if (diagramService.isNodeVisible(nodeId)) {
-        diagramService.removeNode(nodeId);
-      } else {
-        diagramService.addNode(nodeId);
+  const toReactFlowNode = (node: DiagramNode): ReactFlowNode => ({
+    id: node.id,
+    type: 'custom',
+    position: node.position || getRandomPosition(),
+    data: { 
+      ...node,
+      onToggleNode: (nodeId: string) => {
+        if (diagramService.isNodeVisible(nodeId)) {
+          diagramService.removeNode(nodeId);
+        } else {
+          diagramService.addNode(nodeId);
+        }
+        // Update visible nodes and edges
+        const visibleNodes = diagramService.getVisibleNodes();
+        const visibleEdges = diagramService.getEdges();
+        setNodes(visibleNodes.map(toReactFlowNode));
+        setEdges(visibleEdges);
+      },
+      onToggleVisibility: (nodeId: string) => {
+        if (diagramService.isNodeVisible(nodeId)) {
+          diagramService.removeNode(nodeId);
+        } else {
+          diagramService.addNode(nodeId);
+        }
+        // Update visible nodes and edges
+        const visibleNodes = diagramService.getVisibleNodes();
+        const visibleEdges = diagramService.getEdges();
+        setNodes(visibleNodes.map(toReactFlowNode));
+        setEdges(visibleEdges);
       }
-      // Update visible nodes and edges
-      const visibleNodes = diagramService.getVisibleNodes();
-      const visibleEdges = diagramService.getEdges();
-      setNodes(visibleNodes.map(toReactFlowNode));
-      setEdges(visibleEdges);
-      const data = architectureService.getAllData();
-      setAllNodes(data.nodes);
-      loadGroupedNodes(data.nodes);
-    },
-    onToggleVisibility: (nodeId: string) => {
-      if (diagramService.isNodeVisible(nodeId)) {
-        diagramService.removeNode(nodeId);
-      } else {
-        diagramService.addNode(nodeId);
-      }
-      // Update visible nodes and edges
-      const visibleNodes = diagramService.getVisibleNodes();
-      const visibleEdges = diagramService.getEdges();
-      setNodes(visibleNodes.map(toReactFlowNode));
-      setEdges(visibleEdges);
     }
-  }
-});
+  });
 
-  // Load initial data
+  // Load and group nodes by type
+  const loadGroupedNodes = useCallback((nodes: ArchitectureNode[]) => {
+    const grouped = nodes.reduce((acc, node) => {
+      if (!acc[node.type]) {
+        acc[node.type] = [];
+      }
+      acc[node.type].push(node);
+      return acc;
+    }, {} as Record<string, ArchitectureNode[]>);
+    setGroupedNodes(grouped);
+  }, []);
+
+  // Initialize nodes and edges
   useEffect(() => {
     const data = architectureService.getAllData();
     setAllNodes(data.nodes);
+    loadGroupedNodes(data.nodes);
     
-    // Add all nodes to diagram service
-    //data.nodes.forEach(node => diagramService.addNode(node.id));
+    // Start with empty diagram
+    setNodes([]);
+    setEdges([]);
+  }, [loadGroupedNodes]);
+
+  const handleNodeAdd = useCallback((node: ArchitectureNode) => {
+    // Add node to diagram service
+    diagramService.addNode(node.id);
     
-    // Get visible nodes and edges
+    // Get updated visible nodes and edges
     const visibleNodes = diagramService.getVisibleNodes();
     const visibleEdges = diagramService.getEdges();
     
-    // Set initial nodes and edges
+    // Update ReactFlow state
     setNodes(visibleNodes.map(toReactFlowNode));
     setEdges(visibleEdges);
-  }, []);
 
-  const handleNodeAdd = useCallback((node: ArchitectureNode) => {
-    // Add node to the architecture service with position
-    const nodeWithPosition = {
-      ...node,
-      position: getRandomPosition()
-    };
-   
-    // Add node to the diagram
-    diagramService.addNode(node.id);
-    
-    // Create new node with related nodes
-    const newNode: DiagramNode = {
-      ...nodeWithPosition,
-      relatedNodes: architectureService.getRelatedNodes(node.id)
-    };
-    
-    // Add to ReactFlow state
-    setNodes(nds => [...nds, toReactFlowNode(newNode)]);
-    
-    // Update edges
-    const newEdges = diagramService.getEdges();
-    setEdges(newEdges);
-  }, []);
+    // If this is the first node, fit the view
+    if (visibleNodes.length === 1 && reactFlowInstance) {
+      reactFlowInstance.fitView({ padding: 0.2 });
+    }
+  }, [reactFlowInstance]);
 
-  // Handle node changes (position updates, selection, etc.)
-  const onNodesChangeHandler = useCallback((changes: NodeChange[]) => {
-    onNodesChange(changes);
-  }, [onNodesChange]);
+  // Handle node changes
+  const handleNodesChange = useCallback(
+    (changes: NodeChange[]) => {
+      setNodes((nds) => applyNodeChanges(changes, nds));
+    },
+    []
+  );
 
   // Handle edge changes
-  const onEdgesChangeHandler = useCallback((changes: EdgeChange[]) => {
-    onEdgesChange(changes);
-  }, [onEdgesChange]);
+  const handleEdgesChange = useCallback(
+    (changes: EdgeChange[]) => {
+      setEdges((eds) => applyEdgeChanges(changes, eds));
+    },
+    []
+  );
 
-
-  const loadGroupedNodes = (all: ArchitectureNode[]) => {
-    const groups: Record<string, ArchitectureNode[]> = {
-      capability: [],
-      domainService: [],
-      api: [],
-      event: [],
-      dataProduct: []
-    };
-
-    all.forEach(node => {
-      if (node.type in groups) {
-        groups[node.type].push(node);
-      }
-    });
-
-    setGroupedNodes(groups);
-  };
-
-  // Memoized grouped nodes
-  useEffect(() => {
-    loadGroupedNodes(allNodes);
-  }, [allNodes]);
-
+  // Handle diagram state changes
   const handleDiagramStateChange = useCallback(() => {
     // Get updated nodes and edges from services
     const visibleNodes = diagramService.getVisibleNodes();
@@ -177,7 +155,7 @@ const toReactFlowNode = (node: DiagramNode): ReactFlowNode => ({
     setEdges(visibleEdges);
     setAllNodes(data.nodes);
     loadGroupedNodes(data.nodes);
-  }, []);
+  }, [loadGroupedNodes]);
 
   return (
     <Box sx={{ 
@@ -247,8 +225,8 @@ const toReactFlowNode = (node: DiagramNode): ReactFlowNode => ({
         <ReactFlow
           nodes={nodes}
           edges={edges}
-          onNodesChange={onNodesChangeHandler}
-          onEdgesChange={onEdgesChangeHandler}
+          onNodesChange={handleNodesChange}
+          onEdgesChange={handleEdgesChange}
           onInit={setReactFlowInstance}
           nodeTypes={nodeTypes}
           defaultEdgeOptions={{
@@ -260,7 +238,7 @@ const toReactFlowNode = (node: DiagramNode): ReactFlowNode => ({
               color: '#555'
             }
           }}
-          fitView
+          fitView={nodes.length === 0}
           style={{
             width: '100%',
             height: '100%',

@@ -10,9 +10,13 @@ import {
   ListItemText,
   Divider,
   CircularProgress,
-  Button
+  Button,
+  Collapse
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ChatIcon from '@mui/icons-material/Chat';
 import { architectureService } from '../services/architectureService';
 import type { Node } from '../services/architectureService';
 import { architectureAgent, AgentResponse } from '../agents/architectureAgent';
@@ -40,6 +44,7 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // Set up message callback
   useEffect(() => {
@@ -96,89 +101,117 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
   };
 
   return (
-    <Paper
-      elevation={3}
+    <Box
       sx={{
         position: 'fixed',
         bottom: 16,
         right: 16,
-        width: 400,
-        height: 600,
+        zIndex: 1000,
         display: 'flex',
         flexDirection: 'column',
-        zIndex: 1000
+        alignItems: 'flex-end'
       }}
     >
-      <Box sx={{ p: 2, borderBottom: 1, borderColor: 'divider' }}>
-        <Typography variant="h6">Architecture Assistant</Typography>
-      </Box>
-
-      <List
+      <IconButton
+        onClick={() => setIsExpanded(!isExpanded)}
         sx={{
-          flexGrow: 1,
-          overflow: 'auto',
-          p: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 1
+          bgcolor: 'primary.main',
+          color: 'white',
+          mb: 1,
+          '&:hover': {
+            bgcolor: 'primary.dark'
+          }
         }}
       >
-        {messages.map((message, index) => (
-          <React.Fragment key={index}>
-            <ListItem
-              sx={{
-                alignSelf: message.role === 'user' ? 'flex-end' : 'flex-start',
-                maxWidth: '80%'
-              }}
-            >
-              <Paper
-                elevation={1}
-                sx={{
-                  p: 1,
-                  backgroundColor: message.role === 'user' ? 'primary.light' : 'grey.100',
-                  color: message.role === 'user' ? 'white' : 'text.primary'
-                }}
-              >
-                <ListItemText
-                  primary={message.content}
-                  secondary={message.timestamp.toLocaleTimeString()}
-                  secondaryTypographyProps={{
-                    color: message.role === 'user' ? 'white' : 'text.secondary'
-                  }}
-                />
-              </Paper>
-            </ListItem>
-            {index < messages.length - 1 && <Divider />}
-          </React.Fragment>
-        ))}
-        {isProcessing && (
-          <ListItem sx={{ alignSelf: 'flex-start' }}>
-            <CircularProgress size={20} />
-          </ListItem>
-        )}
-      </List>
+        {isExpanded ? <ExpandLessIcon /> : <ChatIcon />}
+      </IconButton>
 
-      <Box sx={{ p: 2, borderTop: 1, borderColor: 'divider' }}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Ask about the architecture..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
-          InputProps={{
-            endAdornment: (
-              <IconButton
-                onClick={handleSubmit}
-                disabled={!input.trim() || isProcessing}
-                color="primary"
-              >
-                <SendIcon />
-              </IconButton>
-            )
+      <Collapse in={isExpanded} orientation="vertical">
+        <Paper
+          elevation={3}
+          sx={{
+            width: 400,
+            height: 600,
+            display: 'flex',
+            flexDirection: 'column',
+            transition: 'all 0.3s ease'
           }}
-        />
-      </Box>
-    </Paper>
+        >
+          <Box sx={{ p: 2, borderBottom: 1, borderColor: 'divider', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Typography variant="h6">Architecture Assistant</Typography>
+            <IconButton size="small" onClick={() => setIsExpanded(false)}>
+              <ExpandLessIcon />
+            </IconButton>
+          </Box>
+
+          <List
+            sx={{
+              flexGrow: 1,
+              overflow: 'auto',
+              p: 2,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1
+            }}
+          >
+            {messages.map((message, index) => (
+              <React.Fragment key={index}>
+                <ListItem
+                  sx={{
+                    alignSelf: message.role === 'user' ? 'flex-end' : 'flex-start',
+                    maxWidth: '80%'
+                  }}
+                >
+                  <Paper
+                    elevation={1}
+                    sx={{
+                      p: 1,
+                      backgroundColor: message.role === 'user' ? 'primary.light' : 'grey.100',
+                      color: message.role === 'user' ? 'white' : 'text.primary'
+                    }}
+                  >
+                    <ListItemText
+                      primary={message.content}
+                      secondary={message.timestamp.toLocaleTimeString()}
+                      secondaryTypographyProps={{
+                        color: message.role === 'user' ? 'white' : 'text.secondary'
+                      }}
+                    />
+                  </Paper>
+                </ListItem>
+                {index < messages.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
+            {isProcessing && (
+              <ListItem sx={{ alignSelf: 'flex-start' }}>
+                <CircularProgress size={20} />
+              </ListItem>
+            )}
+          </List>
+
+          <Box sx={{ p: 2, borderTop: 1, borderColor: 'divider' }}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Ask about the architecture..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
+              InputProps={{
+                endAdornment: (
+                  <IconButton
+                    onClick={handleSubmit}
+                    disabled={!input.trim() || isProcessing}
+                    color="primary"
+                  >
+                    <SendIcon />
+                  </IconButton>
+                )
+              }}
+            />
+          </Box>
+        </Paper>
+      </Collapse>
+    </Box>
   );
 }; 

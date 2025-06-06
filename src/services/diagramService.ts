@@ -21,6 +21,16 @@ export class DiagramService {
       visibleNodes: new Set(),
       expandedNodes: new Set()
     };
+    this.initialize();
+  }
+
+  private initialize() {
+    // Get all nodes from architecture service but don't make them visible
+    const data = architectureService.getAllData();
+    this.nodes = data.nodes;
+    this.edges = data.edges;
+    // Start with empty visible nodes
+    this.state.visibleNodes.clear();
   }
 
   public static getInstance(): DiagramService {
@@ -104,6 +114,10 @@ export class DiagramService {
     this.state.expandedNodes.clear();
     this.nodes = [];
     this.edges = [];
+  }
+
+  public refresh() {
+    this.initialize();
   }
 }
 

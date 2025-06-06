@@ -1,5 +1,358 @@
 // Types for our architecture nodes
-export type NodeType = 'capability' | 'domainService' | 'api' | 'event' | 'dataProduct';
+export type NodeType = 'business_area' | 'business_domain' | 'service_domain' | 'api' | 'event' | 'bom' | 'system' | 'dev_team' | 'business_team' | 'business_owner';
+
+export type RoadmapAlignment = 'strategic' | 'sunset' | 'maintain' | 'transform' | 'not-aligned';
+export type DomainServiceStatus = 'proposed' | 'endorsed' | 'active' | 'deprecated';
+
+// Define relation types with their directions
+export interface RelationType {
+  name: string;                    // Forward relation name (source -> target)
+  inverseName: string;            // Inverse relation name (target -> source)
+  description: string;
+  sourceType: NodeType;
+  targetType: NodeType;
+  isBidirectional: boolean;
+}
+
+// Define all possible relations
+export const relationTypes: RelationType[] = [
+  // Business Area Relations
+  {
+    name: 'contains',
+    inverseName: 'containedBy',
+    description: 'Business area contains a business domain',
+    sourceType: 'business_area',
+    targetType: 'business_domain',
+    isBidirectional: true
+  },
+  {
+    name: 'integrates with',
+    inverseName: 'integrated by',
+    description: 'Business area integrates with another business area',
+    sourceType: 'business_area',
+    targetType: 'business_area',
+    isBidirectional: true
+  },
+  {
+    name: 'governs',
+    inverseName: 'governed by',
+    description: 'Business area governs another business area',
+    sourceType: 'business_area',
+    targetType: 'business_area',
+    isBidirectional: true
+  },
+  {
+    name: 'shares data with',
+    inverseName: 'shares data with',
+    description: 'Business areas share data between them',
+    sourceType: 'business_area',
+    targetType: 'business_area',
+    isBidirectional: true
+  },
+
+  // Business Domain Relations
+  {
+    name: 'implements',
+    inverseName: 'implementedBy',
+    description: 'Business domain is implemented by a service domain',
+    sourceType: 'business_domain',
+    targetType: 'service_domain',
+    isBidirectional: true
+  },
+  {
+    name: 'collaborates with',
+    inverseName: 'collaborates with',
+    description: 'Business domains collaborate with each other',
+    sourceType: 'business_domain',
+    targetType: 'business_domain',
+    isBidirectional: true
+  },
+
+  // Service Domain Relations
+  {
+    name: 'exposes',
+    inverseName: 'exposedBy',
+    description: 'Service domain exposes an API',
+    sourceType: 'service_domain',
+    targetType: 'api',
+    isBidirectional: true
+  },
+  {
+    name: 'publishes',
+    inverseName: 'publishedBy',
+    description: 'Service domain publishes an event',
+    sourceType: 'service_domain',
+    targetType: 'event',
+    isBidirectional: true
+  },
+  {
+    name: 'implements',
+    inverseName: 'implementedBy',
+    description: 'Service domain implements a business object model',
+    sourceType: 'service_domain',
+    targetType: 'bom',
+    isBidirectional: true
+  },
+
+  // API Relations
+  {
+    name: 'depends on',
+    inverseName: 'required by',
+    description: 'API depends on another API',
+    sourceType: 'api',
+    targetType: 'api',
+    isBidirectional: true
+  },
+
+  // Event Relations
+  {
+    name: 'triggers',
+    inverseName: 'triggered by',
+    description: 'Event triggers a service domain action',
+    sourceType: 'event',
+    targetType: 'service_domain',
+    isBidirectional: true
+  },
+
+  // System Relations
+  {
+    name: 'implements',
+    inverseName: 'implementedBy',
+    description: 'System implements a service domain',
+    sourceType: 'system',
+    targetType: 'service_domain',
+    isBidirectional: true
+  },
+  {
+    name: 'hosts',
+    inverseName: 'hostedBy',
+    description: 'System hosts an API',
+    sourceType: 'system',
+    targetType: 'api',
+    isBidirectional: true
+  },
+  {
+    name: 'publishes',
+    inverseName: 'publishedBy',
+    description: 'System publishes an event',
+    sourceType: 'system',
+    targetType: 'event',
+    isBidirectional: true
+  },
+  {
+    name: 'integrates with',
+    inverseName: 'integrated by',
+    description: 'System integrates with another system',
+    sourceType: 'system',
+    targetType: 'system',
+    isBidirectional: true
+  },
+
+  // Team Relations
+  {
+    name: 'owns',
+    inverseName: 'owned by',
+    description: 'Team owns a system or business domain',
+    sourceType: 'dev_team',
+    targetType: 'system',
+    isBidirectional: true
+  },
+  {
+    name: 'owns',
+    inverseName: 'owned by',
+    description: 'Business team owns a business domain',
+    sourceType: 'business_team',
+    targetType: 'business_domain',
+    isBidirectional: true
+  },
+  {
+    name: 'leads',
+    inverseName: 'led by',
+    description: 'Business owner leads a business team',
+    sourceType: 'business_owner',
+    targetType: 'business_team',
+    isBidirectional: true
+  },
+  {
+    name: 'collaborates with',
+    inverseName: 'collaborates with',
+    description: 'Business team collaborates with a development team',
+    sourceType: 'business_team',
+    targetType: 'dev_team',
+    isBidirectional: true
+  },
+  {
+    name: 'influences',
+    inverseName: 'influenced by',
+    description: 'Business team influences development team priorities',
+    sourceType: 'business_team',
+    targetType: 'dev_team',
+    isBidirectional: true
+  },
+  {
+    name: 'depends on',
+    inverseName: 'required by',
+    description: 'Development team depends on another development team',
+    sourceType: 'dev_team',
+    targetType: 'dev_team',
+    isBidirectional: true
+  }
+];
+
+const nodeTypes: NodeType[] = [
+  'business_area',
+  'business_domain',
+  'service_domain',
+  'api',
+  'event',
+  'bom',
+  'system',
+  'dev_team',
+  'business_team',
+  'business_owner'
+];
+
+// Initialize empty allowed relations map with all node types
+const initializeAllowedRelations = (): Record<NodeType, Record<NodeType, string[]>> => {
+  const initialMap: Record<NodeType, Record<NodeType, string[]>> = {
+    business_area: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    business_domain: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    service_domain: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    api: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    event: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    bom: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    system: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    dev_team: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    business_team: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    },
+    business_owner: {
+      business_area: [],
+      business_domain: [],
+      service_domain: [],
+      api: [],
+      event: [],
+      bom: [],
+      system: [],
+      dev_team: [],
+      business_team: [],
+      business_owner: []
+    }
+  };
+  
+  return initialMap;
+};
+
+// Generate allowed relations map from relation types
+export const allowedRelations: Record<NodeType, Record<NodeType, string[]>> = 
+  relationTypes.reduce((acc, relation) => {
+    // Add forward relation
+    if (!acc[relation.sourceType][relation.targetType].includes(relation.name)) {
+      acc[relation.sourceType][relation.targetType].push(relation.name);
+    }
+    // Add inverse relation if bidirectional
+    if (relation.isBidirectional && !acc[relation.targetType][relation.sourceType].includes(relation.inverseName)) {
+      acc[relation.targetType][relation.sourceType].push(relation.inverseName);
+    }
+    return acc;
+  }, initializeAllowedRelations());
 
 export interface Node {
   id: string;
@@ -32,45 +385,6 @@ import architectureData from '../data/architecture.json';
 const typedArchitectureData = architectureData as unknown as ArchitectureData;
 
 import { v4 as uuidv4 } from 'uuid';
-
-// Define allowed relation types between different node types
-export const allowedRelations: Record<Node['type'], Record<Node['type'], string[]>> = {
-  capability: {
-    capability: ['dependsOn'],
-    domainService: ['implements'],
-    api: [],
-    event: [],
-    dataProduct: []
-  },
-  domainService: {
-    capability: [ 'implementedBy'],
-    domainService: ['dependsOn'],
-    api: ['exposes'],
-    event: ['publishedBy'],
-    dataProduct: ['producedBy']
-  },
-  api: {
-    capability: [],
-    domainService: ['exposedBy'],
-    api: [],
-    event: [],
-    dataProduct: []
-  },
-  event: {
-    capability: [],
-    domainService: ['publishes'],
-    api: [],
-    event: [],
-    dataProduct: []
-  },
-  dataProduct: {
-    capability: [],
-    domainService: ['producedBy'],
-    api: [],
-    event: [],
-    dataProduct: []
-  }
-};
 
 export class ArchitectureService {
   private static instance: ArchitectureService;
@@ -138,7 +452,7 @@ export class ArchitectureService {
     return newNode;
   }
 
-  public allRelations(): Record<Node['type'], Record<Node['type'], string[]>> {
+  public allRelations(): Record<NodeType, Record<NodeType, string[]>> {
     return allowedRelations;
   }
 
@@ -242,7 +556,7 @@ export class ArchitectureService {
   public analyzeGaps(): string[] {
     const allNodes = this.data.nodes;
     const nodeTypes = new Set(allNodes.map(n => n.type));
-    const allNodeTypes: Node['type'][] = ['capability', 'domainService', 'api', 'event', 'dataProduct'];
+    const allNodeTypes: Node['type'][] = ['business_area', 'business_domain', 'service_domain', 'api', 'event', 'bom', 'system', 'dev_team', 'business_team', 'business_owner'];
     const missingTypes = allNodeTypes.filter(type => !nodeTypes.has(type));
     return missingTypes;
   }

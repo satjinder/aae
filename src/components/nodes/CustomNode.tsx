@@ -38,28 +38,25 @@ interface CustomNodeProps {
 const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const connectedNodes = architectureService.getConnectedNodes(data.id);
-  const incomingConnections = connectedNodes.filter(node => 
-    architectureService.getEdgesByNodeId(data.id).some(edge => edge.target === data.id)
-  );
-  const outgoingConnections = connectedNodes.filter(node => 
-    architectureService.getEdgesByNodeId(data.id).some(edge => edge.source === data.id)
-  );
-
 
   const getNodeTypeColor = (type: NodeType) => {
     switch (type) {
-      case 'capability':
-        return '#4caf50';
-      case 'domainService':
-        return '#2196f3';
+      case 'business_area':
+        return 'success';
+      case 'business_domain':
+        return 'primary';
+      case 'service_domain':
+        return 'warning';
       case 'api':
-        return '#ff9800';
+        return 'secondary';
       case 'event':
-        return '#9c27b0';
-      case 'dataProduct':
-        return '#f44336';
+        return 'error';
+      case 'bom':
+        return 'info';
+      case 'system':
+        return 'info';
       default:
-        return '#757575';
+        return 'info';
     }
   };
 
@@ -82,7 +79,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
     if (!data.onToggleNode) return;
     const relatedNodes = getRelatedNodesByType(type);
     relatedNodes.forEach(node => {
-      if (node.id !== data.id) {
+      if (node.id !== data.id && data.onToggleNode) {
         data.onToggleNode(node.id, type);
       }
     });
@@ -131,8 +128,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
     }
   };
 
-  const isNodeHidden = data.hiddenNodes?.has(data.id);
-
   const handleToggleVisibility = () => {
     if (data.onToggleVisibility) {
       data.onToggleVisibility(data.id);
@@ -160,20 +155,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
       }}
     >
       <Handle type="target" position={Position.Top} style={{ background: getNodeTypeColor(data.type) }} />
-      <Tooltip title={`Incoming connections: ${incomingConnections.length}`}>
-        <Badge
-          badgeContent={incomingConnections.length}
-          color="primary"
-          sx={{
-            position: 'absolute',
-            top: -10,
-            right: 10,
-            '& .MuiBadge-badge': {
-              backgroundColor: getNodeTypeColor(data.type)
-            }
-          }}
-        />
-      </Tooltip>
       
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
         <NodeIcon type={data.type} color={getNodeTypeColor(data.type)} />
@@ -220,7 +201,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
           {(() => {
             // Get all possible node types
-            const allTypes: NodeType[] = ['capability', 'domainService', 'api', 'event', 'dataProduct'];
+            const allTypes: NodeType[] = ['business_area', 'business_domain', 'service_domain', 'api', 'event', 'bom', 'system'];
             
             // Get all possible relations for this node type
             const possibleRelations = allTypes.flatMap(targetType => {
@@ -234,11 +215,14 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
             const elements = possibleRelations.map(({ type, relation }) => {
               const visibleNodes = getVisibleRelatedNodesByType(type);
               
-              const name = type === 'domainService' ? 'Domain Service' :
+              const name = type === 'business_area' ? 'Business Area' :
+                           type === 'business_domain' ? 'Business Domain' :
+                           type === 'service_domain' ? 'Service Domain' :
                            type === 'api' ? 'API' :
                            type === 'event' ? 'Event' :
-                           type === 'dataProduct' ? 'Data Product' :
-                           'Capability';
+                           type === 'bom' ? 'Business Object Model' :
+                           type === 'system' ? 'System' :
+                           type;
 
               return (
                 <Badge
@@ -294,20 +278,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
       )}
 
       <Handle type="source" position={Position.Bottom} style={{ background: getNodeTypeColor(data.type) }} />
-      <Tooltip title={`Outgoing connections: ${outgoingConnections.length}`}>
-        <Badge
-          badgeContent={outgoingConnections.length}
-          color="primary"
-          sx={{
-            position: 'absolute',
-            bottom: -10,
-            right: 10,
-            '& .MuiBadge-badge': {
-              backgroundColor: getNodeTypeColor(data.type)
-            }
-          }}
-        />
-      </Tooltip>
 
       <CreateNodeDialog
         open={dialogOpen}

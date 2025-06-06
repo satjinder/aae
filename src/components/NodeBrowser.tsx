@@ -1,42 +1,51 @@
-import React from 'react';
-import { 
-  Box, 
-  TextField, 
+import React, { useState, useMemo } from 'react';
+import {
+  Box,
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
   Typography,
-  Divider,
-  IconButton
+  TextField,
+  Collapse,
+  IconButton,
+  Tooltip,
+  Paper,
+  Divider
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { NodeIcon } from './NodeIcon';
-import type { Node as ArchitectureNode } from '../services/architectureService';
+import type { Node } from '../services/architectureService';
+import { architectureService } from '../services/architectureService';
 
 interface NodeBrowserProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  groupedNodes: Record<string, ArchitectureNode[]>;
-  onAddNode: (node: ArchitectureNode) => void;
+  groupedNodes: Record<string, Node[]>;
+  onAddNode: (node: Node) => void;
 }
 
-const getTypeLabel = (type: string) => {
-  switch (type) {
-    case 'capability':
-      return 'BIAN Capabilities';
-    case 'domainService':
-      return 'Domain Services';
-    case 'api':
-      return 'APIs';
-    case 'event':
-      return 'Events';
-    case 'dataProduct':
-      return 'Data Products';
-    default:
-      return type;
-  }
-};
+interface BusinessAreaNode extends Node {
+  type: 'business_area';
+}
+
+interface BusinessDomainNode extends Node {
+  type: 'business_domain';
+}
+
+interface ServiceDomainNode extends Node {
+  type: 'service_domain';
+}
+
+interface SystemNode extends Node {
+  type: 'system';
+}
+
+interface LeafNode extends Node {
+  type: 'api' | 'event' | 'bom';
+}
 
 export const NodeBrowser: React.FC<NodeBrowserProps> = ({
   searchQuery,
@@ -44,63 +53,291 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
   groupedNodes,
   onAddNode
 }) => {
-  return (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h6" sx={{ mb: 2 }}>Available Nodes</Typography>
-      <TextField
-        fullWidth
-        size="small"
-        placeholder="Search nodes..."
-        value={searchQuery}
-        onChange={(e) => onSearchChange(e.target.value)}
-        sx={{ mb: 2 }}
-      />
-      {groupedNodes && Object.entries(groupedNodes).map(([type, typeNodes]) => (
-        <Box key={type} sx={{ mb: 2 }}>
-          <Typography variant="subtitle1" sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-            <NodeIcon type={type as ArchitectureNode['type']} />
-            {getTypeLabel(type)}
-          </Typography>
-          <List dense>
-            {typeNodes
-              .filter(node => {
-                const searchLower = searchQuery.toLowerCase();
-                const nameMatch = node.name?.toLowerCase().includes(searchLower) || false;
-                const descMatch = node.description?.toLowerCase().includes(searchLower) || false;
-                return nameMatch || descMatch;
-              })
-              .map(node => (
-                <ListItem
-                  key={node.id}
-                  component="div"
-                  onClick={() => onAddNode(node)}
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [expandedMainSections, setExpandedMainSections] = useState<Record<string, boolean>>({
+    business_area: true,
+    system: true
+  });
+
+  const getChildNodes = (nodeId: string, type: Node['type']): Node[] => {
+    const edges = architectureService.getAllData().edges;
+    const childEdges = edges.filter(edge => edge.source === nodeId);
+    return childEdges.map(edge => {
+      const targetNode = architectureService.getNodeById(edge.target);
+      return targetNode!;
+    });
+  };
+
+  const getChildCount = (nodeId: string): number => {
+    return getChildNodes(nodeId, 'business_area').length;
+  };
+
+  const toggleSection = (nodeId: string) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [nodeId]: !prev[nodeId]
+    }));
+  };
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  const toggleMainSection = (sectionType: string) => {
+    setExpandedMainSections(prev => ({
+      ...prev,
+      [sectionType]: !prev[sectionType]
+    }));
+  };
+
+  const getTypeLabel = (type: Node['type']): string => {
+    switch (type) {
+      case 'business_area':
+        return 'Business Areas';
+      case 'business_domain':
+        return 'Business Domains';
+      case 'service_domain':
+        return 'Service Domains';
+      case 'api':
+        return 'APIs';
+      case 'event':
+        return 'Events';
+      case 'bom':
+        return 'Business Object Models';
+      case 'system':
+        return 'Systems';
+      default:
+        return type;
+    }
+  };
+
+  const searchInNode = (node: Node, query: string): boolean => {
+    // Check if current node matches
+    const nodeMatches = 
+      node.name.toLowerCase().includes(query) ||
+      node.description.toLowerCase().includes(query);
+
+    // Get child nodes
+    const childNodes = getChildNodes(node.id, node.type);
+    
+    // Check if any child nodes match
+    const childrenMatch = childNodes.some(child => searchInNode(child, query));
+    
+    return nodeMatches || childrenMatch;
+  };
+
+  const getMatchingNodes = (nodes: Node[], query: string): Node[] => {
+    return nodes.filter(node => searchInNode(node, query));
+  };
+
+  const filteredNodes = useMemo(() => {
+    if (!searchQuery) {
+      return {
+        business_area: groupedNodes.business_area || [],
+        system: groupedNodes.system || []
+      };
+    }
+
+    const query = searchQuery.toLowerCase();
+    return {
+      business_area: getMatchingNodes(groupedNodes.business_area || [], query),
+      system: getMatchingNodes(groupedNodes.system || [], query)
+    };
+  }, [groupedNodes, searchQuery]);
+
+  const renderNode = (node: Node, level: number = 0) => {
+    const hasChildren = ['business_area', 'business_domain', 'service_domain'].includes(node.type);
+    const isExpanded = expandedSections[node.id];
+    const childNodes = hasChildren ? getChildNodes(node.id, node.type) : [];
+    const childCount = hasChildren ? childNodes.length : 0;
+
+    // If searching, expand nodes that have matching children
+    if (searchQuery && hasChildren && !isExpanded) {
+      const query = searchQuery.toLowerCase();
+      const hasMatchingChildren = childNodes.some(child => 
+        child.name.toLowerCase().includes(query) ||
+        child.description.toLowerCase().includes(query) ||
+        searchInNode(child, query)
+      );
+      if (hasMatchingChildren) {
+        setExpandedSections(prev => ({
+          ...prev,
+          [node.id]: true
+        }));
+      }
+    }
+
+    return (
+      <Box key={node.id}>
+        <ListItem
+          button
+          onClick={() => hasChildren && toggleSection(node.id)}
+          sx={{
+            pl: 2,
+            cursor: hasChildren ? 'pointer' : 'default',
+            '&:hover': {
+              backgroundColor: 'action.hover',
+            },
+            ...(isExpanded && {
+              backgroundColor: 'action.selected',
+              '&:hover': {
+                backgroundColor: 'action.selected',
+              },
+            }),
+          }}
+        >
+          {hasChildren && (
+            <ListItemIcon sx={{ minWidth: 36 }}>
+              {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </ListItemIcon>
+          )}
+          {!hasChildren && <ListItemIcon sx={{ minWidth: 36 }}><ChevronRightIcon /></ListItemIcon>}
+          <ListItemText
+            primary={
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <Typography 
+                  variant="body2" 
                   sx={{ 
-                    borderRadius: 1,
-                    mb: 0.5,
-                    cursor: 'pointer',
-                    '&:hover': {
-                      bgcolor: 'action.hover'
-                    }
+                    fontWeight: hasChildren ? 'bold' : 'normal',
+                    color: isExpanded ? 'primary.main' : 'inherit'
                   }}
                 >
-                  <ListItemIcon>
-                    <NodeIcon type={node.type} />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={node.name || 'Unnamed Node'}
-                    secondary={node.description || 'No description available'}
-                    primaryTypographyProps={{ variant: 'body2' }}
-                    secondaryTypographyProps={{ variant: 'caption' }}
-                  />
-                  <IconButton size="small">
-                    <AddIcon fontSize="small" />
-                  </IconButton>
-                </ListItem>
-              ))}
-          </List>
-          <Divider />
-        </Box>
-      ))}
+                  {node.name}
+                </Typography>
+                {hasChildren && (
+                  <Typography 
+                    variant="caption" 
+                    sx={{ 
+                      color: isExpanded ? 'primary.main' : 'text.secondary',
+                      bgcolor: isExpanded ? 'primary.light' : 'action.hover',
+                      px: 0.5,
+                      py: 0.25,
+                      borderRadius: 1,
+                      fontSize: '0.75rem'
+                    }}
+                  >
+                    {childCount}
+                  </Typography>
+                )}
+              </Box>
+            }
+            secondary={node.description}
+            secondaryTypographyProps={{
+              variant: 'caption',
+              style: { display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }
+            }}
+          />
+          <Tooltip title="Add to diagram">
+            <IconButton
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                onAddNode(node);
+              }}
+            >
+              <NodeIcon type={node.type} />
+            </IconButton>
+          </Tooltip>
+        </ListItem>
+        {hasChildren && (
+          <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              {childNodes.map(childNode => renderNode(childNode))}
+            </List>
+          </Collapse>
+        )}
+      </Box>
+    );
+  };
+
+  const renderSection = (type: Node['type'], nodes: Node[]) => (
+    <Box>
+      <Box
+        sx={{
+          px: 2,
+          py: 1,
+          bgcolor: 'background.default',
+          borderBottom: 1,
+          borderColor: 'divider',
+          position: 'sticky',
+          top: 0,
+          zIndex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          cursor: 'pointer'
+        }}
+        onClick={() => toggleMainSection(type)}
+      >
+        <Typography variant="subtitle2">
+          {getTypeLabel(type)} ({nodes.length})
+        </Typography>
+        <IconButton size="small">
+          {expandedMainSections[type] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </IconButton>
+      </Box>
+      <Collapse in={expandedMainSections[type]} timeout="auto" unmountOnExit>
+        <List>
+          {nodes.map((node, nodeIndex) => (
+            <React.Fragment key={node.id}>
+              {renderNode(node)}
+              {nodeIndex < nodes.length - 1 && (
+                <Box sx={{ 
+                  height: 1, 
+                  bgcolor: 'divider',
+                  mx: 2,
+                  opacity: 0.5
+                }} />
+              )}
+            </React.Fragment>
+          ))}
+        </List>
+      </Collapse>
     </Box>
+  );
+
+  return (
+    <Paper 
+      elevation={3} 
+      sx={{ 
+        height: '100%', 
+        display: 'flex', 
+        flexDirection: 'column',
+        transition: 'width 0.3s ease',
+        width: isCollapsed ? '48px' : '300px',
+        overflow: 'hidden'
+      }}
+    >
+      <Box sx={{ 
+        p: 1, 
+        display: 'flex', 
+        alignItems: 'center',
+        borderBottom: 1,
+        borderColor: 'divider'
+      }}>
+        {!isCollapsed && (
+          <TextField
+            fullWidth
+            size="small"
+            placeholder="Search nodes..."
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            sx={{ mr: 1 }}
+          />
+        )}
+        <IconButton onClick={toggleCollapse} size="small">
+          {isCollapsed ? <ExpandMoreIcon /> : <ExpandLessIcon />}
+        </IconButton>
+      </Box>
+
+      {!isCollapsed && (
+        <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
+          {renderSection('business_area', filteredNodes.business_area)}
+          <Divider />
+          {renderSection('system', filteredNodes.system)}
+        </Box>
+      )}
+    </Paper>
   );
 }; 
