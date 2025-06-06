@@ -55,6 +55,8 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         return 'info';
       case 'system':
         return 'info';
+      case 'dev_team':
+        return 'success';
       default:
         return 'info';
     }
@@ -201,7 +203,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
           {(() => {
             // Get all possible node types
-            const allTypes: NodeType[] = ['business_area', 'business_domain', 'service_domain', 'api', 'event', 'bom', 'system'];
+            const allTypes: NodeType[] = ['business_area', 'business_domain', 'service_domain', 'api', 'event', 'bom', 'system', 'dev_team'];
             
             // Get all possible relations for this node type
             const possibleRelations = allTypes.flatMap(targetType => {
@@ -213,7 +215,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
             });
 
             const elements = possibleRelations.map(({ type, relation }) => {
-              const visibleNodes = getVisibleRelatedNodesByType(type);
+              const visibleNodes = getRelatedNodesByType(type);
               
               const name = type === 'business_area' ? 'Business Area' :
                            type === 'business_domain' ? 'Business Domain' :
@@ -222,12 +224,16 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
                            type === 'event' ? 'Event' :
                            type === 'bom' ? 'Business Object Model' :
                            type === 'system' ? 'System' :
+                           type === 'dev_team' ? 'Development Team' :
                            type;
+
+              // Show count for all relations, including system owner
+              const badgeContent = visibleNodes.length;
 
               return (
                 <Badge
                   key={`${type}-${relation}`}
-                  badgeContent={visibleNodes.length}
+                  badgeContent={badgeContent}
                   color="primary"
                   sx={{
                     '& .MuiBadge-badge': {

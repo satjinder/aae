@@ -166,13 +166,6 @@
       "description": "Payment gateway publishes payment executed events"
     },
     {
-      "id": "edge-71",
-      "source": "team-payments-platform",
-      "target": "team-core-banking",
-      "label": "depends_on",
-      "description": "Payments platform team depends on core banking team for account services"
-    },
-    {
       "id": "edge-72",
       "source": "sys-payment-gateway",
       "target": "sys-core-banking",
@@ -976,13 +969,6 @@
       "target": "event-payment-executed",
       "label": "publishes",
       "description": "Payment gateway publishes payment executed events"
-    },
-    {
-      "id": "edge-71",
-      "source": "team-payments-platform",
-      "target": "team-core-banking",
-      "label": "depends_on",
-      "description": "Payments platform team depends on core banking team for account services"
     },
     {
       "id": "edge-72",

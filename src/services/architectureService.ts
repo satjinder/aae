@@ -152,49 +152,9 @@ export const relationTypes: RelationType[] = [
   {
     name: 'owns',
     inverseName: 'owned by',
-    description: 'Team owns a system or business domain',
+    description: 'Development team owns and maintains a system',
     sourceType: 'dev_team',
     targetType: 'system',
-    isBidirectional: true
-  },
-  {
-    name: 'owns',
-    inverseName: 'owned by',
-    description: 'Business team owns a business domain',
-    sourceType: 'business_team',
-    targetType: 'business_domain',
-    isBidirectional: true
-  },
-  {
-    name: 'leads',
-    inverseName: 'led by',
-    description: 'Business owner leads a business team',
-    sourceType: 'business_owner',
-    targetType: 'business_team',
-    isBidirectional: true
-  },
-  {
-    name: 'collaborates with',
-    inverseName: 'collaborates with',
-    description: 'Business team collaborates with a development team',
-    sourceType: 'business_team',
-    targetType: 'dev_team',
-    isBidirectional: true
-  },
-  {
-    name: 'influences',
-    inverseName: 'influenced by',
-    description: 'Business team influences development team priorities',
-    sourceType: 'business_team',
-    targetType: 'dev_team',
-    isBidirectional: true
-  },
-  {
-    name: 'depends on',
-    inverseName: 'required by',
-    description: 'Development team depends on another development team',
-    sourceType: 'dev_team',
-    targetType: 'dev_team',
     isBidirectional: true
   }
 ];

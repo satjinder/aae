@@ -43,6 +43,12 @@ interface SystemNode extends Node {
   type: 'system';
 }
 
+interface TeamNode extends Node {
+  type: 'dev_team';
+  team_size: number;
+  focus: string;
+}
+
 interface LeafNode extends Node {
   type: 'api' | 'event' | 'bom';
 }
@@ -57,7 +63,8 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [expandedMainSections, setExpandedMainSections] = useState<Record<string, boolean>>({
     business_area: true,
-    system: true
+    system: true,
+    dev_team: true
   });
 
   const getChildNodes = (nodeId: string, type: Node['type']): Node[] => {
@@ -107,6 +114,8 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
         return 'Business Object Models';
       case 'system':
         return 'Systems';
+      case 'dev_team':
+        return 'Development Teams';
       default:
         return type;
     }
@@ -135,14 +144,16 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
     if (!searchQuery) {
       return {
         business_area: groupedNodes.business_area || [],
-        system: groupedNodes.system || []
+        system: groupedNodes.system || [],
+        dev_team: groupedNodes.dev_team || []
       };
     }
 
     const query = searchQuery.toLowerCase();
     return {
       business_area: getMatchingNodes(groupedNodes.business_area || [], query),
-      system: getMatchingNodes(groupedNodes.system || [], query)
+      system: getMatchingNodes(groupedNodes.system || [], query),
+      dev_team: getMatchingNodes(groupedNodes.dev_team || [], query)
     };
   }, [groupedNodes, searchQuery]);
 
@@ -333,6 +344,8 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
 
       {!isCollapsed && (
         <Box sx={{ flexGrow: 1, overflow: 'auto' }}>
+          {renderSection('dev_team', filteredNodes.dev_team)}
+          <Divider />
           {renderSection('business_area', filteredNodes.business_area)}
           <Divider />
           {renderSection('system', filteredNodes.system)}
