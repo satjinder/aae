@@ -1,8 +1,7 @@
 import { HumanMessage, AIMessage, BaseMessage, MessageType } from "@langchain/core/messages";
 import type { Node } from "../services/architectureService";
 import { reactChain } from "./chains/reactChain";
-import { architectureTools } from "./tools/architecture";
-import { diagramTools } from "./tools/diagram";
+import { toolRegistry } from "./tools/toolRegistry";
 import type { ArchitectureTool } from "./chains/reactChain";
 
 // Custom message type for tool results
@@ -26,33 +25,20 @@ export interface AgentResponse {
   finalAnswer: string;
 }
 
-export type MessageCallback = (message: { role: 'assistant', content: string }) => void;
-
-// Helper function to execute tools
-async function executeTool(toolName: string, toolInput: string): Promise<string> {
-  const allTools: ArchitectureTool[] = [...architectureTools, ...diagramTools];
-  const tool = allTools.find((t: ArchitectureTool) => t.name === toolName);
-  
-  if (!tool) {
-    throw new Error(`Tool ${toolName} not found`);
-  }
-
-  try {
-    return await tool.execute(toolInput);
-  } catch (error: unknown) {
-    console.error(`Error executing tool ${toolName}:`, error);
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    return JSON.stringify({ 
-      error: true, 
-      message: `Failed to execute ${toolName}: ${errorMessage}` 
-    });
-  }
+export interface ChatMessage {
+  role: 'user' | 'assistant' | 'tool';
+  content: string;
+  timestamp: Date;
 }
+
+export type MessageCallback = (messages: ChatMessage[]) => void;
 
 export class ArchitectureAgent {
   private static instance: ArchitectureAgent;
   private chain = reactChain;
   private messageCallback?: MessageCallback;
+  private messageHistory: Array<BaseMessage> = [];
+  private readonly MAX_ITERATIONS = 5;
 
   private constructor() {}
 
@@ -65,114 +51,213 @@ export class ArchitectureAgent {
 
   public setMessageCallback(callback: MessageCallback) {
     this.messageCallback = callback;
+    // Immediately notify with current history
+    this.notifyMessageCallback();
   }
 
-  private sendMessage(content: string) {
+  private notifyMessageCallback() {
     if (this.messageCallback) {
-      this.messageCallback({ role: 'assistant', content });
+      this.messageCallback(this.getMessageHistory());
     }
   }
 
+  public getMessageHistory(): ChatMessage[] {
+    return this.messageHistory.map(msg => ({
+      role: msg instanceof HumanMessage ? 'user' 
+        : msg instanceof ToolResultMessage ? 'tool'
+        : 'assistant',
+      content: typeof msg.content === 'string' ? msg.content : JSON.stringify(msg.content),
+      timestamp: new Date()
+    }));
+  }
+
+  public clearHistory() {
+    this.messageHistory = [];
+    this.notifyMessageCallback();
+  }
+
+  private addMessage(message: BaseMessage) {
+    this.messageHistory.push(message);
+    this.notifyMessageCallback();
+  }
+
   private extractField(lines: string[], prefix: string): string {
-    const startIndex = lines.findIndex((l: string) => l.startsWith(prefix));
-    if (startIndex === -1) return '';
+    const startIndex = lines.findIndex((l: string) => l.trim().startsWith(prefix));
+    if (startIndex === -1) {
+      console.log(`Field "${prefix}" not found in response`);
+      return '';
+    }
     
-    // Get all lines until the next field prefix
     const nextPrefixIndex = lines.findIndex((l: string, i) => 
       i > startIndex && 
-      (l.startsWith('Thought:') || 
-       l.startsWith('User Message:') || 
-       l.startsWith('Action:') || 
-       l.startsWith('Action Input:') || 
-       l.startsWith('Observation:') || 
-       l.startsWith('Final Answer:'))
+      (l.trim().startsWith('Thought:') || 
+       l.trim().startsWith('Action:') || 
+       l.trim().startsWith('Action Input:') || 
+       l.trim().startsWith('Observation:') || 
+       l.trim().startsWith('Final Answer:'))
     );
     
     const endIndex = nextPrefixIndex === -1 ? lines.length : nextPrefixIndex;
     const fieldLines = lines.slice(startIndex, endIndex);
     
-    // Remove the prefix from the first line and join all lines
     return fieldLines
       .map((line, i) => i === 0 ? line.replace(prefix, '').trim() : line.trim())
+      .filter(line => line.length > 0)
       .join('\n')
       .trim();
   }
 
-  async invoke(input: string, chatHistory: Array<BaseMessage> = []): Promise<AgentResponse> {
-    let currentMessages = [
-      new HumanMessage(input),
-      ...chatHistory
-    ];
+  private async processIteration(
+    currentMessages: Array<BaseMessage>,
+    iteration: number
+  ): Promise<{
+    thought: string;
+    action: string;
+    actionInput: string;
+    observation: string;
+    answer: string;
+    shouldContinue: boolean;
+  }> {
+    const chainInput = {
+      messages: currentMessages,
+      tools: toolRegistry.getAllTools(),
+    };
+
+    const response = await this.chain.invoke(chainInput);
+    console.log('Raw chain response:', response);
+    
+    // Debug: Log the response format
+    console.log('Response type:', typeof response);
+    console.log('Response structure:', JSON.stringify(response, null, 2));
+    
+    // Handle both string and object responses
+    let responseText: string;
+    if (typeof response === 'string') {
+      responseText = response;
+    } else if (response && typeof response === 'object') {
+      // If it's an object, try to extract the content
+      const responseObj = response as { content?: string; text?: string };
+      responseText = responseObj.content || responseObj.text || JSON.stringify(response);
+    } else {
+      console.error('Unexpected response format:', response);
+      responseText = '';
+    }
+    
+    // Check if this is a conversational response (no structured fields)
+    if (!responseText.includes('Thought:') && 
+        !responseText.includes('Action:') && 
+        !responseText.includes('Action Input:') && 
+        !responseText.includes('Observation:') && 
+        !responseText.includes('Final Answer:')) {
+      // This is a conversational response, treat it as the final answer
+      this.addMessage(new AIMessage(responseText));
+      return {
+        thought: '',
+        action: '',
+        actionInput: '',
+        observation: '',
+        answer: responseText,
+        shouldContinue: false
+      };
+    }
+    
+    // Split response into lines and clean up
+    const lines = responseText
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0);
+    
+    console.log('Cleaned lines:', lines);
+    
+    const thought = this.extractField(lines, 'Thought:');
+    const action = this.extractField(lines, 'Action:');
+    const actionInput = this.extractField(lines, 'Action Input:');
+    const observation = this.extractField(lines, 'Observation:');
+    const answer = this.extractField(lines, 'Final Answer:');
+
+    console.log('Extracted fields:', {
+      thought,
+      action,
+      actionInput,
+      observation,
+      answer
+    });
+
+    // If no action is suggested, we're done
+    if (!action) {
+      if (answer) {
+        this.addMessage(new AIMessage(answer));
+      }
+      return {
+        thought,
+        action,
+        actionInput,
+        observation,
+        answer,
+        shouldContinue: false
+      };
+    }
+
+    // Execute the tool
+    const toolResult = await toolRegistry.executeTool(action, actionInput);
+
+    // Add the tool result to the message history for context
+    const toolMessage = new ToolResultMessage(`Tool ${action} result: ${toolResult}`);
+    this.addMessage(toolMessage);
+
+    // Add the final answer if available
+    if (answer) {
+      this.addMessage(new AIMessage(answer));
+    }
+
+    return {
+      thought,
+      action,
+      actionInput,
+      observation: toolResult,
+      answer,
+      shouldContinue: iteration < this.MAX_ITERATIONS - 1
+    };
+  }
+
+  async invoke(input: string): Promise<AgentResponse> {
+    // Create and add user message to history
+    const userMessage = new HumanMessage(input);
+    this.addMessage(userMessage);
+
+    let currentMessages = [userMessage, ...this.messageHistory];
     let finalThought = '';
     let finalAction = '';
     let finalActionInput = '';
     let finalObservation = '';
     let finalAnswer = '';
 
-    const MAX_ITERATIONS = 5;
     let iteration = 0;
+    let shouldContinue = true;
 
-    while (iteration < MAX_ITERATIONS) {
+    while (iteration < this.MAX_ITERATIONS && shouldContinue) {
       iteration++;
-      const chainInput = {
-        messages: currentMessages,
-        tools: [...architectureTools, ...diagramTools],
-      };
-
-      const response = await this.chain.invoke(chainInput);
-      const lines = response.split('\n');
       
-      const thought = this.extractField(lines, 'Thought:');
-      const userMessage = this.extractField(lines, 'User Message:');
-      const action = this.extractField(lines, 'Action:');
-      const actionInput = this.extractField(lines, 'Action Input:');
-      const observation = this.extractField(lines, 'Observation:');
-      const answer = this.extractField(lines, 'Final Answer:');
+      const result = await this.processIteration(currentMessages, iteration);
+      
+      finalThought = result.thought;
+      finalAction = result.action;
+      finalActionInput = result.actionInput;
+      finalObservation = result.observation;
+      finalAnswer = result.answer;
+      shouldContinue = result.shouldContinue;
 
-      // Send user-friendly message if available
-      if (userMessage) {
-        this.sendMessage(userMessage);
-      }
-
-      // If no action is suggested, we're done
-      if (!action) {
-        finalAnswer = answer || finalAnswer;
-        break;
-      }
-
-      // Execute the tool
-      const toolResult = await executeTool(action, actionInput);
-      const parsedResult = JSON.parse(toolResult);
-
-      // Update final values
-      finalThought = thought;
-      finalAction = action;
-      finalActionInput = actionInput;
-      finalObservation = toolResult;
-      finalAnswer = answer;
-
-      // Add the interaction to messages for context
-      currentMessages = [
-        ...currentMessages,
-        new AIMessage(response),
-        new ToolResultMessage(`Tool ${action} result: ${JSON.stringify(JSON.parse(toolResult), null, 2)}`)
-      ];
-
-      // If this is the last iteration, break
-      if (iteration === MAX_ITERATIONS - 1) {
-        finalAnswer = answer;
-        break;
-      }
+      currentMessages = [userMessage, ...this.messageHistory];
     }
 
     // If we hit the max iterations, set the final answer
-    if (iteration >= MAX_ITERATIONS) {
+    if (iteration >= this.MAX_ITERATIONS) {
       finalAnswer = finalAnswer || 'Maximum iterations reached. Would you like to continue?';
     }
 
-    // Send the final answer
-    if (finalAnswer) {
-      this.sendMessage(finalAnswer);
+    // Send the final answer if we haven't already
+    if (finalAnswer && !this.messageHistory.some(msg => msg.content === finalAnswer)) {
+      this.addMessage(new AIMessage(finalAnswer));
     }
 
     return {
@@ -180,7 +265,7 @@ export class ArchitectureAgent {
       action: finalAction,
       actionInput: finalActionInput,
       observation: finalObservation,
-      finalAnswer
+      finalAnswer: finalAnswer || finalThought
     };
   }
 }

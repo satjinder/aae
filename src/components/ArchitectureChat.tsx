@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import {
   Box,
   Paper,
@@ -10,7 +10,6 @@ import {
   ListItemText,
   Divider,
   CircularProgress,
-  Button,
   Collapse
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
@@ -19,14 +18,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ChatIcon from '@mui/icons-material/Chat';
 import { architectureService } from '../services/architectureService';
 import type { Node } from '../services/architectureService';
-import { architectureAgent, AgentResponse } from '../agents/architectureAgent';
-import { HumanMessage, AIMessage } from "@langchain/core/messages";
-
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-}
+import { architectureAgent, type ChatMessage } from '../agents/architectureAgent';
 
 interface ArchitectureChatProps {
   onAddNode: (node: Node) => void;
@@ -41,18 +33,31 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
   onNodeAdded,
   onDiagramStateChange
 }) => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Set up message callback
+  // Filter messages to exclude tool results
+  const filteredMessages = useMemo(() => {
+    return messages.filter(message => message.role !== 'tool');
+  }, [messages]);
+
+  // Auto-scroll to bottom when messages change
+  const scrollToBottom = useCallback(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   useEffect(() => {
-    architectureAgent.setMessageCallback((message) => {
-      setMessages(prev => [...prev, {
-        ...message,
-        timestamp: new Date()
-      }]);
+    scrollToBottom();
+  }, [filteredMessages, scrollToBottom]);
+
+  // Set up message callback and load initial history
+  useEffect(() => {
+    // Set up callback for new messages
+    architectureAgent.setMessageCallback((newMessages) => {
+      setMessages(newMessages);
     });
   }, []);
 
@@ -60,41 +65,17 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Add user message to chat
-    const userMessage: Message = {
-      role: 'user',
-      content: input,
-      timestamp: new Date()
-    };
-    setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsProcessing(true);
 
     try {
       // Get response from agent
-      const response = await architectureAgent.invoke(input, messages.map(msg => 
-        msg.role === 'user' ? new HumanMessage(msg.content) : new AIMessage(msg.content)
-      ));
-
-      // Add the final answer to messages if it exists
-      if (response.finalAnswer) {
-        setMessages(prev => [...prev, {
-          role: 'assistant',
-          content: response.finalAnswer,
-          timestamp: new Date()
-        }]);
-      }
-
+      await architectureAgent.invoke(input);
+      
       // Notify parent about diagram state changes
       onDiagramStateChange?.();
     } catch (error) {
       console.error('Error:', error);
-      const errorMessage: Message = {
-        role: 'assistant',
-        content: 'Sorry, I encountered an error. Please try again.',
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsProcessing(false);
     }
@@ -154,7 +135,7 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
               gap: 1
             }}
           >
-            {messages.map((message, index) => (
+            {filteredMessages.map((message, index) => (
               <React.Fragment key={index}>
                 <ListItem
                   sx={{
@@ -166,7 +147,9 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
                     elevation={1}
                     sx={{
                       p: 1,
-                      backgroundColor: message.role === 'user' ? 'primary.light' : 'grey.100',
+                      backgroundColor: message.role === 'user' 
+                        ? 'primary.light' 
+                        : 'grey.100',
                       color: message.role === 'user' ? 'white' : 'text.primary'
                     }}
                   >
@@ -179,7 +162,7 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
                     />
                   </Paper>
                 </ListItem>
-                {index < messages.length - 1 && <Divider />}
+                {index < filteredMessages.length - 1 && <Divider />}
               </React.Fragment>
             ))}
             {isProcessing && (
@@ -187,6 +170,7 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
                 <CircularProgress size={20} />
               </ListItem>
             )}
+            <div ref={messagesEndRef} />
           </List>
 
           <Box sx={{ p: 2, borderTop: 1, borderColor: 'divider' }}>

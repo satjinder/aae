@@ -1,22 +1,13 @@
-export { ToggleNodeTool } from './toggleNodeTool';
-export { ExpandNodeTool } from './expandNodeTool';
-export { CollapseNodeTool } from './collapseNodeTool';
-export { GetVisibleNodesOnDiagramTool } from './getVisibleNodesToolOnDiagram';
-export { GetVisibleEdgesOnDiagramTool } from './getVisibleEdgesOnDiagramTool';
-export { ClearDiagramTool } from './clearDiagramTool';
-
-import { ToggleNodeTool } from './toggleNodeTool';
-import { ExpandNodeTool } from './expandNodeTool';
-import { CollapseNodeTool } from './collapseNodeTool';
+// Diagram tools
 import { GetVisibleNodesOnDiagramTool } from './getVisibleNodesToolOnDiagram';
 import { GetVisibleEdgesOnDiagramTool } from './getVisibleEdgesOnDiagramTool';
 import { ClearDiagramTool } from './clearDiagramTool';
+import { ManageNodeVisibilityTool } from './manageNodeVisibilityTool';
 
+// Export all diagram tools
 export const diagramTools = [
-  new ToggleNodeTool(),
-  new ExpandNodeTool(),
-  new CollapseNodeTool(),
   new GetVisibleNodesOnDiagramTool(),
   new GetVisibleEdgesOnDiagramTool(),
-  new ClearDiagramTool()
+  new ClearDiagramTool(),
+  new ManageNodeVisibilityTool()
 ]; 

@@ -19,160 +19,6 @@
       }
     },
     {
-      "id": "edge-50",
-      "source": "sys-salesforce-crm",
-      "target": "sd-customer-case",
-      "label": "implements",
-      "description": "Salesforce CRM implements customer case management capabilities"
-    },
-    {
-      "id": "edge-51",
-      "source": "sys-servicenow",
-      "target": "sd-customer-case",
-      "label": "implements",
-      "description": "ServiceNow handles internal IT service cases overlapping with customer cases"
-    },
-    {
-      "id": "edge-52",
-      "source": "sys-payment-gateway",
-      "target": "sd-payment-order",
-      "label": "implements",
-      "description": "Payment gateway system implements payment order processing"
-    },
-    {
-      "id": "edge-53",
-      "source": "sys-core-banking",
-      "target": "sd-payment-order",
-      "label": "implements",
-      "description": "Core banking system handles account validation and settlement for payments"
-    },
-    {
-      "id": "edge-54",
-      "source": "team-customer-experience",
-      "target": "sys-salesforce-crm",
-      "label": "owns",
-      "description": "Customer experience team owns and maintains Salesforce CRM system"
-    },
-    {
-      "id": "edge-55",
-      "source": "team-crm-platform",
-      "target": "sys-servicenow",  
-      "label": "owns",
-      "description": "CRM platform team manages ServiceNow configuration and integrations"
-    },
-    {
-      "id": "edge-56",
-      "source": "team-payments-platform",
-      "target": "sys-payment-gateway",
-      "label": "owns", 
-      "description": "Payments platform team owns payment gateway system"
-    },
-    {
-      "id": "edge-57",
-      "source": "team-core-banking",
-      "target": "sys-core-banking",
-      "label": "owns",
-      "description": "Core banking team maintains legacy core banking system"
-    },
-    {
-      "id": "edge-58",
-      "source": "bizteam-customer-service",
-      "target": "bd-customer-relationship",
-      "label": "owns",
-      "description": "Customer service business team owns customer relationship business domain"
-    },
-    {
-      "id": "edge-59",
-      "source": "bizteam-payments-business",
-      "target": "bd-payment-initiation",
-      "label": "owns",
-      "description": "Payments business team owns payment initiation business domain"
-    },
-    {
-      "id": "edge-60",
-      "source": "bizteam-product-management",
-      "target": "bd-product-development",
-      "label": "owns",
-      "description": "Product management business team owns product development business domain"
-    },
-    {
-      "id": "edge-61",
-      "source": "bizowner-head-customer-service",
-      "target": "bizteam-customer-service",
-      "label": "leads",
-      "description": "Head of customer service leads customer service business team"
-    },
-    {
-      "id": "edge-62",
-      "source": "bizowner-head-payments",
-      "target": "bizteam-payments-business", 
-      "label": "leads",
-      "description": "Head of payments leads payments business team"
-    },
-    {
-      "id": "edge-63",
-      "source": "bizowner-head-product",
-      "target": "bizteam-product-management",
-      "label": "leads",
-      "description": "Head of product management leads product management business team"
-    },
-    {
-      "id": "edge-64",
-      "source": "bizteam-customer-service",
-      "target": "team-customer-experience",
-      "label": "collaborates_with",
-      "description": "Customer service business team collaborates with customer experience dev team"
-    },
-    {
-      "id": "edge-65",
-      "source": "bizteam-payments-business",
-      "target": "team-payments-platform",
-      "label": "collaborates_with", 
-      "description": "Payments business team collaborates with payments platform dev team"
-    },
-    {
-      "id": "edge-66",
-      "source": "bizteam-product-management",
-      "target": "team-customer-experience",
-      "label": "influences",
-      "description": "Product management business team influences customer experience development priorities"
-    },
-    {
-      "id": "edge-67",
-      "source": "sys-salesforce-crm",
-      "target": "api-case-initiate",
-      "label": "hosts",
-      "description": "Salesforce CRM system hosts the case initiation API endpoint"
-    },
-    {
-      "id": "edge-68",
-      "source": "sys-salesforce-crm",
-      "target": "event-case-created",
-      "label": "publishes",
-      "description": "Salesforce CRM publishes case created events to event bus"
-    },
-    {
-      "id": "edge-69",
-      "source": "sys-payment-gateway",
-      "target": "api-payment-initiate",
-      "label": "hosts",
-      "description": "Payment gateway system hosts payment initiation API"
-    },
-    {
-      "id": "edge-70",
-      "source": "sys-payment-gateway",
-      "target": "event-payment-executed",
-      "label": "publishes",
-      "description": "Payment gateway publishes payment executed events"
-    },
-    {
-      "id": "edge-72",
-      "source": "sys-payment-gateway",
-      "target": "sys-core-banking",
-      "label": "integrates_with",
-      "description": "Payment gateway integrates with core banking for account validation"
-    },
-    {
       "id": "sys-servicenow",
       "name": "ServiceNow Platform",
       "type": "system", 
@@ -978,12 +824,14 @@
       "description": "Payment gateway integrates with core banking for account validation"
     },
     {
+      "id": "edge-73",
       "source": "ba-risk-compliance",
       "target": "ba-lending",
       "label": "governs",
       "description": "Risk policies govern lending decisions but no direct API calls"
     },
     {
+      "id": "edge-74",
       "source": "ba-deposits",
       "target": "ba-payments",
       "label": "shares data with",

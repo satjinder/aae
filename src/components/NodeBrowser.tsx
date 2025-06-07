@@ -61,11 +61,8 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
 }) => {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [expandedMainSections, setExpandedMainSections] = useState<Record<string, boolean>>({
-    business_area: true,
-    system: true,
-    dev_team: true
-  });
+  const [expandedMainSections, setExpandedMainSections] = useState<Set<string>>(new Set());
+  const [expandedSubSections, setExpandedSubSections] = useState<Set<string>>(new Set());
 
   const getChildNodes = (nodeId: string, type: Node['type']): Node[] => {
     const edges = architectureService.getAllData().edges;
@@ -92,10 +89,15 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
   };
 
   const toggleMainSection = (sectionType: string) => {
-    setExpandedMainSections(prev => ({
-      ...prev,
-      [sectionType]: !prev[sectionType]
-    }));
+    setExpandedMainSections(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(sectionType)) {
+        newSet.delete(sectionType);
+      } else {
+        newSet.add(sectionType);
+      }
+      return newSet;
+    });
   };
 
   const getTypeLabel = (type: Node['type']): string => {
@@ -285,10 +287,10 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
           {getTypeLabel(type)} ({nodes.length})
         </Typography>
         <IconButton size="small">
-          {expandedMainSections[type] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          {expandedMainSections.has(type) ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </IconButton>
       </Box>
-      <Collapse in={expandedMainSections[type]} timeout="auto" unmountOnExit>
+      <Collapse in={expandedMainSections.has(type)} timeout="auto" unmountOnExit>
         <List>
           {nodes.map((node, nodeIndex) => (
             <React.Fragment key={node.id}>

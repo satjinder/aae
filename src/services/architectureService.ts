@@ -159,7 +159,7 @@ export const relationTypes: RelationType[] = [
   }
 ];
 
-const nodeTypes: NodeType[] = [
+export const nodeTypes: NodeType[] = [
   'business_area',
   'business_domain',
   'service_domain',
@@ -171,6 +171,9 @@ const nodeTypes: NodeType[] = [
   'business_team',
   'business_owner'
 ];
+
+// Maximum number of hops allowed in relation paths
+export const MAX_RELATION_HOPS = 4;
 
 // Initialize empty allowed relations map with all node types
 const initializeAllowedRelations = (): Record<NodeType, Record<NodeType, string[]>> => {
@@ -451,9 +454,9 @@ export class ArchitectureService {
   public searchNodes(query: string): Node[] {
     const searchTerm = query.toLowerCase();
     return this.data.nodes.filter(node => 
-      node.name.toLowerCase().includes(searchTerm) ||
-      node.description.toLowerCase().includes(searchTerm) ||
-      node.type.toLowerCase().includes(searchTerm)
+      (node.name?.toLowerCase() || '').includes(searchTerm) ||
+      (node.description?.toLowerCase() || '').includes(searchTerm) ||
+      (node.type?.toLowerCase() || '').includes(searchTerm)
     );
   }
 
@@ -540,6 +543,198 @@ export class ArchitectureService {
       return node.name.toLowerCase().includes(searchTerm) ||
              node.description.toLowerCase().includes(searchTerm);
     });
+  }
+
+  /**
+   * Finds all possible relation paths between two node types, including indirect paths through intermediate nodes
+   * @param sourceType - The source node type
+   * @param targetType - The target node type
+   * @returns Array of relation paths, where each path is an array of relation types
+   */
+  public findRelationPaths(sourceType: NodeType, targetType: NodeType): string[][] {
+    const paths: string[][] = [];
+    const visited = new Set<string>();
+
+    const findPaths = (currentType: NodeType, targetType: NodeType, currentPath: string[], hops: number) => {
+      // If we've reached the target type, add the path
+      if (currentType === targetType) {
+        paths.push([...currentPath]);
+        return;
+      }
+
+      // Stop if we've reached the maximum number of hops
+      if (hops >= MAX_RELATION_HOPS) {
+        return;
+      }
+
+      // Mark current type as visited
+      visited.add(currentType);
+
+      // Try all possible node types as intermediate steps
+      for (const intermediateType of nodeTypes) {
+        // Skip if we've already visited this type
+        if (visited.has(intermediateType)) continue;
+
+        // Check if there's a direct relation from current to intermediate
+        const relationsToIntermediate = this.getAllowedRelations(currentType, intermediateType);
+        if (relationsToIntermediate.length > 0) {
+          // For each possible relation, try to find a path to target
+          for (const relation of relationsToIntermediate) {
+            currentPath.push(relation);
+            findPaths(intermediateType, targetType, currentPath, hops + 1);
+            currentPath.pop();
+          }
+        }
+      }
+
+      // Backtrack
+      visited.delete(currentType);
+    };
+
+    // Start the path finding from the source type with 0 hops
+    findPaths(sourceType, targetType, [], 0);
+
+    return paths;
+  }
+
+  /**
+   * Gets a human-readable description of a relation path
+   * @param path - Array of relation types forming a path
+   * @returns Human-readable description of the path
+   */
+  public getRelationPathDescription(path: string[]): string {
+    if (path.length === 0) return 'No path found';
+    if (path.length === 1) return path[0];
+
+    return path.join(' → ');
+  }
+
+  /**
+   * Finds the shortest path(s) from a specific node to any node of a target type
+   * @param sourceNodeId - The ID of the source node
+   * @param targetType - The target node type to find paths to
+   * @returns Array of shortest paths, where each path contains the sequence of nodes and relations
+   */
+  public findPathsFromNodeToType(sourceNodeId: string, targetType: NodeType): Array<{
+    path: string[];
+    nodes: Node[];
+    relations: string[];
+  }> {
+    const sourceNode = this.getNodeById(sourceNodeId);
+    if (!sourceNode) {
+      return [];
+    }
+
+    const paths: Array<{
+      path: string[];
+      nodes: Node[];
+      relations: string[];
+      length: number;
+    }> = [];
+    const visited = new Set<string>();
+    let shortestPathLength = Infinity;
+
+    const findPaths = (
+      currentNode: Node,
+      currentPath: string[],
+      currentNodes: Node[],
+      currentRelations: string[],
+      currentLength: number
+    ) => {
+      // If we've reached a node of the target type
+      if (currentNode.type === targetType) {
+        // Only add the path if it's not longer than the current shortest path
+        if (currentLength <= shortestPathLength) {
+          // If this path is shorter than current shortest, clear previous paths
+          if (currentLength < shortestPathLength) {
+            paths.length = 0;
+            shortestPathLength = currentLength;
+          }
+          paths.push({
+            path: [...currentPath],
+            nodes: [...currentNodes],
+            relations: [...currentRelations],
+            length: currentLength
+          });
+        }
+        return;
+      }
+
+      // Stop if we've already found a shorter path
+      if (currentLength >= shortestPathLength) {
+        return;
+      }
+
+      // Mark current node as visited
+      visited.add(currentNode.id);
+
+      // Get all connected nodes
+      const connectedNodes = this.getConnectedNodes(currentNode.id);
+      const edges = this.getEdgesByNodeId(currentNode.id);
+
+      // For each connected node
+      for (const connectedNode of connectedNodes) {
+        // Skip if we've already visited this node
+        if (visited.has(connectedNode.id)) continue;
+
+        // Find the edge between current and connected node
+        const edge = edges.find(e => 
+          (e.source === currentNode.id && e.target === connectedNode.id) ||
+          (e.source === connectedNode.id && e.target === currentNode.id)
+        );
+
+        if (edge) {
+          // Add the node and relation to the current path
+          currentPath.push(connectedNode.id);
+          currentNodes.push(connectedNode);
+          currentRelations.push(edge.label);
+
+          // Continue searching from this node
+          findPaths(connectedNode, currentPath, currentNodes, currentRelations, currentLength + 1);
+
+          // Backtrack
+          currentPath.pop();
+          currentNodes.pop();
+          currentRelations.pop();
+        }
+      }
+
+      // Backtrack
+      visited.delete(currentNode.id);
+    };
+
+    // Start the path finding from the source node
+    findPaths(sourceNode, [sourceNodeId], [sourceNode], [], 0);
+
+    // Return only the path information without the length property
+    return paths.map(({ path, nodes, relations }) => ({
+      path,
+      nodes,
+      relations
+    }));
+  }
+
+  /**
+   * Gets a human-readable description of a node path
+   * @param path - The path object containing nodes and relations
+   * @returns Human-readable description of the path
+   */
+  public getNodePathDescription(path: {
+    path: string[];
+    nodes: Node[];
+    relations: string[];
+  }): string {
+    if (path.nodes.length === 0) return 'No path found';
+    if (path.nodes.length === 1) return path.nodes[0].name;
+
+    const descriptions: string[] = [];
+    for (let i = 0; i < path.nodes.length - 1; i++) {
+      descriptions.push(`${path.nodes[i].name} (${path.nodes[i].type})`);
+      descriptions.push(path.relations[i]);
+    }
+    descriptions.push(`${path.nodes[path.nodes.length - 1].name} (${path.nodes[path.nodes.length - 1].type})`);
+
+    return descriptions.join(' → ');
   }
 }
 

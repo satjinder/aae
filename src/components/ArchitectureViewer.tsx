@@ -32,6 +32,7 @@ import { architectureService } from '../services/architectureService';
 import { diagramService } from '../services/diagramService';
 import type { Node as ArchitectureNode } from '../services/architectureService';
 import type { DiagramNode } from '../services/diagramService';
+import { ManageNodeVisibilityTool } from '../agents/tools/diagram/manageNodeVisibilityTool';
 
 const nodeTypes: NodeTypes = {
   custom: CustomNode
@@ -59,24 +60,12 @@ export const ArchitectureViewer: React.FC = () => {
     position: node.position || getRandomPosition(),
     data: { 
       ...node,
-      onToggleNode: (nodeId: string) => {
-        if (diagramService.isNodeVisible(nodeId)) {
-          diagramService.removeNode(nodeId);
-        } else {
-          diagramService.addNode(nodeId);
-        }
-        // Update visible nodes and edges
-        const visibleNodes = diagramService.getVisibleNodes();
-        const visibleEdges = diagramService.getEdges();
-        setNodes(visibleNodes.map(toReactFlowNode));
-        setEdges(visibleEdges);
-      },
-      onToggleVisibility: (nodeId: string) => {
-        if (diagramService.isNodeVisible(nodeId)) {
-          diagramService.removeNode(nodeId);
-        } else {
-          diagramService.addNode(nodeId);
-        }
+      onToggleNode: async (nodeId: string) => {
+        const tool = new ManageNodeVisibilityTool();
+        await tool.execute(JSON.stringify({
+          nodeId,
+          action: diagramService.isNodeVisible(nodeId) ? 'remove' : 'add'
+        }));
         // Update visible nodes and edges
         const visibleNodes = diagramService.getVisibleNodes();
         const visibleEdges = diagramService.getEdges();
@@ -152,7 +141,11 @@ export const ArchitectureViewer: React.FC = () => {
     
     // Update state
     setNodes(visibleNodes.map(toReactFlowNode));
-    setEdges(visibleEdges);
+    // Ensure each edge has a unique ID
+    setEdges(visibleEdges.map(edge => ({
+      ...edge,
+      id: edge.id || `edge-${edge.source}-${edge.target}-${edge.label}`
+    })));
     setAllNodes(data.nodes);
     loadGroupedNodes(data.nodes);
   }, [loadGroupedNodes]);
