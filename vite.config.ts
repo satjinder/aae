@@ -15,4 +15,9 @@ export default defineConfig({
      
     ],
   },
+  base: '/aae/', // Replace with your repository name
+  build: {
+    outDir: 'dist',
+    sourcemap: true
+  }
 })

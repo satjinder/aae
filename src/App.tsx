@@ -13,13 +13,21 @@ export const ApiKeyContext = createContext<{ apiKey: string; setApiKey: (key: st
 export const useApiKey = () => useContext(ApiKeyContext);
 
 function ApiKeyProvider({ children }: { children: React.ReactNode }) {
-  const [apiKey, setApiKey] = useState<string>(import.meta.env.VITE_OPENAI_API_KEY || '');
+  const [apiKey, setApiKeyState] = useState<string>(() => {
+    // Try to get from localStorage first, then fall back to env variable
+    return localStorage.getItem('openai_api_key') || import.meta.env.VITE_OPENAI_API_KEY || '';
+  });
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
 
   useEffect(() => {
     if (!apiKey) setOpen(true);
   }, [apiKey]);
+
+  const setApiKey = (key: string) => {
+    setApiKeyState(key);
+    localStorage.setItem('openai_api_key', key);
+  };
 
   const handleSave = () => {
     setApiKey(input.trim());
