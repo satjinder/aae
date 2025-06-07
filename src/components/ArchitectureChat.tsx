@@ -19,6 +19,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import { architectureService } from '../services/architectureService';
 import type { Node } from '../services/architectureService';
 import { architectureAgent, type ChatMessage } from '../agents/architectureAgent';
+import { useApiKey } from '../App';
 
 interface ArchitectureChatProps {
   onAddNode: (node: Node) => void;
@@ -38,6 +39,7 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { apiKey } = useApiKey();
 
   // Filter messages to exclude tool results
   const filteredMessages = useMemo(() => {
@@ -60,6 +62,13 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
       setMessages(newMessages);
     });
   }, []);
+
+  // Set API key when available
+  useEffect(() => {
+    if (apiKey) {
+      architectureAgent.setApiKey(apiKey);
+    }
+  }, [apiKey]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

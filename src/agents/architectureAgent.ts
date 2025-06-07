@@ -1,8 +1,9 @@
 import { HumanMessage, AIMessage, BaseMessage, MessageType } from "@langchain/core/messages";
 import type { Node } from "../services/architectureService";
-import { reactChain } from "./chains/reactChain";
+import { createReactChain } from "./chains/reactChain";
 import { toolRegistry } from "./tools/toolRegistry";
 import type { ArchitectureTool } from "./chains/reactChain";
+import { useApiKey } from "../App";
 
 // Custom message type for tool results
 class ToolResultMessage extends BaseMessage {
@@ -35,18 +36,28 @@ export type MessageCallback = (messages: ChatMessage[]) => void;
 
 export class ArchitectureAgent {
   private static instance: ArchitectureAgent;
-  private chain = reactChain;
+  private chain: any;
   private messageCallback?: MessageCallback;
   private messageHistory: Array<BaseMessage> = [];
   private readonly MAX_ITERATIONS = 5;
 
-  private constructor() {}
+  private constructor() {
+    // Initialize with empty chain, will be set when API key is available
+    this.chain = null;
+  }
 
   public static getInstance(): ArchitectureAgent {
     if (!ArchitectureAgent.instance) {
       ArchitectureAgent.instance = new ArchitectureAgent();
     }
     return ArchitectureAgent.instance;
+  }
+
+  public setApiKey(apiKey: string) {
+    if (!apiKey) {
+      throw new Error('API key is required');
+    }
+    this.chain = createReactChain(apiKey);
   }
 
   public setMessageCallback(callback: MessageCallback) {
@@ -118,6 +129,10 @@ export class ArchitectureAgent {
     answer: string;
     shouldContinue: boolean;
   }> {
+    if (!this.chain) {
+      throw new Error('API key not set. Please set the API key before using the agent.');
+    }
+
     const chainInput = {
       messages: currentMessages,
       tools: toolRegistry.getAllTools(),
