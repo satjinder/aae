@@ -5,14 +5,16 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# Allow the action to read and write permissions
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -32,9 +34,14 @@ jobs:
       
       - name: Build
         run: npm run build
+        env:
+          VITE_OPENAI_API_KEY: ${{ secrets.VITE_OPENAI_API_KEY }}
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          # Automatically inject base tag in the index.html
+          static_site_generator: vite
       
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
