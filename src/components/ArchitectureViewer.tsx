@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import ReactFlow, {
   Background,
   Controls,
@@ -14,9 +14,8 @@ import ReactFlow, {
   applyNodeChanges,
   applyEdgeChanges
 } from 'reactflow';
-import type { Edge, NodeTypes } from 'reactflow';
+import type { NodeTypes } from 'reactflow';
 import 'reactflow/dist/style.css';
-import ELK from 'elkjs/lib/elk.bundled.js';
 import { 
   Box, 
   IconButton, 
@@ -45,9 +44,8 @@ const getRandomPosition = (): XYPosition => ({
 });
 
 export const ArchitectureViewer: React.FC = () => {
-  const [allNodes, setAllNodes] = useState<ArchitectureNode[]>([]);
-  const [nodes, setNodes, onNodesChange] = useNodesState<DiagramNode>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [nodes, setNodes] = useNodesState<DiagramNode>([]);
+  const [edges, setEdges] = useEdgesState([]);
   const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [showNodeList, setShowNodeList] = useState(true);
@@ -90,7 +88,6 @@ export const ArchitectureViewer: React.FC = () => {
   // Initialize nodes and edges
   useEffect(() => {
     const data = architectureService.getAllData();
-    setAllNodes(data.nodes);
     loadGroupedNodes(data.nodes);
     
     // Start with empty diagram
@@ -146,7 +143,6 @@ export const ArchitectureViewer: React.FC = () => {
       ...edge,
       id: edge.id || `edge-${edge.source}-${edge.target}-${edge.label}`
     })));
-    setAllNodes(data.nodes);
     loadGroupedNodes(data.nodes);
   }, [loadGroupedNodes]);
 
@@ -245,8 +241,6 @@ export const ArchitectureViewer: React.FC = () => {
       </Box>
 
       <ArchitectureChat
-        onAddNode={handleNodeAdd}
-        onSearchNodes={(query: string) => architectureService.searchNodes(query)}
         onDiagramStateChange={handleDiagramStateChange}
       />
     </Box>

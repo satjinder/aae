@@ -27,32 +27,6 @@ interface NodeBrowserProps {
   onAddNode: (node: Node) => void;
 }
 
-interface BusinessAreaNode extends Node {
-  type: 'business_area';
-}
-
-interface BusinessDomainNode extends Node {
-  type: 'business_domain';
-}
-
-interface ServiceDomainNode extends Node {
-  type: 'service_domain';
-}
-
-interface SystemNode extends Node {
-  type: 'system';
-}
-
-interface TeamNode extends Node {
-  type: 'dev_team';
-  team_size: number;
-  focus: string;
-}
-
-interface LeafNode extends Node {
-  type: 'api' | 'event' | 'bom';
-}
-
 export const NodeBrowser: React.FC<NodeBrowserProps> = ({
   searchQuery,
   onSearchChange,
@@ -62,19 +36,14 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [expandedMainSections, setExpandedMainSections] = useState<Set<string>>(new Set());
-  const [expandedSubSections, setExpandedSubSections] = useState<Set<string>>(new Set());
 
-  const getChildNodes = (nodeId: string, type: Node['type']): Node[] => {
+  const getChildNodes = (nodeId: string): Node[] => {
     const edges = architectureService.getAllData().edges;
     const childEdges = edges.filter(edge => edge.source === nodeId);
     return childEdges.map(edge => {
       const targetNode = architectureService.getNodeById(edge.target);
       return targetNode!;
     });
-  };
-
-  const getChildCount = (nodeId: string): number => {
-    return getChildNodes(nodeId, 'business_area').length;
   };
 
   const toggleSection = (nodeId: string) => {
@@ -130,7 +99,7 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
       node.description.toLowerCase().includes(query);
 
     // Get child nodes
-    const childNodes = getChildNodes(node.id, node.type);
+    const childNodes = getChildNodes(node.id);
     
     // Check if any child nodes match
     const childrenMatch = childNodes.some(child => searchInNode(child, query));
@@ -159,10 +128,10 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
     };
   }, [groupedNodes, searchQuery]);
 
-  const renderNode = (node: Node, level: number = 0) => {
+  const renderNode = (node: Node) => {
     const hasChildren = ['business_area', 'business_domain', 'service_domain'].includes(node.type);
     const isExpanded = expandedSections[node.id];
-    const childNodes = hasChildren ? getChildNodes(node.id, node.type) : [];
+    const childNodes = hasChildren ? getChildNodes(node.id) : [];
     const childCount = hasChildren ? childNodes.length : 0;
 
     // If searching, expand nodes that have matching children

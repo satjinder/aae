@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
 import { Handle, Position } from 'reactflow';
-import { Box, Typography, Paper, Chip, Badge, IconButton, Tooltip, Button } from '@mui/material';
+import { Box, Typography, Paper, Chip, Badge, IconButton, Tooltip } from '@mui/material';
 
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import AddIcon from '@mui/icons-material/Add';
 import { CreateNodeDialog } from '../CreateNodeDialog';
 import { architectureService } from '../../services/architectureService';
@@ -37,7 +36,6 @@ interface CustomNodeProps {
 
 const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const connectedNodes = architectureService.getConnectedNodes(data.id);
 
   const getNodeTypeColor = (type: NodeType) => {
     switch (type) {
@@ -71,10 +69,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
   const getRelatedNodesByType = (type: NodeType) => {
     if (!data.relatedNodes) return [];
     return data.relatedNodes.filter(node => node.type === type);
-  };
-
-  const getVisibleRelatedNodesByType = (type: NodeType) => {
-    return getRelatedNodesByType(type).filter(node => !data.hiddenNodes?.has(node.id));
   };
 
   const handleIconClick = (type: NodeType) => {
@@ -133,14 +127,6 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
   const handleToggleVisibility = () => {
     if (data.onToggleVisibility) {
       data.onToggleVisibility(data.id);
-    }
-  };
-
-  const handleExpandCollapse = () => {
-    if (data.isExpanded && data.onCollapse) {
-      data.onCollapse(data.id);
-    } else if (!data.isExpanded && data.onExpand) {
-      data.onExpand(data.id);
     }
   };
 

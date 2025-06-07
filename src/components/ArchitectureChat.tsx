@@ -13,25 +13,16 @@ import {
   Collapse
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ChatIcon from '@mui/icons-material/Chat';
-import { architectureService } from '../services/architectureService';
-import type { Node } from '../services/architectureService';
 import { architectureAgent, type ChatMessage } from '../agents/architectureAgent';
 import { useApiKey } from '../App';
 
 interface ArchitectureChatProps {
-  onAddNode: (node: Node) => void;
-  onSearchNodes: (query: string) => Node[];
-  onNodeAdded?: (node: Node) => void;
   onDiagramStateChange?: () => void;
 }
 
 export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
-  onAddNode,
-  onSearchNodes,
-  onNodeAdded,
   onDiagramStateChange
 }) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);

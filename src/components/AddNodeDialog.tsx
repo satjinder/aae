@@ -30,7 +30,7 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
 }) => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
-  const [type, setType] = useState<Node['type']>('domainService');
+  const [type, setType] = useState<Node['type']>('service_domain');
 
   const handleSubmit = () => {
     onAdd({
@@ -40,7 +40,7 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
     });
     setName('');
     setDescription('');
-    setType('domainService');
+    setType('service_domain');
     onClose();
   };
 
@@ -50,7 +50,7 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
       <DialogContent>
         <Box sx={{ mb: 2 }}>
           <Typography variant="subtitle2" color="text.secondary">
-            Creating node from: {sourceNode.label}
+            Creating node from: {sourceNode.name}
           </Typography>
           <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
             Node ID: {sourceNode.id}
@@ -82,11 +82,16 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
             label="Node Type"
             onChange={(e) => setType(e.target.value as Node['type'])}
           >
-            <MenuItem value="capability">Capability</MenuItem>
-            <MenuItem value="domainService">Domain Service</MenuItem>
+            <MenuItem value="business_area">Business Area</MenuItem>
+            <MenuItem value="business_domain">Business Domain</MenuItem>
+            <MenuItem value="service_domain">Service Domain</MenuItem>
             <MenuItem value="api">API</MenuItem>
             <MenuItem value="event">Event</MenuItem>
-            <MenuItem value="dataProduct">Data Product</MenuItem>
+            <MenuItem value="bom">Business Object Model</MenuItem>
+            <MenuItem value="system">System</MenuItem>
+            <MenuItem value="dev_team">Development Team</MenuItem>
+            <MenuItem value="business_team">Business Team</MenuItem>
+            <MenuItem value="business_owner">Business Owner</MenuItem>
           </Select>
         </FormControl>
       </DialogContent>

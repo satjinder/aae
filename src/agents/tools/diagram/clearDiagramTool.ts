@@ -30,7 +30,7 @@ export class ClearDiagramTool extends BaseArchitectureTool {
     super(metadata);
   }
 
-  async execute(input: string): Promise<string> {
+  async execute(): Promise<string> {
     try {
       // Clear the diagram
       await diagramService.clear();
