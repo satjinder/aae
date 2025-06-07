@@ -7,6 +7,7 @@ export class GetVisibleNodesOnDiagramTool extends BaseArchitectureTool {
     const metadata: ToolMetadata = {
       name: 'getVisibleNodesOnDiagram',
       description: 'Get all currently visible nodes on the diagram',
+      inputSchema: z.string().optional().describe('No input required, but can be used to filter nodes by type'),
       outputSchema: z.object({
         nodes: z.array(z.object({
           id: z.string(),
@@ -27,6 +28,11 @@ export class GetVisibleNodesOnDiagramTool extends BaseArchitectureTool {
           input: '',
           output: '{"nodes":[{"id":"1","name":"Payment Service","type":"domainService"}],"message":"Found 1 visible node"}',
           description: 'Get all visible nodes when one node is shown'
+        },
+        {
+          input: 'domainService',
+          output: '{"nodes":[{"id":"1","name":"Payment Service","type":"domainService"}],"message":"Found 1 visible domain service"}',
+          description: 'Get visible nodes filtered by type'
         }
       ]
     };
@@ -35,9 +41,10 @@ export class GetVisibleNodesOnDiagramTool extends BaseArchitectureTool {
 
   async execute(input: string): Promise<string> {
     const nodes = await diagramService.getVisibleNodes();
+    const filteredNodes = input ? nodes.filter(node => node.type === input) : nodes;
     return this.validateOutput({
-      nodes,
-      message: `Found ${nodes.length} visible node${nodes.length === 1 ? '' : 's'}`
+      nodes: filteredNodes,
+      message: `Found ${filteredNodes.length} visible ${input ? input : 'node'}${filteredNodes.length === 1 ? '' : 's'}`
     });
   }
 } 

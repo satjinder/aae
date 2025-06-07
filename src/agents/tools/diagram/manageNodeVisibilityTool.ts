@@ -1,37 +1,49 @@
-import { BaseArchitectureTool } from '../baseTool';
+import { BaseArchitectureTool, ToolMetadata } from '../baseTool';
 import { diagramService } from '../../../services/diagramService';
-import type { ToolMetadata } from '../baseTool';
+import { z } from 'zod';
 
 export class ManageNodeVisibilityTool extends BaseArchitectureTool {
   constructor() {
     const metadata: ToolMetadata = {
       name: 'manageNodeVisibility',
-      description: 'Add or remove nodes from the diagram. Input can be JSON format: [{"nodeId": "id", "action": "add"|"remove"}], CSV format: "action,nodeId1,nodeId2,...", or semicolon-separated format: "nodeId1,action1; nodeId2,action2; ..."'
+      description: 'Add or remove nodes from the diagram',
+      inputSchema: z.union([
+        z.array(z.object({
+          nodeId: z.string(),
+          action: z.enum(['add', 'remove', 'show', 'hide'])
+        })),
+        z.string().describe('CSV format: "action,nodeId1,nodeId2,..." or semicolon-separated format: "nodeId1,action1; nodeId2,action2; ..."')
+      ]),
+      outputSchema: z.object({
+        success: z.boolean(),
+        message: z.string(),
+        results: z.array(z.object({
+          nodeId: z.string(),
+          success: z.boolean(),
+          error: z.string().optional()
+        }))
+      }),
+      usageGuidelines: [
+        'Use this tool to control node visibility in the diagram',
+        'Can add or remove multiple nodes at once',
+        'Supports multiple input formats for flexibility',
+        'Use when you need to show or hide specific nodes in the visualization',
+        'Helpful for focusing on specific parts of the architecture'
+      ],
+      examples: [
+        {
+          input: '[{"nodeId": "node1", "action": "add"}, {"nodeId": "node2", "action": "remove"}]',
+          output: '{"success":true,"message":"2 nodes processed","results":[{"nodeId":"node1","success":true},{"nodeId":"node2","success":true}]}',
+          description: 'Add one node and remove another using JSON format'
+        },
+        {
+          input: 'add,node1,node2,node3',
+          output: '{"success":true,"message":"3 nodes processed","results":[{"nodeId":"node1","success":true},{"nodeId":"node2","success":true},{"nodeId":"node3","success":true}]}',
+          description: 'Add multiple nodes using CSV format'
+        }
+      ]
     };
     super(metadata);
-  }
-
-  getGuidance(): string {
-    return `This tool helps manage node visibility in the diagram. You can:
-1. Add nodes to make them visible
-2. Remove nodes to hide them
-3. Process multiple nodes at once
-
-Input formats supported:
-- JSON: [{"nodeId": "id", "action": "add"|"remove"}]
-- CSV: "action,nodeId1,nodeId2,..."
-- Semicolon-separated: "nodeId1,action1; nodeId2,action2; ..."
-
-Valid actions:
-- add/show: Make a node visible
-- remove/hide: Hide a node
-
-Example inputs:
-- JSON: [{"nodeId": "node1", "action": "add"}, {"nodeId": "node2", "action": "remove"}]
-- CSV: "add,node1,node2,node3"
-- Semicolon: "node1,add; node2,remove; node3,show"
-
-The tool will return a summary of successful and failed operations.`;
   }
 
   async execute(input: string): Promise<string> {
@@ -62,7 +74,7 @@ The tool will return a summary of successful and failed operations.`;
           // Try CSV format as fallback
           const parts = input.split(',');
           if (parts.length < 2) {
-            return JSON.stringify({
+            return this.validateOutput({
               error: true,
               message: 'Input must be either JSON format, CSV format, or semicolon-separated format'
             });
@@ -77,7 +89,7 @@ The tool will return a summary of successful and failed operations.`;
       const validActions = ['add', 'remove', 'show', 'hide'];
       const invalidActions = nodeActions.filter(na => !validActions.includes(na.action));
       if (invalidActions.length > 0) {
-        return JSON.stringify({
+        return this.validateOutput({
           error: true,
           message: `Invalid actions found: ${invalidActions.map(na => na.action).join(', ')}. Valid actions are: ${validActions.join(', ')}`
         });
@@ -101,13 +113,13 @@ The tool will return a summary of successful and failed operations.`;
       const successCount = results.filter(r => r.success).length;
       const failedCount = results.length - successCount;
 
-      return JSON.stringify({
+      return this.validateOutput({
         success: true,
         message: `${successCount} nodes processed${failedCount > 0 ? `, ${failedCount} failed` : ''}`,
         results
       });
     } catch (error) {
-      return JSON.stringify({
+      return this.validateOutput({
         error: true,
         message: `Error managing node visibility: ${error instanceof Error ? error.message : 'Unknown error'}`
       });

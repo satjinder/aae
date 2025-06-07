@@ -64,12 +64,17 @@ export const CreateNodeDialog: React.FC<CreateNodeDialogProps> = ({
   // Get available relation types for selected node type
   const availableRelationTypes = useMemo(() => {
     // Define the valid relation types based on architecture.json
-    const validRelations = {
+    const validRelations: Record<Node['type'], string[]> = {
       'business_area': ['contains', 'integrates with', 'governs', 'shares data with'],
       'business_domain': ['implements', 'collaborates with'],
       'service_domain': ['exposes', 'publishes', 'implements'],
       'api': ['depends on'],
-      'event': ['triggers']
+      'event': ['triggers'],
+      'bom': ['represents'],
+      'system': ['implements', 'depends on'],
+      'dev_team': ['maintains', 'develops'],
+      'business_team': ['owns', 'manages'],
+      'business_owner': ['owns', 'approves']
     };
 
     // Get the allowed relations from the architecture service

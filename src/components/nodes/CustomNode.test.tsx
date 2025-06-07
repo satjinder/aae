@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import CustomNode from './CustomNode';
 import { TestWrapper } from '../../test/TestWrapper';
+import type { NodeType } from '../../services/architectureService';
 
 const renderWithWrapper = (component: React.ReactElement) => {
   return render(component, { wrapper: TestWrapper });
@@ -11,7 +12,7 @@ const renderWithWrapper = (component: React.ReactElement) => {
 describe('CustomNode', () => {
   const mockData = {
     id: 'test-node',
-    type: 'api',
+    type: 'api' as NodeType,
     name: 'Test API',
     description: 'Test Description',
     data: {
@@ -32,7 +33,7 @@ describe('CustomNode', () => {
     relatedNodes: [
       {
         id: 'related-domain-service',
-        type: 'domainService',
+        type: 'service_domain' as NodeType,
         name: 'Related Domain Service',
         description: 'Related Description'
       }

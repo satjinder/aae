@@ -5,7 +5,6 @@ import { PromptTemplate } from "@langchain/core/prompts";
 import { HumanMessage, AIMessage } from "@langchain/core/messages";
 import { architectureService, nodeTypes } from "../../services/architectureService";
 import { toolRegistry } from "../tools/toolRegistry";
-import { useApiKey } from "../../App";
 
 const systemPrompt = `You are an experienced architect helping users discover and understand their system architecture. Your role is to help users browse existing architecture or propose new components when you identify gaps.
 

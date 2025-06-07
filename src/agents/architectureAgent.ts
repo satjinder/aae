@@ -1,9 +1,6 @@
 import { HumanMessage, AIMessage, BaseMessage, MessageType } from "@langchain/core/messages";
-import type { Node } from "../services/architectureService";
 import { createReactChain } from "./chains/reactChain";
 import { toolRegistry } from "./tools/toolRegistry";
-import type { ArchitectureTool } from "./chains/reactChain";
-import { useApiKey } from "../App";
 
 // Custom message type for tool results
 class ToolResultMessage extends BaseMessage {

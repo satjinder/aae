@@ -13,8 +13,6 @@ export interface DiagramNode extends Node {
 export class DiagramService {
   private static instance: DiagramService;
   private state: DiagramState;
-  private nodes: Node[] = [];
-  private edges: Edge[] = [];
 
   private constructor() {
     this.state = {
@@ -26,9 +24,7 @@ export class DiagramService {
 
   private initialize() {
     // Get all nodes from architecture service but don't make them visible
-    const data = architectureService.getAllData();
-    this.nodes = data.nodes;
-    this.edges = data.edges;
+    architectureService.getAllData();
     // Start with empty visible nodes
     this.state.visibleNodes.clear();
   }
@@ -112,8 +108,6 @@ export class DiagramService {
   async clear(): Promise<void> {
     this.state.visibleNodes.clear();
     this.state.expandedNodes.clear();
-    this.nodes = [];
-    this.edges = [];
   }
 
   public refresh() {
