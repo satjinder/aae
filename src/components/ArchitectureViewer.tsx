@@ -69,6 +69,18 @@ export const ArchitectureViewer: React.FC = () => {
         const visibleEdges = diagramService.getEdges();
         setNodes(visibleNodes.map(toReactFlowNode));
         setEdges(visibleEdges);
+      },
+      onToggleVisibility: async (nodeId: string) => {
+        const tool = new ManageNodeVisibilityTool();
+        await tool.execute(JSON.stringify({
+          nodeId,
+          action: diagramService.isNodeVisible(nodeId) ? 'remove' : 'add'
+        }));
+        // Update visible nodes and edges
+        const visibleNodes = diagramService.getVisibleNodes();
+        const visibleEdges = diagramService.getEdges();
+        setNodes(visibleNodes.map(toReactFlowNode));
+        setEdges(visibleEdges);
       }
     }
   });
