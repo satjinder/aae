@@ -5,11 +5,41 @@ This project serves two primary objectives:
 1. Exploration of AI capabilities in visualizing and understanding complex architectural patterns
 2. Demonstration of BIAN (Banking Industry Architecture Network) concepts and their practical application in banking systems
 
-The tool visualizes how BIAN's conceptual model maps to real-world banking systems and teams, effectively demonstrating Conway's Law in action. It provides an interactive way to understand the relationships between:
+The tool embodies the concept of "Architecture as Enablement" - empowering various roles within the organization to understand, interact with, and propose changes to the architecture. It bridges the gap between architectural constructs and practical implementation by:
+
+- Enabling architects to define and maintain architectural constructs
+- Allowing business analysts, developers, and other stakeholders to understand current architecture
+- Facilitating the proposal of architectural changes by any team member
+- Supporting architects and solution designers in reviewing proposed changes
+- Providing a common language for discussing architectural decisions
+
+The visualization demonstrates how BIAN's conceptual model maps to real-world banking systems and teams, effectively illustrating Conway's Law in action. It provides an interactive way to understand the relationships between:
 - BIAN service domains and capabilities
 - Actual banking systems and applications
 - Organizational team structures
 - System interactions and dependencies
+
+## Architecture as Enablement
+This project promotes a modern approach to enterprise architecture where:
+
+### For Architects
+- Define and maintain architectural constructs using BIAN framework
+- Create clear visualization of architectural decisions
+- Review and validate proposed changes
+- Ensure alignment with enterprise standards
+
+### For Other Roles
+- Understand current architecture through interactive visualization
+- Propose changes with clear context and impact
+- Collaborate with architects on architectural decisions
+- Learn architectural patterns through practical examples
+
+### Key Benefits
+- Democratized access to architectural knowledge
+- Reduced communication barriers between teams
+- Faster feedback loops for architectural changes
+- Better alignment between business and technical teams
+- Improved understanding of system dependencies
 
 ## Live Demo
 The application is deployed and available at: [https://satjinder.github.io/aae/](https://satjinder.github.io/aae/)
