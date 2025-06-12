@@ -1,0 +1,1644 @@
+{
+  "nodes": [
+    {
+      "id": "ba-operations-and-execution",
+      "name": "Operations and Execution",
+      "type": "business_area",
+      "description": "Business Area: Operations and Execution"
+    },
+    {
+      "id": "bd-product-specific-fulfillment",
+      "name": "Product Specific Fulfillment",
+      "type": "business_domain",
+      "description": "Business Domain: Product Specific Fulfillment"
+    },
+    {
+      "id": "bd-loans-and-deposits",
+      "name": "Loans and Deposits",
+      "type": "business_domain",
+      "description": "Business Domain: Loans and Deposits"
+    },
+    {
+      "id": "sd-loan",
+      "name": "Loan",
+      "type": "service_domain",
+      "description": "Service Domain: Loan"
+    },
+    {
+      "id": "sd-leasing",
+      "name": "Leasing",
+      "type": "service_domain",
+      "description": "Service Domain: Leasing"
+    },
+    {
+      "id": "sd-current-account",
+      "name": "Current Account",
+      "type": "service_domain",
+      "description": "Service Domain: Current Account"
+    },
+    {
+      "id": "sd-corporate-current-account",
+      "name": "Corporate Current Account",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Current Account"
+    },
+    {
+      "id": "sd-consumer-loan",
+      "name": "Consumer Loan",
+      "type": "service_domain",
+      "description": "Service Domain: Consumer Loan"
+    },
+    {
+      "id": "sd-corporate-loan",
+      "name": "Corporate Loan",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Loan"
+    },
+    {
+      "id": "sd-term-deposit",
+      "name": "Term Deposit",
+      "type": "service_domain",
+      "description": "Service Domain: Term Deposit"
+    },
+    {
+      "id": "sd-corporate-lease",
+      "name": "Corporate Lease",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Lease"
+    },
+    {
+      "id": "sd-merchandising-loan",
+      "name": "Merchandising Loan",
+      "type": "service_domain",
+      "description": "Service Domain: Merchandising Loan"
+    },
+    {
+      "id": "sd-mortgage-loan",
+      "name": "Mortgage Loan",
+      "type": "service_domain",
+      "description": "Service Domain: Mortgage Loan"
+    },
+    {
+      "id": "sd-fiduciary-agreement",
+      "name": "Fiduciary Agreement",
+      "type": "service_domain",
+      "description": "Service Domain: Fiduciary Agreement"
+    },
+    {
+      "id": "sd-savings-account",
+      "name": "Savings Account",
+      "type": "service_domain",
+      "description": "Service Domain: Savings Account"
+    },
+    {
+      "id": "sd-virtual-account",
+      "name": "Virtual Account",
+      "type": "service_domain",
+      "description": "Service Domain: Virtual Account"
+    },
+    {
+      "id": "sd-standing-order",
+      "name": "Standing Order",
+      "type": "service_domain",
+      "description": "Service Domain: Standing Order"
+    },
+    {
+      "id": "sd-term-deposit-framework-agreement",
+      "name": "Term Deposit Framework Agreement",
+      "type": "service_domain",
+      "description": "Service Domain: Term Deposit Framework Agreement"
+    },
+    {
+      "id": "bd-investment-management",
+      "name": "Investment Management",
+      "type": "business_domain",
+      "description": "Business Domain: Investment Management"
+    },
+    {
+      "id": "sd-investment-portfolio-planning",
+      "name": "Investment Portfolio Planning",
+      "type": "service_domain",
+      "description": "Service Domain: Investment Portfolio Planning"
+    },
+    {
+      "id": "sd-investment-portfolio-analysis",
+      "name": "Investment Portfolio Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Investment Portfolio Analysis"
+    },
+    {
+      "id": "sd-investment-portfolio-management",
+      "name": "Investment Portfolio Management",
+      "type": "service_domain",
+      "description": "Service Domain: Investment Portfolio Management"
+    },
+    {
+      "id": "sd-etrading-workbench",
+      "name": "eTrading Workbench",
+      "type": "service_domain",
+      "description": "Service Domain: eTrading Workbench"
+    },
+    {
+      "id": "sd-investment-account",
+      "name": "Investment Account",
+      "type": "service_domain",
+      "description": "Service Domain: Investment Account"
+    },
+    {
+      "id": "bd-trade-banking",
+      "name": "Trade Banking",
+      "type": "business_domain",
+      "description": "Business Domain: Trade Banking"
+    },
+    {
+      "id": "sd-letter-of-credit",
+      "name": "Letter of Credit",
+      "type": "service_domain",
+      "description": "Service Domain: Letter of Credit"
+    },
+    {
+      "id": "sd-bank-guarantee",
+      "name": "Bank Guarantee",
+      "type": "service_domain",
+      "description": "Service Domain: Bank Guarantee"
+    },
+    {
+      "id": "sd-credit-management",
+      "name": "Credit Management",
+      "type": "service_domain",
+      "description": "Service Domain: Credit Management"
+    },
+    {
+      "id": "sd-credit-facility",
+      "name": "Credit Facility",
+      "type": "service_domain",
+      "description": "Service Domain: Credit Facility"
+    },
+    {
+      "id": "sd-project-finance",
+      "name": "Project Finance",
+      "type": "service_domain",
+      "description": "Service Domain: Project Finance"
+    },
+    {
+      "id": "sd-limit-and-exposure-management",
+      "name": "Limit and Exposure Management",
+      "type": "service_domain",
+      "description": "Service Domain: Limit and Exposure Management"
+    },
+    {
+      "id": "sd-syndicated-loan",
+      "name": "Syndicated Loan",
+      "type": "service_domain",
+      "description": "Service Domain: Syndicated Loan"
+    },
+    {
+      "id": "sd-cash-management-and-account-services",
+      "name": "Cash Management And Account Services",
+      "type": "service_domain",
+      "description": "Service Domain: Cash Management And Account Services"
+    },
+    {
+      "id": "sd-direct-debit-mandate",
+      "name": "Direct Debit Mandate",
+      "type": "service_domain",
+      "description": "Service Domain: Direct Debit Mandate"
+    },
+    {
+      "id": "sd-direct-debit",
+      "name": "Direct Debit",
+      "type": "service_domain",
+      "description": "Service Domain: Direct Debit"
+    },
+    {
+      "id": "sd-cheque-lock-box",
+      "name": "Cheque Lock Box",
+      "type": "service_domain",
+      "description": "Service Domain: Cheque Lock Box"
+    },
+    {
+      "id": "sd-factoring",
+      "name": "Factoring",
+      "type": "service_domain",
+      "description": "Service Domain: Factoring"
+    },
+    {
+      "id": "sd-cash-concentration",
+      "name": "Cash Concentration",
+      "type": "service_domain",
+      "description": "Service Domain: Cash Concentration"
+    },
+    {
+      "id": "sd-notional-pooling",
+      "name": "Notional Pooling",
+      "type": "service_domain",
+      "description": "Service Domain: Notional Pooling"
+    },
+    {
+      "id": "sd-corporate-payroll-services",
+      "name": "Corporate Payroll Services",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Payroll Services"
+    },
+    {
+      "id": "bd-wholesale-trading",
+      "name": "Wholesale Trading",
+      "type": "business_domain",
+      "description": "Business Domain: Wholesale Trading"
+    },
+    {
+      "id": "sd-trading-book-oversight",
+      "name": "Trading Book Oversight",
+      "type": "service_domain",
+      "description": "Service Domain: Trading Book Oversight"
+    },
+    {
+      "id": "sd-trading-models",
+      "name": "Trading Models",
+      "type": "service_domain",
+      "description": "Service Domain: Trading Models"
+    },
+    {
+      "id": "sd-dealer-desk",
+      "name": "Dealer Desk",
+      "type": "service_domain",
+      "description": "Service Domain: Dealer Desk"
+    },
+    {
+      "id": "sd-quote-management",
+      "name": "Quote Management",
+      "type": "service_domain",
+      "description": "Service Domain: Quote Management"
+    },
+    {
+      "id": "sd-suitability-checking",
+      "name": "Suitability Checking",
+      "type": "service_domain",
+      "description": "Service Domain: Suitability Checking"
+    },
+    {
+      "id": "sd-credit-risk-operations",
+      "name": "Credit Risk Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Credit Risk Operations"
+    },
+    {
+      "id": "sd-market-making",
+      "name": "Market Making",
+      "type": "service_domain",
+      "description": "Service Domain: Market Making"
+    },
+    {
+      "id": "sd-ecm-and-dcm",
+      "name": "ECM And DCM",
+      "type": "service_domain",
+      "description": "Service Domain: ECM And DCM"
+    },
+    {
+      "id": "sd-program-trading",
+      "name": "Program Trading",
+      "type": "service_domain",
+      "description": "Service Domain: Program Trading"
+    },
+    {
+      "id": "sd-trader-position-operations",
+      "name": "Trader Position Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Trader Position Operations"
+    },
+    {
+      "id": "sd-market-order",
+      "name": "Market Order",
+      "type": "service_domain",
+      "description": "Service Domain: Market Order"
+    },
+    {
+      "id": "sd-market-order-execution",
+      "name": "Market Order Execution",
+      "type": "service_domain",
+      "description": "Service Domain: Market Order Execution"
+    },
+    {
+      "id": "bd-cards",
+      "name": "Cards",
+      "type": "business_domain",
+      "description": "Business Domain: Cards"
+    },
+    {
+      "id": "sd-credit-card",
+      "name": "Credit Card",
+      "type": "service_domain",
+      "description": "Service Domain: Credit Card"
+    },
+    {
+      "id": "sd-card-authorization",
+      "name": "Card Authorization",
+      "type": "service_domain",
+      "description": "Service Domain: Card Authorization"
+    },
+    {
+      "id": "sd-card-transaction-capture",
+      "name": "Card Transaction Capture",
+      "type": "service_domain",
+      "description": "Service Domain: Card Transaction Capture"
+    },
+    {
+      "id": "sd-merchant-relations",
+      "name": "Merchant Relations",
+      "type": "service_domain",
+      "description": "Service Domain: Merchant Relations"
+    },
+    {
+      "id": "sd-merchant-acquiring-facility",
+      "name": "Merchant Acquiring Facility",
+      "type": "service_domain",
+      "description": "Service Domain: Merchant Acquiring Facility"
+    },
+    {
+      "id": "sd-card-network-participant-facility",
+      "name": "Card Network Participant Facility",
+      "type": "service_domain",
+      "description": "Service Domain: Card Network Participant Facility"
+    },
+    {
+      "id": "sd-credit-card-position-keeping",
+      "name": "Credit Card Position Keeping",
+      "type": "service_domain",
+      "description": "Service Domain: Credit Card Position Keeping"
+    },
+    {
+      "id": "bd-market-operations",
+      "name": "Market Operations",
+      "type": "business_domain",
+      "description": "Business Domain: Market Operations"
+    },
+    {
+      "id": "sd-mutual-fund-administration",
+      "name": "Mutual Fund Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Mutual Fund Administration"
+    },
+    {
+      "id": "sd-hedge-fund-administration",
+      "name": "Hedge Fund Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Hedge Fund Administration"
+    },
+    {
+      "id": "sd-unit-trust-administration",
+      "name": "Unit Trust Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Unit Trust Administration"
+    },
+    {
+      "id": "sd-trade-confirmation-matching",
+      "name": "Trade Confirmation Matching",
+      "type": "service_domain",
+      "description": "Service Domain: Trade Confirmation Matching"
+    },
+    {
+      "id": "sd-order-allocation",
+      "name": "Order Allocation",
+      "type": "service_domain",
+      "description": "Service Domain: Order Allocation"
+    },
+    {
+      "id": "sd-securities-fails-processing",
+      "name": "Securities Fails Processing",
+      "type": "service_domain",
+      "description": "Service Domain: Securities Fails Processing"
+    },
+    {
+      "id": "sd-trade-and-price-reporting",
+      "name": "Trade and Price Reporting",
+      "type": "service_domain",
+      "description": "Service Domain: Trade and Price Reporting"
+    },
+    {
+      "id": "sd-custody-administration",
+      "name": "Custody Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Custody Administration"
+    },
+    {
+      "id": "sd-corporate-action",
+      "name": "Corporate Action",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Action"
+    },
+    {
+      "id": "sd-financial-instrument-valuation",
+      "name": "Financial Instrument Valuation",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Instrument Valuation"
+    },
+    {
+      "id": "sd-trade-clearing",
+      "name": "Trade Clearing",
+      "type": "service_domain",
+      "description": "Service Domain: Trade Clearing"
+    },
+    {
+      "id": "sd-trade-settlement",
+      "name": "Trade Settlement",
+      "type": "service_domain",
+      "description": "Service Domain: Trade Settlement"
+    },
+    {
+      "id": "bd-corporate-financing-and-advisory-services",
+      "name": "Corporate Financing and Advisory Services",
+      "type": "business_domain",
+      "description": "Business Domain: Corporate Financing and Advisory Services"
+    },
+    {
+      "id": "sd-public-offering",
+      "name": "Public Offering",
+      "type": "service_domain",
+      "description": "Service Domain: Public Offering"
+    },
+    {
+      "id": "sd-private-placement",
+      "name": "Private Placement",
+      "type": "service_domain",
+      "description": "Service Domain: Private Placement"
+    },
+    {
+      "id": "sd-mergers-and-acquisitions-advisory",
+      "name": "Mergers and Acquisitions Advisory",
+      "type": "service_domain",
+      "description": "Service Domain: Mergers and Acquisitions Advisory"
+    },
+    {
+      "id": "sd-corporate-tax-advisory",
+      "name": "Corporate Tax Advisory",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Tax Advisory"
+    },
+    {
+      "id": "sd-corporate-finance",
+      "name": "Corporate Finance",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Finance"
+    },
+    {
+      "id": "bd-consumer-services",
+      "name": "Consumer Services",
+      "type": "business_domain",
+      "description": "Business Domain: Consumer Services"
+    },
+    {
+      "id": "sd-corporate-trust-services",
+      "name": "Corporate Trust Services",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Trust Services"
+    },
+    {
+      "id": "sd-currency-exchange",
+      "name": "Currency Exchange",
+      "type": "service_domain",
+      "description": "Service Domain: Currency Exchange"
+    },
+    {
+      "id": "sd-bank-drafts",
+      "name": "Bank Drafts",
+      "type": "service_domain",
+      "description": "Service Domain: Bank Drafts"
+    },
+    {
+      "id": "sd-brokered-product",
+      "name": "Brokered Product",
+      "type": "service_domain",
+      "description": "Service Domain: Brokered Product"
+    },
+    {
+      "id": "sd-consumer-investments",
+      "name": "Consumer Investments",
+      "type": "service_domain",
+      "description": "Service Domain: Consumer Investments"
+    },
+    {
+      "id": "sd-customer-tax-handling",
+      "name": "Customer Tax Handling",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Tax Handling"
+    },
+    {
+      "id": "sd-consumer-advisory-services",
+      "name": "Consumer Advisory Services",
+      "type": "service_domain",
+      "description": "Service Domain: Consumer Advisory Services"
+    },
+    {
+      "id": "sd-trust-services",
+      "name": "Trust Services",
+      "type": "service_domain",
+      "description": "Service Domain: Trust Services"
+    },
+    {
+      "id": "bd-cross-product-operations",
+      "name": "Cross Product Operations",
+      "type": "business_domain",
+      "description": "Business Domain: Cross Product Operations"
+    },
+    {
+      "id": "bd-payments",
+      "name": "Payments",
+      "type": "business_domain",
+      "description": "Business Domain: Payments"
+    },
+    {
+      "id": "sd-payment-order",
+      "name": "Payment Order",
+      "type": "service_domain",
+      "description": "Service Domain: Payment Order"
+    },
+    {
+      "id": "sd-payment-execution",
+      "name": "Payment Execution",
+      "type": "service_domain",
+      "description": "Service Domain: Payment Execution"
+    },
+    {
+      "id": "sd-financial-message-analysis",
+      "name": "Financial Message Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Message Analysis"
+    },
+    {
+      "id": "sd-financial-gateway",
+      "name": "Financial Gateway",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Gateway"
+    },
+    {
+      "id": "sd-central-cash-handling",
+      "name": "Central Cash Handling",
+      "type": "service_domain",
+      "description": "Service Domain: Central Cash Handling"
+    },
+    {
+      "id": "sd-card-financial-settlement",
+      "name": "Card Financial Settlement",
+      "type": "service_domain",
+      "description": "Service Domain: Card Financial Settlement"
+    },
+    {
+      "id": "sd-card-ecommerce-gateway",
+      "name": "Card eCommerce Gateway",
+      "type": "service_domain",
+      "description": "Service Domain: Card eCommerce Gateway"
+    },
+    {
+      "id": "sd-card-clearing",
+      "name": "Card Clearing",
+      "type": "service_domain",
+      "description": "Service Domain: Card Clearing"
+    },
+    {
+      "id": "sd-ach-operations",
+      "name": "ACH Operations",
+      "type": "service_domain",
+      "description": "Service Domain: ACH Operations"
+    },
+    {
+      "id": "sd-cheque-processing",
+      "name": "Cheque Processing",
+      "type": "service_domain",
+      "description": "Service Domain: Cheque Processing"
+    },
+    {
+      "id": "sd-payment-instruction",
+      "name": "Payment Instruction",
+      "type": "service_domain",
+      "description": "Service Domain: Payment Instruction"
+    },
+    {
+      "id": "sd-correspondent-bank-operations",
+      "name": "Correspondent Bank Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Correspondent Bank Operations"
+    },
+    {
+      "id": "sd-payment-rail-operations",
+      "name": "Payment Rail Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Payment Rail Operations"
+    },
+    {
+      "id": "bd-account-management",
+      "name": "Account Management",
+      "type": "business_domain",
+      "description": "Business Domain: Account Management"
+    },
+    {
+      "id": "sd-reward-points-account",
+      "name": "Reward Points Account",
+      "type": "service_domain",
+      "description": "Service Domain: Reward Points Account"
+    },
+    {
+      "id": "sd-product-combination",
+      "name": "Product Combination",
+      "type": "service_domain",
+      "description": "Service Domain: Product Combination"
+    },
+    {
+      "id": "sd-position-management",
+      "name": "Position Management",
+      "type": "service_domain",
+      "description": "Service Domain: Position Management"
+    },
+    {
+      "id": "sd-position-keeping",
+      "name": "Position Keeping",
+      "type": "service_domain",
+      "description": "Service Domain: Position Keeping"
+    },
+    {
+      "id": "sd-fraud-evaluation",
+      "name": "Fraud Evaluation",
+      "type": "service_domain",
+      "description": "Service Domain: Fraud Evaluation"
+    },
+    {
+      "id": "sd-fraud-diagnosis",
+      "name": "Fraud Diagnosis",
+      "type": "service_domain",
+      "description": "Service Domain: Fraud Diagnosis"
+    },
+    {
+      "id": "sd-customer-position",
+      "name": "Customer Position",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Position"
+    },
+    {
+      "id": "sd-counterparty-risk",
+      "name": "Counterparty Risk",
+      "type": "service_domain",
+      "description": "Service Domain: Counterparty Risk"
+    },
+    {
+      "id": "sd-accounts-receivable",
+      "name": "Accounts Receivable",
+      "type": "service_domain",
+      "description": "Service Domain: Accounts Receivable"
+    },
+    {
+      "id": "sd-account-reconciliation",
+      "name": "Account Reconciliation",
+      "type": "service_domain",
+      "description": "Service Domain: Account Reconciliation"
+    },
+    {
+      "id": "sd-securities-position-keeping",
+      "name": "Securities Position Keeping",
+      "type": "service_domain",
+      "description": "Service Domain: Securities Position Keeping"
+    },
+    {
+      "id": "sd-transaction-engine",
+      "name": "Transaction Engine",
+      "type": "service_domain",
+      "description": "Service Domain: Transaction Engine"
+    },
+    {
+      "id": "bd-operational-services",
+      "name": "Operational Services",
+      "type": "business_domain",
+      "description": "Business Domain: Operational Services"
+    },
+    {
+      "id": "sd-reward-points-awards-and-redemption",
+      "name": "Reward Points Awards And Redemption",
+      "type": "service_domain",
+      "description": "Service Domain: Reward Points Awards And Redemption"
+    },
+    {
+      "id": "sd-open-item-management",
+      "name": "Open Item Management",
+      "type": "service_domain",
+      "description": "Service Domain: Open Item Management"
+    },
+    {
+      "id": "sd-leasing-item-administration",
+      "name": "Leasing Item Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Leasing Item Administration"
+    },
+    {
+      "id": "sd-issued-device-tracking",
+      "name": "Issued Device Tracking",
+      "type": "service_domain",
+      "description": "Service Domain: Issued Device Tracking"
+    },
+    {
+      "id": "sd-issued-device-administration",
+      "name": "Issued Device Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Issued Device Administration"
+    },
+    {
+      "id": "sd-disbursement",
+      "name": "Disbursement",
+      "type": "service_domain",
+      "description": "Service Domain: Disbursement"
+    },
+    {
+      "id": "sd-delinquent-account-handling",
+      "name": "Delinquent Account Handling",
+      "type": "service_domain",
+      "description": "Service Domain: Delinquent Account Handling"
+    },
+    {
+      "id": "sd-channel-activity-history",
+      "name": "Channel Activity History",
+      "type": "service_domain",
+      "description": "Service Domain: Channel Activity History"
+    },
+    {
+      "id": "sd-channel-activity-analysis",
+      "name": "Channel Activity Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Channel Activity Analysis"
+    },
+    {
+      "id": "sd-card-transaction-switch",
+      "name": "Card Transaction Switch",
+      "type": "service_domain",
+      "description": "Service Domain: Card Transaction Switch"
+    },
+    {
+      "id": "sd-card-collections",
+      "name": "Card Collections",
+      "type": "service_domain",
+      "description": "Service Domain: Card Collections"
+    },
+    {
+      "id": "sd-customer-billing",
+      "name": "Customer Billing",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Billing"
+    },
+    {
+      "id": "sd-internal-bank-account",
+      "name": "Internal Bank Account",
+      "type": "service_domain",
+      "description": "Service Domain: Internal Bank Account"
+    },
+    {
+      "id": "sd-processing-order",
+      "name": "Processing Order",
+      "type": "service_domain",
+      "description": "Service Domain: Processing Order"
+    },
+    {
+      "id": "bd-collateral-administration",
+      "name": "Collateral Administration",
+      "type": "business_domain",
+      "description": "Business Domain: Collateral Administration"
+    },
+    {
+      "id": "sd-collections",
+      "name": "Collections",
+      "type": "service_domain",
+      "description": "Service Domain: Collections"
+    },
+    {
+      "id": "sd-collateral-asset-administration",
+      "name": "Collateral Asset Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Collateral Asset Administration"
+    },
+    {
+      "id": "sd-collateral-allocation-management",
+      "name": "Collateral Allocation Management",
+      "type": "service_domain",
+      "description": "Service Domain: Collateral Allocation Management"
+    },
+    {
+      "id": "sd-party-asset-directory",
+      "name": "Party Asset Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Party Asset Directory"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-ba-operations-and-execution-bd-product-specific-fulfillment",
+      "source": "ba-operations-and-execution",
+      "target": "bd-product-specific-fulfillment",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-product-specific-fulfillment-bd-loans-and-deposits",
+      "source": "bd-product-specific-fulfillment",
+      "target": "bd-loans-and-deposits",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-loan",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-loan",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-leasing",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-leasing",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-current-account",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-current-account",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-corporate-current-account",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-corporate-current-account",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-consumer-loan",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-consumer-loan",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-corporate-loan",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-corporate-loan",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-term-deposit",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-term-deposit",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-corporate-lease",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-corporate-lease",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-merchandising-loan",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-merchandising-loan",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-mortgage-loan",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-mortgage-loan",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-fiduciary-agreement",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-fiduciary-agreement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-savings-account",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-savings-account",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-virtual-account",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-virtual-account",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-standing-order",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-standing-order",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-loans-and-deposits-sd-term-deposit-framework-agreement",
+      "source": "bd-loans-and-deposits",
+      "target": "sd-term-deposit-framework-agreement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-specific-fulfillment-bd-investment-management",
+      "source": "bd-product-specific-fulfillment",
+      "target": "bd-investment-management",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-investment-management-sd-investment-portfolio-planning",
+      "source": "bd-investment-management",
+      "target": "sd-investment-portfolio-planning",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-investment-management-sd-investment-portfolio-analysis",
+      "source": "bd-investment-management",
+      "target": "sd-investment-portfolio-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-investment-management-sd-investment-portfolio-management",
+      "source": "bd-investment-management",
+      "target": "sd-investment-portfolio-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-investment-management-sd-etrading-workbench",
+      "source": "bd-investment-management",
+      "target": "sd-etrading-workbench",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-investment-management-sd-investment-account",
+      "source": "bd-investment-management",
+      "target": "sd-investment-account",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-specific-fulfillment-bd-trade-banking",
+      "source": "bd-product-specific-fulfillment",
+      "target": "bd-trade-banking",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-letter-of-credit",
+      "source": "bd-trade-banking",
+      "target": "sd-letter-of-credit",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-bank-guarantee",
+      "source": "bd-trade-banking",
+      "target": "sd-bank-guarantee",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-credit-management",
+      "source": "bd-trade-banking",
+      "target": "sd-credit-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-credit-facility",
+      "source": "bd-trade-banking",
+      "target": "sd-credit-facility",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-project-finance",
+      "source": "bd-trade-banking",
+      "target": "sd-project-finance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-limit-and-exposure-management",
+      "source": "bd-trade-banking",
+      "target": "sd-limit-and-exposure-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-syndicated-loan",
+      "source": "bd-trade-banking",
+      "target": "sd-syndicated-loan",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-cash-management-and-account-services",
+      "source": "bd-trade-banking",
+      "target": "sd-cash-management-and-account-services",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-direct-debit-mandate",
+      "source": "bd-trade-banking",
+      "target": "sd-direct-debit-mandate",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-direct-debit",
+      "source": "bd-trade-banking",
+      "target": "sd-direct-debit",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-cheque-lock-box",
+      "source": "bd-trade-banking",
+      "target": "sd-cheque-lock-box",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-factoring",
+      "source": "bd-trade-banking",
+      "target": "sd-factoring",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-cash-concentration",
+      "source": "bd-trade-banking",
+      "target": "sd-cash-concentration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-notional-pooling",
+      "source": "bd-trade-banking",
+      "target": "sd-notional-pooling",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-trade-banking-sd-corporate-payroll-services",
+      "source": "bd-trade-banking",
+      "target": "sd-corporate-payroll-services",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-specific-fulfillment-bd-wholesale-trading",
+      "source": "bd-product-specific-fulfillment",
+      "target": "bd-wholesale-trading",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-trading-book-oversight",
+      "source": "bd-wholesale-trading",
+      "target": "sd-trading-book-oversight",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-trading-models",
+      "source": "bd-wholesale-trading",
+      "target": "sd-trading-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-dealer-desk",
+      "source": "bd-wholesale-trading",
+      "target": "sd-dealer-desk",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-quote-management",
+      "source": "bd-wholesale-trading",
+      "target": "sd-quote-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-suitability-checking",
+      "source": "bd-wholesale-trading",
+      "target": "sd-suitability-checking",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-credit-risk-operations",
+      "source": "bd-wholesale-trading",
+      "target": "sd-credit-risk-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-market-making",
+      "source": "bd-wholesale-trading",
+      "target": "sd-market-making",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-ecm-and-dcm",
+      "source": "bd-wholesale-trading",
+      "target": "sd-ecm-and-dcm",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-program-trading",
+      "source": "bd-wholesale-trading",
+      "target": "sd-program-trading",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-trader-position-operations",
+      "source": "bd-wholesale-trading",
+      "target": "sd-trader-position-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-market-order",
+      "source": "bd-wholesale-trading",
+      "target": "sd-market-order",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-wholesale-trading-sd-market-order-execution",
+      "source": "bd-wholesale-trading",
+      "target": "sd-market-order-execution",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-specific-fulfillment-bd-cards",
+      "source": "bd-product-specific-fulfillment",
+      "target": "bd-cards",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-cards-sd-credit-card",
+      "source": "bd-cards",
+      "target": "sd-credit-card",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cards-sd-card-authorization",
+      "source": "bd-cards",
+      "target": "sd-card-authorization",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cards-sd-card-transaction-capture",
+      "source": "bd-cards",
+      "target": "sd-card-transaction-capture",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cards-sd-merchant-relations",
+      "source": "bd-cards",
+      "target": "sd-merchant-relations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cards-sd-merchant-acquiring-facility",
+      "source": "bd-cards",
+      "target": "sd-merchant-acquiring-facility",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cards-sd-card-network-participant-facility",
+      "source": "bd-cards",
+      "target": "sd-card-network-participant-facility",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cards-sd-credit-card-position-keeping",
+      "source": "bd-cards",
+      "target": "sd-credit-card-position-keeping",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-specific-fulfillment-bd-market-operations",
+      "source": "bd-product-specific-fulfillment",
+      "target": "bd-market-operations",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-mutual-fund-administration",
+      "source": "bd-market-operations",
+      "target": "sd-mutual-fund-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-hedge-fund-administration",
+      "source": "bd-market-operations",
+      "target": "sd-hedge-fund-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-unit-trust-administration",
+      "source": "bd-market-operations",
+      "target": "sd-unit-trust-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-trade-confirmation-matching",
+      "source": "bd-market-operations",
+      "target": "sd-trade-confirmation-matching",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-order-allocation",
+      "source": "bd-market-operations",
+      "target": "sd-order-allocation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-securities-fails-processing",
+      "source": "bd-market-operations",
+      "target": "sd-securities-fails-processing",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-trade-and-price-reporting",
+      "source": "bd-market-operations",
+      "target": "sd-trade-and-price-reporting",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-custody-administration",
+      "source": "bd-market-operations",
+      "target": "sd-custody-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-corporate-action",
+      "source": "bd-market-operations",
+      "target": "sd-corporate-action",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-financial-instrument-valuation",
+      "source": "bd-market-operations",
+      "target": "sd-financial-instrument-valuation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-trade-clearing",
+      "source": "bd-market-operations",
+      "target": "sd-trade-clearing",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-operations-sd-trade-settlement",
+      "source": "bd-market-operations",
+      "target": "sd-trade-settlement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-specific-fulfillment-bd-corporate-financing-and-advisory-services",
+      "source": "bd-product-specific-fulfillment",
+      "target": "bd-corporate-financing-and-advisory-services",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-corporate-financing-and-advisory-services-sd-public-offering",
+      "source": "bd-corporate-financing-and-advisory-services",
+      "target": "sd-public-offering",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-corporate-financing-and-advisory-services-sd-private-placement",
+      "source": "bd-corporate-financing-and-advisory-services",
+      "target": "sd-private-placement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-corporate-financing-and-advisory-services-sd-mergers-and-acquisitions-advisory",
+      "source": "bd-corporate-financing-and-advisory-services",
+      "target": "sd-mergers-and-acquisitions-advisory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-corporate-financing-and-advisory-services-sd-corporate-tax-advisory",
+      "source": "bd-corporate-financing-and-advisory-services",
+      "target": "sd-corporate-tax-advisory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-corporate-financing-and-advisory-services-sd-corporate-finance",
+      "source": "bd-corporate-financing-and-advisory-services",
+      "target": "sd-corporate-finance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-specific-fulfillment-bd-consumer-services",
+      "source": "bd-product-specific-fulfillment",
+      "target": "bd-consumer-services",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-consumer-services-sd-corporate-trust-services",
+      "source": "bd-consumer-services",
+      "target": "sd-corporate-trust-services",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-consumer-services-sd-currency-exchange",
+      "source": "bd-consumer-services",
+      "target": "sd-currency-exchange",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-consumer-services-sd-bank-drafts",
+      "source": "bd-consumer-services",
+      "target": "sd-bank-drafts",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-consumer-services-sd-brokered-product",
+      "source": "bd-consumer-services",
+      "target": "sd-brokered-product",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-consumer-services-sd-consumer-investments",
+      "source": "bd-consumer-services",
+      "target": "sd-consumer-investments",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-consumer-services-sd-customer-tax-handling",
+      "source": "bd-consumer-services",
+      "target": "sd-customer-tax-handling",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-consumer-services-sd-consumer-advisory-services",
+      "source": "bd-consumer-services",
+      "target": "sd-consumer-advisory-services",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-consumer-services-sd-trust-services",
+      "source": "bd-consumer-services",
+      "target": "sd-trust-services",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-operations-and-execution-bd-cross-product-operations",
+      "source": "ba-operations-and-execution",
+      "target": "bd-cross-product-operations",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-cross-product-operations-bd-payments",
+      "source": "bd-cross-product-operations",
+      "target": "bd-payments",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-payments-sd-payment-order",
+      "source": "bd-payments",
+      "target": "sd-payment-order",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-payment-execution",
+      "source": "bd-payments",
+      "target": "sd-payment-execution",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-financial-message-analysis",
+      "source": "bd-payments",
+      "target": "sd-financial-message-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-financial-gateway",
+      "source": "bd-payments",
+      "target": "sd-financial-gateway",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-central-cash-handling",
+      "source": "bd-payments",
+      "target": "sd-central-cash-handling",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-card-financial-settlement",
+      "source": "bd-payments",
+      "target": "sd-card-financial-settlement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-card-ecommerce-gateway",
+      "source": "bd-payments",
+      "target": "sd-card-ecommerce-gateway",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-card-clearing",
+      "source": "bd-payments",
+      "target": "sd-card-clearing",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-ach-operations",
+      "source": "bd-payments",
+      "target": "sd-ach-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-cheque-processing",
+      "source": "bd-payments",
+      "target": "sd-cheque-processing",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-payment-instruction",
+      "source": "bd-payments",
+      "target": "sd-payment-instruction",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-correspondent-bank-operations",
+      "source": "bd-payments",
+      "target": "sd-correspondent-bank-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-payments-sd-payment-rail-operations",
+      "source": "bd-payments",
+      "target": "sd-payment-rail-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-product-operations-bd-account-management",
+      "source": "bd-cross-product-operations",
+      "target": "bd-account-management",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-account-management-sd-reward-points-account",
+      "source": "bd-account-management",
+      "target": "sd-reward-points-account",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-product-combination",
+      "source": "bd-account-management",
+      "target": "sd-product-combination",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-position-management",
+      "source": "bd-account-management",
+      "target": "sd-position-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-position-keeping",
+      "source": "bd-account-management",
+      "target": "sd-position-keeping",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-fraud-evaluation",
+      "source": "bd-account-management",
+      "target": "sd-fraud-evaluation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-fraud-diagnosis",
+      "source": "bd-account-management",
+      "target": "sd-fraud-diagnosis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-customer-position",
+      "source": "bd-account-management",
+      "target": "sd-customer-position",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-counterparty-risk",
+      "source": "bd-account-management",
+      "target": "sd-counterparty-risk",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-accounts-receivable",
+      "source": "bd-account-management",
+      "target": "sd-accounts-receivable",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-account-reconciliation",
+      "source": "bd-account-management",
+      "target": "sd-account-reconciliation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-securities-position-keeping",
+      "source": "bd-account-management",
+      "target": "sd-securities-position-keeping",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-account-management-sd-transaction-engine",
+      "source": "bd-account-management",
+      "target": "sd-transaction-engine",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-product-operations-bd-operational-services",
+      "source": "bd-cross-product-operations",
+      "target": "bd-operational-services",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-reward-points-awards-and-redemption",
+      "source": "bd-operational-services",
+      "target": "sd-reward-points-awards-and-redemption",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-open-item-management",
+      "source": "bd-operational-services",
+      "target": "sd-open-item-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-leasing-item-administration",
+      "source": "bd-operational-services",
+      "target": "sd-leasing-item-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-issued-device-tracking",
+      "source": "bd-operational-services",
+      "target": "sd-issued-device-tracking",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-issued-device-administration",
+      "source": "bd-operational-services",
+      "target": "sd-issued-device-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-disbursement",
+      "source": "bd-operational-services",
+      "target": "sd-disbursement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-delinquent-account-handling",
+      "source": "bd-operational-services",
+      "target": "sd-delinquent-account-handling",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-channel-activity-history",
+      "source": "bd-operational-services",
+      "target": "sd-channel-activity-history",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-channel-activity-analysis",
+      "source": "bd-operational-services",
+      "target": "sd-channel-activity-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-card-transaction-switch",
+      "source": "bd-operational-services",
+      "target": "sd-card-transaction-switch",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-card-collections",
+      "source": "bd-operational-services",
+      "target": "sd-card-collections",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-customer-billing",
+      "source": "bd-operational-services",
+      "target": "sd-customer-billing",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-internal-bank-account",
+      "source": "bd-operational-services",
+      "target": "sd-internal-bank-account",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-operational-services-sd-processing-order",
+      "source": "bd-operational-services",
+      "target": "sd-processing-order",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-product-operations-bd-collateral-administration",
+      "source": "bd-cross-product-operations",
+      "target": "bd-collateral-administration",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-collateral-administration-sd-collections",
+      "source": "bd-collateral-administration",
+      "target": "sd-collections",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-collateral-administration-sd-collateral-asset-administration",
+      "source": "bd-collateral-administration",
+      "target": "sd-collateral-asset-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-collateral-administration-sd-collateral-allocation-management",
+      "source": "bd-collateral-administration",
+      "target": "sd-collateral-allocation-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-collateral-administration-sd-party-asset-directory",
+      "source": "bd-collateral-administration",
+      "target": "sd-party-asset-directory",
+      "label": "implements"
+    }
+  ]
+}

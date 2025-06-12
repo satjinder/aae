@@ -1,0 +1,492 @@
+{
+  "nodes": [
+    {
+      "id": "ba-risk-and-compliance",
+      "name": "Risk and Compliance",
+      "type": "business_area",
+      "description": "Business Area: Risk and Compliance"
+    },
+    {
+      "id": "bd-bank-portfolio-and-treasury",
+      "name": "Bank Portfolio and Treasury",
+      "type": "business_domain",
+      "description": "Business Domain: Bank Portfolio and Treasury"
+    },
+    {
+      "id": "sd-stock-lending-and-repos",
+      "name": "Stock Lending and Repos",
+      "type": "service_domain",
+      "description": "Service Domain: Stock Lending and Repos"
+    },
+    {
+      "id": "sd-corporate-treasury-analysis",
+      "name": "Corporate Treasury Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Treasury Analysis"
+    },
+    {
+      "id": "sd-corporate-treasury",
+      "name": "Corporate Treasury",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Treasury"
+    },
+    {
+      "id": "sd-bank-portfolio-analysis",
+      "name": "Bank Portfolio Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Bank Portfolio Analysis"
+    },
+    {
+      "id": "sd-bank-portfolio-administration",
+      "name": "Bank Portfolio Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Bank Portfolio Administration"
+    },
+    {
+      "id": "sd-asset-securitization",
+      "name": "Asset Securitization",
+      "type": "service_domain",
+      "description": "Service Domain: Asset Securitization"
+    },
+    {
+      "id": "sd-asset-and-liability-management",
+      "name": "Asset And Liability Management",
+      "type": "service_domain",
+      "description": "Service Domain: Asset And Liability Management"
+    },
+    {
+      "id": "bd-business-analysis",
+      "name": "Business Analysis",
+      "type": "business_domain",
+      "description": "Business Domain: Business Analysis"
+    },
+    {
+      "id": "sd-market-analysis",
+      "name": "Market Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Market Analysis"
+    },
+    {
+      "id": "sd-contribution-analysis",
+      "name": "Contribution Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Contribution Analysis"
+    },
+    {
+      "id": "sd-competitor-analysis",
+      "name": "Competitor Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Competitor Analysis"
+    },
+    {
+      "id": "sd-channel-portfolio",
+      "name": "Channel Portfolio",
+      "type": "service_domain",
+      "description": "Service Domain: Channel Portfolio"
+    },
+    {
+      "id": "sd-branch-portfolio",
+      "name": "Branch Portfolio",
+      "type": "service_domain",
+      "description": "Service Domain: Branch Portfolio"
+    },
+    {
+      "id": "sd-segment-direction",
+      "name": "Segment Direction",
+      "type": "service_domain",
+      "description": "Service Domain: Segment Direction"
+    },
+    {
+      "id": "sd-customer-portfolio",
+      "name": "Customer Portfolio",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Portfolio"
+    },
+    {
+      "id": "sd-product-portfolio",
+      "name": "Product Portfolio",
+      "type": "service_domain",
+      "description": "Service Domain: Product Portfolio"
+    },
+    {
+      "id": "sd-market-research",
+      "name": "Market Research",
+      "type": "service_domain",
+      "description": "Service Domain: Market Research"
+    },
+    {
+      "id": "bd-regulations-and-compliance",
+      "name": "Regulations and Compliance",
+      "type": "business_domain",
+      "description": "Business Domain: Regulations and Compliance"
+    },
+    {
+      "id": "sd-regulatory-reporting",
+      "name": "Regulatory Reporting",
+      "type": "service_domain",
+      "description": "Service Domain: Regulatory Reporting"
+    },
+    {
+      "id": "sd-regulatory-compliance",
+      "name": "Regulatory Compliance",
+      "type": "service_domain",
+      "description": "Service Domain: Regulatory Compliance"
+    },
+    {
+      "id": "sd-guideline-compliance",
+      "name": "Guideline Compliance",
+      "type": "service_domain",
+      "description": "Service Domain: Guideline Compliance"
+    },
+    {
+      "id": "sd-fraud-resolution",
+      "name": "Fraud Resolution",
+      "type": "service_domain",
+      "description": "Service Domain: Fraud Resolution"
+    },
+    {
+      "id": "sd-financial-accounting",
+      "name": "Financial Accounting",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Accounting"
+    },
+    {
+      "id": "sd-compliance-reporting",
+      "name": "Compliance Reporting",
+      "type": "service_domain",
+      "description": "Service Domain: Compliance Reporting"
+    },
+    {
+      "id": "sd-financial-statement-assessment",
+      "name": "Financial Statement Assessment",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Statement Assessment"
+    },
+    {
+      "id": "bd-models",
+      "name": "Models",
+      "type": "business_domain",
+      "description": "Business Domain: Models"
+    },
+    {
+      "id": "sd-contribution-models",
+      "name": "Contribution Models",
+      "type": "service_domain",
+      "description": "Service Domain: Contribution Models"
+    },
+    {
+      "id": "sd-operational-risk-models",
+      "name": "Operational Risk Models",
+      "type": "service_domain",
+      "description": "Service Domain: Operational Risk Models"
+    },
+    {
+      "id": "sd-production-risk-models",
+      "name": "Production Risk Models",
+      "type": "service_domain",
+      "description": "Service Domain: Production Risk Models"
+    },
+    {
+      "id": "sd-credit-and-margin-management",
+      "name": "Credit and Margin Management",
+      "type": "service_domain",
+      "description": "Service Domain: Credit and Margin Management"
+    },
+    {
+      "id": "sd-business-risk-models",
+      "name": "Business Risk Models",
+      "type": "service_domain",
+      "description": "Service Domain: Business Risk Models"
+    },
+    {
+      "id": "sd-customer-behavior-models",
+      "name": "Customer Behavior Models",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Behavior Models"
+    },
+    {
+      "id": "sd-economic-capital",
+      "name": "Economic Capital",
+      "type": "service_domain",
+      "description": "Service Domain: Economic Capital"
+    },
+    {
+      "id": "sd-credit-risk-models",
+      "name": "Credit Risk Models",
+      "type": "service_domain",
+      "description": "Service Domain: Credit Risk Models"
+    },
+    {
+      "id": "sd-financial-instrument-valuation-models",
+      "name": "Financial Instrument Valuation Models",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Instrument Valuation Models"
+    },
+    {
+      "id": "sd-market-risk-models",
+      "name": "Market Risk Models",
+      "type": "service_domain",
+      "description": "Service Domain: Market Risk Models"
+    },
+    {
+      "id": "sd-liquidity-risk-models",
+      "name": "Liquidity Risk Models",
+      "type": "service_domain",
+      "description": "Service Domain: Liquidity Risk Models"
+    },
+    {
+      "id": "sd-gap-analysis",
+      "name": "Gap Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Gap Analysis"
+    },
+    {
+      "id": "sd-fraud-model",
+      "name": "Fraud Model",
+      "type": "service_domain",
+      "description": "Service Domain: Fraud Model"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-ba-risk-and-compliance-bd-bank-portfolio-and-treasury",
+      "source": "ba-risk-and-compliance",
+      "target": "bd-bank-portfolio-and-treasury",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-bank-portfolio-and-treasury-sd-stock-lending-and-repos",
+      "source": "bd-bank-portfolio-and-treasury",
+      "target": "sd-stock-lending-and-repos",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-bank-portfolio-and-treasury-sd-corporate-treasury-analysis",
+      "source": "bd-bank-portfolio-and-treasury",
+      "target": "sd-corporate-treasury-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-bank-portfolio-and-treasury-sd-corporate-treasury",
+      "source": "bd-bank-portfolio-and-treasury",
+      "target": "sd-corporate-treasury",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-bank-portfolio-and-treasury-sd-bank-portfolio-analysis",
+      "source": "bd-bank-portfolio-and-treasury",
+      "target": "sd-bank-portfolio-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-bank-portfolio-and-treasury-sd-bank-portfolio-administration",
+      "source": "bd-bank-portfolio-and-treasury",
+      "target": "sd-bank-portfolio-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-bank-portfolio-and-treasury-sd-asset-securitization",
+      "source": "bd-bank-portfolio-and-treasury",
+      "target": "sd-asset-securitization",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-bank-portfolio-and-treasury-sd-asset-and-liability-management",
+      "source": "bd-bank-portfolio-and-treasury",
+      "target": "sd-asset-and-liability-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-risk-and-compliance-bd-business-analysis",
+      "source": "ba-risk-and-compliance",
+      "target": "bd-business-analysis",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-market-analysis",
+      "source": "bd-business-analysis",
+      "target": "sd-market-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-contribution-analysis",
+      "source": "bd-business-analysis",
+      "target": "sd-contribution-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-competitor-analysis",
+      "source": "bd-business-analysis",
+      "target": "sd-competitor-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-channel-portfolio",
+      "source": "bd-business-analysis",
+      "target": "sd-channel-portfolio",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-branch-portfolio",
+      "source": "bd-business-analysis",
+      "target": "sd-branch-portfolio",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-segment-direction",
+      "source": "bd-business-analysis",
+      "target": "sd-segment-direction",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-customer-portfolio",
+      "source": "bd-business-analysis",
+      "target": "sd-customer-portfolio",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-product-portfolio",
+      "source": "bd-business-analysis",
+      "target": "sd-product-portfolio",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-analysis-sd-market-research",
+      "source": "bd-business-analysis",
+      "target": "sd-market-research",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-risk-and-compliance-bd-regulations-and-compliance",
+      "source": "ba-risk-and-compliance",
+      "target": "bd-regulations-and-compliance",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-regulations-and-compliance-sd-regulatory-reporting",
+      "source": "bd-regulations-and-compliance",
+      "target": "sd-regulatory-reporting",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-regulations-and-compliance-sd-regulatory-compliance",
+      "source": "bd-regulations-and-compliance",
+      "target": "sd-regulatory-compliance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-regulations-and-compliance-sd-guideline-compliance",
+      "source": "bd-regulations-and-compliance",
+      "target": "sd-guideline-compliance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-regulations-and-compliance-sd-fraud-resolution",
+      "source": "bd-regulations-and-compliance",
+      "target": "sd-fraud-resolution",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-regulations-and-compliance-sd-financial-accounting",
+      "source": "bd-regulations-and-compliance",
+      "target": "sd-financial-accounting",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-regulations-and-compliance-sd-compliance-reporting",
+      "source": "bd-regulations-and-compliance",
+      "target": "sd-compliance-reporting",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-regulations-and-compliance-sd-financial-statement-assessment",
+      "source": "bd-regulations-and-compliance",
+      "target": "sd-financial-statement-assessment",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-risk-and-compliance-bd-models",
+      "source": "ba-risk-and-compliance",
+      "target": "bd-models",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-models-sd-contribution-models",
+      "source": "bd-models",
+      "target": "sd-contribution-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-operational-risk-models",
+      "source": "bd-models",
+      "target": "sd-operational-risk-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-production-risk-models",
+      "source": "bd-models",
+      "target": "sd-production-risk-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-credit-and-margin-management",
+      "source": "bd-models",
+      "target": "sd-credit-and-margin-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-business-risk-models",
+      "source": "bd-models",
+      "target": "sd-business-risk-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-customer-behavior-models",
+      "source": "bd-models",
+      "target": "sd-customer-behavior-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-economic-capital",
+      "source": "bd-models",
+      "target": "sd-economic-capital",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-credit-risk-models",
+      "source": "bd-models",
+      "target": "sd-credit-risk-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-financial-instrument-valuation-models",
+      "source": "bd-models",
+      "target": "sd-financial-instrument-valuation-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-market-risk-models",
+      "source": "bd-models",
+      "target": "sd-market-risk-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-liquidity-risk-models",
+      "source": "bd-models",
+      "target": "sd-liquidity-risk-models",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-gap-analysis",
+      "source": "bd-models",
+      "target": "sd-gap-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-models-sd-fraud-model",
+      "source": "bd-models",
+      "target": "sd-fraud-model",
+      "label": "implements"
+    }
+  ]
+}

@@ -1,0 +1,936 @@
+{
+  "nodes": [
+    {
+      "id": "ba-sales-and-service",
+      "name": "Sales and Service",
+      "type": "business_area",
+      "description": "Business Area: Sales and Service"
+    },
+    {
+      "id": "bd-channel-specific",
+      "name": "Channel Specific",
+      "type": "business_domain",
+      "description": "Business Domain: Channel Specific"
+    },
+    {
+      "id": "sd-branch-location-management",
+      "name": "Branch Location Management",
+      "type": "service_domain",
+      "description": "Service Domain: Branch Location Management"
+    },
+    {
+      "id": "sd-contact-center-management",
+      "name": "Contact Center Management",
+      "type": "service_domain",
+      "description": "Service Domain: Contact Center Management"
+    },
+    {
+      "id": "sd-branch-network-management",
+      "name": "Branch Network Management",
+      "type": "service_domain",
+      "description": "Service Domain: Branch Network Management"
+    },
+    {
+      "id": "sd-ebranch-management",
+      "name": "eBranch Management",
+      "type": "service_domain",
+      "description": "Service Domain: eBranch Management"
+    },
+    {
+      "id": "sd-advanced-voice-services-management",
+      "name": "Advanced Voice Services Management",
+      "type": "service_domain",
+      "description": "Service Domain: Advanced Voice Services Management"
+    },
+    {
+      "id": "sd-atm-network-management",
+      "name": "ATM Network Management",
+      "type": "service_domain",
+      "description": "Service Domain: ATM Network Management"
+    },
+    {
+      "id": "sd-contact-center-operations",
+      "name": "Contact Center Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Contact Center Operations"
+    },
+    {
+      "id": "sd-branch-location-operations",
+      "name": "Branch Location Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Branch Location Operations"
+    },
+    {
+      "id": "sd-ebranch-operations",
+      "name": "eBranch Operations",
+      "type": "service_domain",
+      "description": "Service Domain: eBranch Operations"
+    },
+    {
+      "id": "sd-advanced-voice-services-operations",
+      "name": "Advanced Voice Services Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Advanced Voice Services Operations"
+    },
+    {
+      "id": "sd-atm-network-operations",
+      "name": "ATM Network Operations",
+      "type": "service_domain",
+      "description": "Service Domain: ATM Network Operations"
+    },
+    {
+      "id": "sd-branch-currency-management",
+      "name": "Branch Currency Management",
+      "type": "service_domain",
+      "description": "Service Domain: Branch Currency Management"
+    },
+    {
+      "id": "sd-branch-currency-distribution",
+      "name": "Branch Currency Distribution",
+      "type": "service_domain",
+      "description": "Service Domain: Branch Currency Distribution"
+    },
+    {
+      "id": "sd-product-inventory-item-management",
+      "name": "Product Inventory Item Management",
+      "type": "service_domain",
+      "description": "Service Domain: Product Inventory Item Management"
+    },
+    {
+      "id": "sd-product-inventory-distribution",
+      "name": "Product Inventory Distribution",
+      "type": "service_domain",
+      "description": "Service Domain: Product Inventory Distribution"
+    },
+    {
+      "id": "sd-card-terminal-administration",
+      "name": "Card Terminal Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Card Terminal Administration"
+    },
+    {
+      "id": "sd-card-terminal-operation",
+      "name": "Card Terminal Operation",
+      "type": "service_domain",
+      "description": "Service Domain: Card Terminal Operation"
+    },
+    {
+      "id": "bd-cross-channel",
+      "name": "Cross Channel",
+      "type": "business_domain",
+      "description": "Business Domain: Cross Channel"
+    },
+    {
+      "id": "sd-party-authentication",
+      "name": "Party Authentication",
+      "type": "service_domain",
+      "description": "Service Domain: Party Authentication"
+    },
+    {
+      "id": "sd-transaction-authorization",
+      "name": "Transaction Authorization",
+      "type": "service_domain",
+      "description": "Service Domain: Transaction Authorization"
+    },
+    {
+      "id": "sd-point-of-service",
+      "name": "Point of Service",
+      "type": "service_domain",
+      "description": "Service Domain: Point of Service"
+    },
+    {
+      "id": "sd-servicing-event-history",
+      "name": "Servicing Event History",
+      "type": "service_domain",
+      "description": "Service Domain: Servicing Event History"
+    },
+    {
+      "id": "sd-contact-routing",
+      "name": "Contact Routing",
+      "type": "service_domain",
+      "description": "Service Domain: Contact Routing"
+    },
+    {
+      "id": "sd-session-dialogue",
+      "name": "Session Dialogue",
+      "type": "service_domain",
+      "description": "Service Domain: Session Dialogue"
+    },
+    {
+      "id": "sd-interactive-help",
+      "name": "Interactive Help",
+      "type": "service_domain",
+      "description": "Service Domain: Interactive Help"
+    },
+    {
+      "id": "sd-contact-handler",
+      "name": "Contact Handler",
+      "type": "service_domain",
+      "description": "Service Domain: Contact Handler"
+    },
+    {
+      "id": "sd-customer-workbench",
+      "name": "Customer Workbench",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Workbench"
+    },
+    {
+      "id": "sd-servicing-activity-analysis",
+      "name": "Servicing Activity Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Servicing Activity Analysis"
+    },
+    {
+      "id": "sd-service-directory",
+      "name": "Service Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Service Directory"
+    },
+    {
+      "id": "bd-marketing",
+      "name": "Marketing",
+      "type": "business_domain",
+      "description": "Business Domain: Marketing"
+    },
+    {
+      "id": "sd-business-development",
+      "name": "Business Development",
+      "type": "service_domain",
+      "description": "Service Domain: Business Development"
+    },
+    {
+      "id": "sd-brand-management",
+      "name": "Brand Management",
+      "type": "service_domain",
+      "description": "Service Domain: Brand Management"
+    },
+    {
+      "id": "sd-advertising",
+      "name": "Advertising",
+      "type": "service_domain",
+      "description": "Service Domain: Advertising"
+    },
+    {
+      "id": "sd-promotional-events",
+      "name": "Promotional Events",
+      "type": "service_domain",
+      "description": "Service Domain: Promotional Events"
+    },
+    {
+      "id": "sd-prospect-campaign-design",
+      "name": "Prospect Campaign Design",
+      "type": "service_domain",
+      "description": "Service Domain: Prospect Campaign Design"
+    },
+    {
+      "id": "sd-customer-campaign-management",
+      "name": "Customer Campaign Management",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Campaign Management"
+    },
+    {
+      "id": "sd-customer-campaign-design",
+      "name": "Customer Campaign Design",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Campaign Design"
+    },
+    {
+      "id": "sd-customer-surveys",
+      "name": "Customer Surveys",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Surveys"
+    },
+    {
+      "id": "sd-prospect-campaign-management",
+      "name": "Prospect Campaign Management",
+      "type": "service_domain",
+      "description": "Service Domain: Prospect Campaign Management"
+    },
+    {
+      "id": "bd-sales",
+      "name": "Sales",
+      "type": "business_domain",
+      "description": "Business Domain: Sales"
+    },
+    {
+      "id": "sd-prospect-campaign-execution",
+      "name": "Prospect Campaign Execution",
+      "type": "service_domain",
+      "description": "Service Domain: Prospect Campaign Execution"
+    },
+    {
+      "id": "sd-party-lifecycle-management",
+      "name": "Party Lifecycle Management",
+      "type": "service_domain",
+      "description": "Service Domain: Party Lifecycle Management"
+    },
+    {
+      "id": "sd-lead-and-opportunity-management",
+      "name": "Lead and Opportunity Management",
+      "type": "service_domain",
+      "description": "Service Domain: Lead and Opportunity Management"
+    },
+    {
+      "id": "sd-customer-campaign-execution",
+      "name": "Customer Campaign Execution",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Campaign Execution"
+    },
+    {
+      "id": "sd-customer-offer",
+      "name": "Customer Offer",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Offer"
+    },
+    {
+      "id": "sd-sales-planning",
+      "name": "Sales Planning",
+      "type": "service_domain",
+      "description": "Service Domain: Sales Planning"
+    },
+    {
+      "id": "sd-underwriting",
+      "name": "Underwriting",
+      "type": "service_domain",
+      "description": "Service Domain: Underwriting"
+    },
+    {
+      "id": "sd-commission-agreement",
+      "name": "Commission Agreement",
+      "type": "service_domain",
+      "description": "Service Domain: Commission Agreement"
+    },
+    {
+      "id": "sd-commissions",
+      "name": "Commissions",
+      "type": "service_domain",
+      "description": "Service Domain: Commissions"
+    },
+    {
+      "id": "sd-product-matching",
+      "name": "Product Matching",
+      "type": "service_domain",
+      "description": "Service Domain: Product Matching"
+    },
+    {
+      "id": "sd-product-expert-sales-support",
+      "name": "Product Expert Sales Support",
+      "type": "service_domain",
+      "description": "Service Domain: Product Expert Sales Support"
+    },
+    {
+      "id": "sd-product-sales-support",
+      "name": "Product Sales Support",
+      "type": "service_domain",
+      "description": "Service Domain: Product Sales Support"
+    },
+    {
+      "id": "sd-sales-product",
+      "name": "Sales Product",
+      "type": "service_domain",
+      "description": "Service Domain: Sales Product"
+    },
+    {
+      "id": "bd-customer-management",
+      "name": "Customer Management",
+      "type": "business_domain",
+      "description": "Business Domain: Customer Management"
+    },
+    {
+      "id": "sd-customer-relationship-management",
+      "name": "Customer Relationship Management",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Relationship Management"
+    },
+    {
+      "id": "sd-customer-product-and-service-eligibility",
+      "name": "Customer Product And Service Eligibility",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Product And Service Eligibility"
+    },
+    {
+      "id": "sd-customer-agreement",
+      "name": "Customer Agreement",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Agreement"
+    },
+    {
+      "id": "sd-sales-product-agreement",
+      "name": "Sales Product Agreement",
+      "type": "service_domain",
+      "description": "Service Domain: Sales Product Agreement"
+    },
+    {
+      "id": "sd-customer-access-entitlement",
+      "name": "Customer Access Entitlement",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Access Entitlement"
+    },
+    {
+      "id": "sd-customer-behavior-insights",
+      "name": "Customer Behavior Insights",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Behavior Insights"
+    },
+    {
+      "id": "sd-customer-credit-rating",
+      "name": "Customer Credit Rating",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Credit Rating"
+    },
+    {
+      "id": "sd-account-recovery",
+      "name": "Account Recovery",
+      "type": "service_domain",
+      "description": "Service Domain: Account Recovery"
+    },
+    {
+      "id": "sd-customer-event-history",
+      "name": "Customer Event History",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Event History"
+    },
+    {
+      "id": "sd-party-reference-data-directory",
+      "name": "Party Reference Data Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Party Reference Data Directory"
+    },
+    {
+      "id": "sd-customer-proposition",
+      "name": "Customer Proposition",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Proposition"
+    },
+    {
+      "id": "sd-customer-product-and-service-directory",
+      "name": "Customer Product and Service Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Product and Service Directory"
+    },
+    {
+      "id": "bd-servicing",
+      "name": "Servicing",
+      "type": "business_domain",
+      "description": "Business Domain: Servicing"
+    },
+    {
+      "id": "sd-servicing-issue",
+      "name": "Servicing Issue",
+      "type": "service_domain",
+      "description": "Service Domain: Servicing Issue"
+    },
+    {
+      "id": "sd-customer-case-management",
+      "name": "Customer Case Management",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Case Management"
+    },
+    {
+      "id": "sd-case-root-cause-analysis",
+      "name": "Case Root Cause Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Case Root Cause Analysis"
+    },
+    {
+      "id": "sd-customer-case",
+      "name": "Customer Case",
+      "type": "service_domain",
+      "description": "Service Domain: Customer Case"
+    },
+    {
+      "id": "sd-card-case",
+      "name": "Card Case",
+      "type": "service_domain",
+      "description": "Service Domain: Card Case"
+    },
+    {
+      "id": "sd-servicing-order",
+      "name": "Servicing Order",
+      "type": "service_domain",
+      "description": "Service Domain: Servicing Order"
+    },
+    {
+      "id": "sd-servicing-mandate",
+      "name": "Servicing Mandate",
+      "type": "service_domain",
+      "description": "Service Domain: Servicing Mandate"
+    },
+    {
+      "id": "sd-payment-initiation",
+      "name": "Payment Initiation",
+      "type": "service_domain",
+      "description": "Service Domain: Payment Initiation"
+    },
+    {
+      "id": "sd-loan-syndication",
+      "name": "Loan Syndication",
+      "type": "service_domain",
+      "description": "Service Domain: Loan Syndication"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-ba-sales-and-service-bd-channel-specific",
+      "source": "ba-sales-and-service",
+      "target": "bd-channel-specific",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-branch-location-management",
+      "source": "bd-channel-specific",
+      "target": "sd-branch-location-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-contact-center-management",
+      "source": "bd-channel-specific",
+      "target": "sd-contact-center-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-branch-network-management",
+      "source": "bd-channel-specific",
+      "target": "sd-branch-network-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-ebranch-management",
+      "source": "bd-channel-specific",
+      "target": "sd-ebranch-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-advanced-voice-services-management",
+      "source": "bd-channel-specific",
+      "target": "sd-advanced-voice-services-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-atm-network-management",
+      "source": "bd-channel-specific",
+      "target": "sd-atm-network-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-contact-center-operations",
+      "source": "bd-channel-specific",
+      "target": "sd-contact-center-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-branch-location-operations",
+      "source": "bd-channel-specific",
+      "target": "sd-branch-location-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-ebranch-operations",
+      "source": "bd-channel-specific",
+      "target": "sd-ebranch-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-advanced-voice-services-operations",
+      "source": "bd-channel-specific",
+      "target": "sd-advanced-voice-services-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-atm-network-operations",
+      "source": "bd-channel-specific",
+      "target": "sd-atm-network-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-branch-currency-management",
+      "source": "bd-channel-specific",
+      "target": "sd-branch-currency-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-branch-currency-distribution",
+      "source": "bd-channel-specific",
+      "target": "sd-branch-currency-distribution",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-product-inventory-item-management",
+      "source": "bd-channel-specific",
+      "target": "sd-product-inventory-item-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-product-inventory-distribution",
+      "source": "bd-channel-specific",
+      "target": "sd-product-inventory-distribution",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-card-terminal-administration",
+      "source": "bd-channel-specific",
+      "target": "sd-card-terminal-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-channel-specific-sd-card-terminal-operation",
+      "source": "bd-channel-specific",
+      "target": "sd-card-terminal-operation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-sales-and-service-bd-cross-channel",
+      "source": "ba-sales-and-service",
+      "target": "bd-cross-channel",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-party-authentication",
+      "source": "bd-cross-channel",
+      "target": "sd-party-authentication",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-transaction-authorization",
+      "source": "bd-cross-channel",
+      "target": "sd-transaction-authorization",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-point-of-service",
+      "source": "bd-cross-channel",
+      "target": "sd-point-of-service",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-servicing-event-history",
+      "source": "bd-cross-channel",
+      "target": "sd-servicing-event-history",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-contact-routing",
+      "source": "bd-cross-channel",
+      "target": "sd-contact-routing",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-session-dialogue",
+      "source": "bd-cross-channel",
+      "target": "sd-session-dialogue",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-interactive-help",
+      "source": "bd-cross-channel",
+      "target": "sd-interactive-help",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-contact-handler",
+      "source": "bd-cross-channel",
+      "target": "sd-contact-handler",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-customer-workbench",
+      "source": "bd-cross-channel",
+      "target": "sd-customer-workbench",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-servicing-activity-analysis",
+      "source": "bd-cross-channel",
+      "target": "sd-servicing-activity-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-cross-channel-sd-service-directory",
+      "source": "bd-cross-channel",
+      "target": "sd-service-directory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-sales-and-service-bd-marketing",
+      "source": "ba-sales-and-service",
+      "target": "bd-marketing",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-marketing-sd-business-development",
+      "source": "bd-marketing",
+      "target": "sd-business-development",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-marketing-sd-brand-management",
+      "source": "bd-marketing",
+      "target": "sd-brand-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-marketing-sd-advertising",
+      "source": "bd-marketing",
+      "target": "sd-advertising",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-marketing-sd-promotional-events",
+      "source": "bd-marketing",
+      "target": "sd-promotional-events",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-marketing-sd-prospect-campaign-design",
+      "source": "bd-marketing",
+      "target": "sd-prospect-campaign-design",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-marketing-sd-customer-campaign-management",
+      "source": "bd-marketing",
+      "target": "sd-customer-campaign-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-marketing-sd-customer-campaign-design",
+      "source": "bd-marketing",
+      "target": "sd-customer-campaign-design",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-marketing-sd-customer-surveys",
+      "source": "bd-marketing",
+      "target": "sd-customer-surveys",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-marketing-sd-prospect-campaign-management",
+      "source": "bd-marketing",
+      "target": "sd-prospect-campaign-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-sales-and-service-bd-sales",
+      "source": "ba-sales-and-service",
+      "target": "bd-sales",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-sales-sd-prospect-campaign-execution",
+      "source": "bd-sales",
+      "target": "sd-prospect-campaign-execution",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-party-lifecycle-management",
+      "source": "bd-sales",
+      "target": "sd-party-lifecycle-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-lead-and-opportunity-management",
+      "source": "bd-sales",
+      "target": "sd-lead-and-opportunity-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-customer-campaign-execution",
+      "source": "bd-sales",
+      "target": "sd-customer-campaign-execution",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-customer-offer",
+      "source": "bd-sales",
+      "target": "sd-customer-offer",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-sales-planning",
+      "source": "bd-sales",
+      "target": "sd-sales-planning",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-underwriting",
+      "source": "bd-sales",
+      "target": "sd-underwriting",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-commission-agreement",
+      "source": "bd-sales",
+      "target": "sd-commission-agreement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-commissions",
+      "source": "bd-sales",
+      "target": "sd-commissions",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-product-matching",
+      "source": "bd-sales",
+      "target": "sd-product-matching",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-product-expert-sales-support",
+      "source": "bd-sales",
+      "target": "sd-product-expert-sales-support",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-product-sales-support",
+      "source": "bd-sales",
+      "target": "sd-product-sales-support",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-sales-sd-sales-product",
+      "source": "bd-sales",
+      "target": "sd-sales-product",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-sales-and-service-bd-customer-management",
+      "source": "ba-sales-and-service",
+      "target": "bd-customer-management",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-relationship-management",
+      "source": "bd-customer-management",
+      "target": "sd-customer-relationship-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-product-and-service-eligibility",
+      "source": "bd-customer-management",
+      "target": "sd-customer-product-and-service-eligibility",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-agreement",
+      "source": "bd-customer-management",
+      "target": "sd-customer-agreement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-sales-product-agreement",
+      "source": "bd-customer-management",
+      "target": "sd-sales-product-agreement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-access-entitlement",
+      "source": "bd-customer-management",
+      "target": "sd-customer-access-entitlement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-behavior-insights",
+      "source": "bd-customer-management",
+      "target": "sd-customer-behavior-insights",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-credit-rating",
+      "source": "bd-customer-management",
+      "target": "sd-customer-credit-rating",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-account-recovery",
+      "source": "bd-customer-management",
+      "target": "sd-account-recovery",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-event-history",
+      "source": "bd-customer-management",
+      "target": "sd-customer-event-history",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-party-reference-data-directory",
+      "source": "bd-customer-management",
+      "target": "sd-party-reference-data-directory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-proposition",
+      "source": "bd-customer-management",
+      "target": "sd-customer-proposition",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-customer-management-sd-customer-product-and-service-directory",
+      "source": "bd-customer-management",
+      "target": "sd-customer-product-and-service-directory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-sales-and-service-bd-servicing",
+      "source": "ba-sales-and-service",
+      "target": "bd-servicing",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-servicing-sd-servicing-issue",
+      "source": "bd-servicing",
+      "target": "sd-servicing-issue",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-servicing-sd-customer-case-management",
+      "source": "bd-servicing",
+      "target": "sd-customer-case-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-servicing-sd-case-root-cause-analysis",
+      "source": "bd-servicing",
+      "target": "sd-case-root-cause-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-servicing-sd-customer-case",
+      "source": "bd-servicing",
+      "target": "sd-customer-case",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-servicing-sd-card-case",
+      "source": "bd-servicing",
+      "target": "sd-card-case",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-servicing-sd-servicing-order",
+      "source": "bd-servicing",
+      "target": "sd-servicing-order",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-servicing-sd-servicing-mandate",
+      "source": "bd-servicing",
+      "target": "sd-servicing-mandate",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-servicing-sd-payment-initiation",
+      "source": "bd-servicing",
+      "target": "sd-payment-initiation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-servicing-sd-loan-syndication",
+      "source": "bd-servicing",
+      "target": "sd-loan-syndication",
+      "label": "implements"
+    }
+  ]
+}

@@ -1,0 +1,408 @@
+{
+  "nodes": [
+    {
+      "id": "ba-reference-data",
+      "name": "Reference Data",
+      "type": "business_area",
+      "description": "Business Area: Reference Data"
+    },
+    {
+      "id": "bd-party",
+      "name": "Party",
+      "type": "business_domain",
+      "description": "Business Domain: Party"
+    },
+    {
+      "id": "sd-party-routing-profile",
+      "name": "Party Routing Profile",
+      "type": "service_domain",
+      "description": "Service Domain: Party Routing Profile"
+    },
+    {
+      "id": "sd-legal-entity-directory",
+      "name": "Legal Entity Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Legal Entity Directory"
+    },
+    {
+      "id": "bd-external-agency",
+      "name": "External Agency",
+      "type": "business_domain",
+      "description": "Business Domain: External Agency"
+    },
+    {
+      "id": "sd-information-provider-administration",
+      "name": "Information Provider Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Information Provider Administration"
+    },
+    {
+      "id": "sd-syndicate-management",
+      "name": "Syndicate Management",
+      "type": "service_domain",
+      "description": "Service Domain: Syndicate Management"
+    },
+    {
+      "id": "sd-interbank-relationship-management",
+      "name": "Interbank Relationship Management",
+      "type": "service_domain",
+      "description": "Service Domain: Interbank Relationship Management"
+    },
+    {
+      "id": "sd-correspondent-bank-relationship-management",
+      "name": "Correspondent Bank Relationship Management",
+      "type": "service_domain",
+      "description": "Service Domain: Correspondent Bank Relationship Management"
+    },
+    {
+      "id": "sd-correspondent-bank-directory",
+      "name": "Correspondent Bank Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Correspondent Bank Directory"
+    },
+    {
+      "id": "sd-sub-custodian-agreement",
+      "name": "Sub Custodian Agreement",
+      "type": "service_domain",
+      "description": "Service Domain: Sub Custodian Agreement"
+    },
+    {
+      "id": "sd-product-service-agency",
+      "name": "Product Service Agency",
+      "type": "service_domain",
+      "description": "Service Domain: Product Service Agency"
+    },
+    {
+      "id": "sd-product-broker-agreement",
+      "name": "Product Broker Agreement",
+      "type": "service_domain",
+      "description": "Service Domain: Product Broker Agreement"
+    },
+    {
+      "id": "sd-contractor-and-supplier-agreement",
+      "name": "Contractor and Supplier Agreement",
+      "type": "service_domain",
+      "description": "Service Domain: Contractor and Supplier Agreement"
+    },
+    {
+      "id": "bd-market-data",
+      "name": "Market Data",
+      "type": "business_domain",
+      "description": "Business Domain: Market Data"
+    },
+    {
+      "id": "sd-information-provider-operation",
+      "name": "Information Provider Operation",
+      "type": "service_domain",
+      "description": "Service Domain: Information Provider Operation"
+    },
+    {
+      "id": "sd-market-information-management",
+      "name": "Market Information Management",
+      "type": "service_domain",
+      "description": "Service Domain: Market Information Management"
+    },
+    {
+      "id": "sd-financial-market-analysis",
+      "name": "Financial Market Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Market Analysis"
+    },
+    {
+      "id": "sd-financial-market-research",
+      "name": "Financial Market Research",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Market Research"
+    },
+    {
+      "id": "sd-quant-model",
+      "name": "Quant Model",
+      "type": "service_domain",
+      "description": "Service Domain: Quant Model"
+    },
+    {
+      "id": "sd-market-data-switch-administration",
+      "name": "Market Data Switch Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Market Data Switch Administration"
+    },
+    {
+      "id": "sd-market-data-switch-operation",
+      "name": "Market Data Switch Operation",
+      "type": "service_domain",
+      "description": "Service Domain: Market Data Switch Operation"
+    },
+    {
+      "id": "sd-financial-instrument-reference-data-management",
+      "name": "Financial Instrument Reference Data Management",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Instrument Reference Data Management"
+    },
+    {
+      "id": "sd-counterparty-administration",
+      "name": "Counterparty Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Counterparty Administration"
+    },
+    {
+      "id": "sd-public-reference-data-management",
+      "name": "Public Reference Data Management",
+      "type": "service_domain",
+      "description": "Service Domain: Public Reference Data Management"
+    },
+    {
+      "id": "sd-location-data-management",
+      "name": "Location Data Management",
+      "type": "service_domain",
+      "description": "Service Domain: Location Data Management"
+    },
+    {
+      "id": "bd-product-management",
+      "name": "Product Management",
+      "type": "business_domain",
+      "description": "Business Domain: Product Management"
+    },
+    {
+      "id": "sd-product-design",
+      "name": "Product Design",
+      "type": "service_domain",
+      "description": "Service Domain: Product Design"
+    },
+    {
+      "id": "sd-product-deployment",
+      "name": "Product Deployment",
+      "type": "service_domain",
+      "description": "Service Domain: Product Deployment"
+    },
+    {
+      "id": "sd-product-training",
+      "name": "Product Training",
+      "type": "service_domain",
+      "description": "Service Domain: Product Training"
+    },
+    {
+      "id": "sd-product-quality-assurance",
+      "name": "Product Quality Assurance",
+      "type": "service_domain",
+      "description": "Service Domain: Product Quality Assurance"
+    },
+    {
+      "id": "sd-discount-pricing",
+      "name": "Discount Pricing",
+      "type": "service_domain",
+      "description": "Service Domain: Discount Pricing"
+    },
+    {
+      "id": "sd-product-directory",
+      "name": "Product Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Product Directory"
+    },
+    {
+      "id": "sd-special-pricing-conditions",
+      "name": "Special Pricing Conditions",
+      "type": "service_domain",
+      "description": "Service Domain: Special Pricing Conditions"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-ba-reference-data-bd-party",
+      "source": "ba-reference-data",
+      "target": "bd-party",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-party-sd-party-routing-profile",
+      "source": "bd-party",
+      "target": "sd-party-routing-profile",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-party-sd-legal-entity-directory",
+      "source": "bd-party",
+      "target": "sd-legal-entity-directory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-reference-data-bd-external-agency",
+      "source": "ba-reference-data",
+      "target": "bd-external-agency",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-information-provider-administration",
+      "source": "bd-external-agency",
+      "target": "sd-information-provider-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-syndicate-management",
+      "source": "bd-external-agency",
+      "target": "sd-syndicate-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-interbank-relationship-management",
+      "source": "bd-external-agency",
+      "target": "sd-interbank-relationship-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-correspondent-bank-relationship-management",
+      "source": "bd-external-agency",
+      "target": "sd-correspondent-bank-relationship-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-correspondent-bank-directory",
+      "source": "bd-external-agency",
+      "target": "sd-correspondent-bank-directory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-sub-custodian-agreement",
+      "source": "bd-external-agency",
+      "target": "sd-sub-custodian-agreement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-product-service-agency",
+      "source": "bd-external-agency",
+      "target": "sd-product-service-agency",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-product-broker-agreement",
+      "source": "bd-external-agency",
+      "target": "sd-product-broker-agreement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-external-agency-sd-contractor-and-supplier-agreement",
+      "source": "bd-external-agency",
+      "target": "sd-contractor-and-supplier-agreement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-reference-data-bd-market-data",
+      "source": "ba-reference-data",
+      "target": "bd-market-data",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-market-data-sd-information-provider-operation",
+      "source": "bd-market-data",
+      "target": "sd-information-provider-operation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-market-information-management",
+      "source": "bd-market-data",
+      "target": "sd-market-information-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-financial-market-analysis",
+      "source": "bd-market-data",
+      "target": "sd-financial-market-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-financial-market-research",
+      "source": "bd-market-data",
+      "target": "sd-financial-market-research",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-quant-model",
+      "source": "bd-market-data",
+      "target": "sd-quant-model",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-market-data-switch-administration",
+      "source": "bd-market-data",
+      "target": "sd-market-data-switch-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-market-data-switch-operation",
+      "source": "bd-market-data",
+      "target": "sd-market-data-switch-operation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-financial-instrument-reference-data-management",
+      "source": "bd-market-data",
+      "target": "sd-financial-instrument-reference-data-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-counterparty-administration",
+      "source": "bd-market-data",
+      "target": "sd-counterparty-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-public-reference-data-management",
+      "source": "bd-market-data",
+      "target": "sd-public-reference-data-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-market-data-sd-location-data-management",
+      "source": "bd-market-data",
+      "target": "sd-location-data-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-reference-data-bd-product-management",
+      "source": "ba-reference-data",
+      "target": "bd-product-management",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-product-management-sd-product-design",
+      "source": "bd-product-management",
+      "target": "sd-product-design",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-management-sd-product-deployment",
+      "source": "bd-product-management",
+      "target": "sd-product-deployment",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-management-sd-product-training",
+      "source": "bd-product-management",
+      "target": "sd-product-training",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-management-sd-product-quality-assurance",
+      "source": "bd-product-management",
+      "target": "sd-product-quality-assurance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-management-sd-discount-pricing",
+      "source": "bd-product-management",
+      "target": "sd-discount-pricing",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-management-sd-product-directory",
+      "source": "bd-product-management",
+      "target": "sd-product-directory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-product-management-sd-special-pricing-conditions",
+      "source": "bd-product-management",
+      "target": "sd-special-pricing-conditions",
+      "label": "implements"
+    }
+  ]
+}

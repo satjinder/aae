@@ -7,7 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddIcon from '@mui/icons-material/Add';
 import { CreateNodeDialog } from '../CreateNodeDialog';
 import { architectureService } from '../../services/architectureService';
-import { NodeIcon } from '../NodeIcon';
+import { NodeIcon, NodeType, getNodeTypeColor } from '../NodeIcons';
 import type { Node } from '../../services/architectureService';
 
 type NodeType = Node['type'];
@@ -36,29 +36,6 @@ interface CustomNodeProps {
 
 const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
   const [dialogOpen, setDialogOpen] = useState(false);
-
-  const getNodeTypeColor = (type: NodeType) => {
-    switch (type) {
-      case 'business_area':
-        return 'success';
-      case 'business_domain':
-        return 'primary';
-      case 'service_domain':
-        return 'warning';
-      case 'api':
-        return 'secondary';
-      case 'event':
-        return 'error';
-      case 'bom':
-        return 'info';
-      case 'system':
-        return 'info';
-      case 'dev_team':
-        return 'success';
-      default:
-        return 'info';
-    }
-  };
 
   const formatDataValue = (value: any): string => {
     if (value === null || value === undefined) return 'null';

@@ -1,0 +1,936 @@
+{
+  "nodes": [
+    {
+      "id": "ba-business-support",
+      "name": "Business Support",
+      "type": "business_area",
+      "description": "Business Area: Business Support"
+    },
+    {
+      "id": "bd-it-management",
+      "name": "IT Management",
+      "type": "business_domain",
+      "description": "Business Domain: IT Management"
+    },
+    {
+      "id": "sd-systems-operations",
+      "name": "Systems Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Systems Operations"
+    },
+    {
+      "id": "sd-systems-assurance",
+      "name": "Systems Assurance",
+      "type": "service_domain",
+      "description": "Service Domain: Systems Assurance"
+    },
+    {
+      "id": "sd-systems-administration",
+      "name": "Systems Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Systems Administration"
+    },
+    {
+      "id": "sd-system-development",
+      "name": "System Development",
+      "type": "service_domain",
+      "description": "Service Domain: System Development"
+    },
+    {
+      "id": "sd-system-deployment",
+      "name": "System Deployment",
+      "type": "service_domain",
+      "description": "Service Domain: System Deployment"
+    },
+    {
+      "id": "sd-production-release",
+      "name": "Production Release",
+      "type": "service_domain",
+      "description": "Service Domain: Production Release"
+    },
+    {
+      "id": "sd-platform-operations",
+      "name": "Platform Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Platform Operations"
+    },
+    {
+      "id": "sd-it-systems-direction",
+      "name": "IT Systems Direction",
+      "type": "service_domain",
+      "description": "Service Domain: IT Systems Direction"
+    },
+    {
+      "id": "sd-it-standards-and-guidelines",
+      "name": "IT Standards And Guidelines",
+      "type": "service_domain",
+      "description": "Service Domain: IT Standards And Guidelines"
+    },
+    {
+      "id": "sd-internal-network-operation",
+      "name": "Internal Network Operation",
+      "type": "service_domain",
+      "description": "Service Domain: Internal Network Operation"
+    },
+    {
+      "id": "sd-development-environment",
+      "name": "Development Environment",
+      "type": "service_domain",
+      "description": "Service Domain: Development Environment"
+    },
+    {
+      "id": "sd-systems-help-desk",
+      "name": "Systems Help Desk",
+      "type": "service_domain",
+      "description": "Service Domain: Systems Help Desk"
+    },
+    {
+      "id": "sd-operational-gateway",
+      "name": "Operational Gateway",
+      "type": "service_domain",
+      "description": "Service Domain: Operational Gateway"
+    },
+    {
+      "id": "bd-non-it-and-non-hr-enterprise-services",
+      "name": "Non-IT and Non-HR Enterprise Services",
+      "type": "business_domain",
+      "description": "Business Domain: Non-IT and Non-HR Enterprise Services"
+    },
+    {
+      "id": "sd-security-assurance",
+      "name": "Security Assurance",
+      "type": "service_domain",
+      "description": "Service Domain: Security Assurance"
+    },
+    {
+      "id": "sd-security-advisory",
+      "name": "Security Advisory",
+      "type": "service_domain",
+      "description": "Service Domain: Security Advisory"
+    },
+    {
+      "id": "sd-procurement",
+      "name": "Procurement",
+      "type": "service_domain",
+      "description": "Service Domain: Procurement"
+    },
+    {
+      "id": "sd-legal-compliance",
+      "name": "Legal Compliance",
+      "type": "service_domain",
+      "description": "Service Domain: Legal Compliance"
+    },
+    {
+      "id": "sd-internal-audit",
+      "name": "Internal Audit",
+      "type": "service_domain",
+      "description": "Service Domain: Internal Audit"
+    },
+    {
+      "id": "sd-fixed-asset-register",
+      "name": "Fixed Asset Register",
+      "type": "service_domain",
+      "description": "Service Domain: Fixed Asset Register"
+    },
+    {
+      "id": "sd-company-billing-and-payments",
+      "name": "Company Billing and Payments",
+      "type": "service_domain",
+      "description": "Service Domain: Company Billing and Payments"
+    },
+    {
+      "id": "sd-approved-supplier-directory",
+      "name": "Approved Supplier Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Approved Supplier Directory"
+    },
+    {
+      "id": "sd-legal-advisory",
+      "name": "Legal Advisory",
+      "type": "service_domain",
+      "description": "Service Domain: Legal Advisory"
+    },
+    {
+      "id": "bd-buildings-equipment-and-facilities",
+      "name": "Buildings Equipment and Facilities",
+      "type": "business_domain",
+      "description": "Business Domain: Buildings Equipment and Facilities"
+    },
+    {
+      "id": "sd-utilities-administration",
+      "name": "Utilities Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Utilities Administration"
+    },
+    {
+      "id": "sd-site-operations",
+      "name": "Site Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Site Operations"
+    },
+    {
+      "id": "sd-site-administration",
+      "name": "Site Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Site Administration"
+    },
+    {
+      "id": "sd-property-portfolio",
+      "name": "Property Portfolio",
+      "type": "service_domain",
+      "description": "Service Domain: Property Portfolio"
+    },
+    {
+      "id": "sd-equipment-maintenance",
+      "name": "Equipment Maintenance",
+      "type": "service_domain",
+      "description": "Service Domain: Equipment Maintenance"
+    },
+    {
+      "id": "sd-equipment-administration",
+      "name": "Equipment Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Equipment Administration"
+    },
+    {
+      "id": "sd-building-maintenance",
+      "name": "Building Maintenance",
+      "type": "service_domain",
+      "description": "Service Domain: Building Maintenance"
+    },
+    {
+      "id": "bd-business-command-and-control",
+      "name": "Business Command and Control",
+      "type": "business_domain",
+      "description": "Business Domain: Business Command and Control"
+    },
+    {
+      "id": "sd-business-unit-management",
+      "name": "Business Unit Management",
+      "type": "service_domain",
+      "description": "Service Domain: Business Unit Management"
+    },
+    {
+      "id": "sd-business-unit-financial-analysis",
+      "name": "Business Unit Financial Analysis",
+      "type": "service_domain",
+      "description": "Service Domain: Business Unit Financial Analysis"
+    },
+    {
+      "id": "sd-business-unit-direction",
+      "name": "Business Unit Direction",
+      "type": "service_domain",
+      "description": "Service Domain: Business Unit Direction"
+    },
+    {
+      "id": "sd-business-unit-accounting",
+      "name": "Business Unit Accounting",
+      "type": "service_domain",
+      "description": "Service Domain: Business Unit Accounting"
+    },
+    {
+      "id": "sd-business-unit-financial-operations",
+      "name": "Business Unit Financial Operations",
+      "type": "service_domain",
+      "description": "Service Domain: Business Unit Financial Operations"
+    },
+    {
+      "id": "sd-organization-direction",
+      "name": "Organization Direction",
+      "type": "service_domain",
+      "description": "Service Domain: Organization Direction"
+    },
+    {
+      "id": "bd-finance",
+      "name": "Finance",
+      "type": "business_domain",
+      "description": "Business Domain: Finance"
+    },
+    {
+      "id": "sd-financial-statements",
+      "name": "Financial Statements",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Statements"
+    },
+    {
+      "id": "sd-financial-control",
+      "name": "Financial Control",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Control"
+    },
+    {
+      "id": "sd-financial-compliance",
+      "name": "Financial Compliance",
+      "type": "service_domain",
+      "description": "Service Domain: Financial Compliance"
+    },
+    {
+      "id": "sd-enterprise-tax-administration",
+      "name": "Enterprise Tax Administration",
+      "type": "service_domain",
+      "description": "Service Domain: Enterprise Tax Administration"
+    },
+    {
+      "id": "bd-human-resource-management",
+      "name": "Human Resource Management",
+      "type": "business_domain",
+      "description": "Business Domain: Human Resource Management"
+    },
+    {
+      "id": "sd-workforce-training",
+      "name": "Workforce Training",
+      "type": "service_domain",
+      "description": "Service Domain: Workforce Training"
+    },
+    {
+      "id": "sd-travel-and-expenses",
+      "name": "Travel and Expenses",
+      "type": "service_domain",
+      "description": "Service Domain: Travel and Expenses"
+    },
+    {
+      "id": "sd-recruitment",
+      "name": "Recruitment",
+      "type": "service_domain",
+      "description": "Service Domain: Recruitment"
+    },
+    {
+      "id": "sd-human-resources-direction",
+      "name": "Human Resources Direction",
+      "type": "service_domain",
+      "description": "Service Domain: Human Resources Direction"
+    },
+    {
+      "id": "sd-employee-and-contractor-contract",
+      "name": "Employee and Contractor Contract",
+      "type": "service_domain",
+      "description": "Service Domain: Employee and Contractor Contract"
+    },
+    {
+      "id": "sd-employee-payroll-and-incentives",
+      "name": "Employee Payroll And Incentives",
+      "type": "service_domain",
+      "description": "Service Domain: Employee Payroll And Incentives"
+    },
+    {
+      "id": "sd-employee-evaluation",
+      "name": "Employee Evaluation",
+      "type": "service_domain",
+      "description": "Service Domain: Employee Evaluation"
+    },
+    {
+      "id": "sd-employee-data-management",
+      "name": "Employee Data Management",
+      "type": "service_domain",
+      "description": "Service Domain: Employee Data Management"
+    },
+    {
+      "id": "sd-employee-certification",
+      "name": "Employee Certification",
+      "type": "service_domain",
+      "description": "Service Domain: Employee Certification"
+    },
+    {
+      "id": "sd-employee-benefits",
+      "name": "Employee Benefits",
+      "type": "service_domain",
+      "description": "Service Domain: Employee Benefits"
+    },
+    {
+      "id": "sd-employee-assignment",
+      "name": "Employee Assignment",
+      "type": "service_domain",
+      "description": "Service Domain: Employee Assignment"
+    },
+    {
+      "id": "sd-employee-access",
+      "name": "Employee Access",
+      "type": "service_domain",
+      "description": "Service Domain: Employee Access"
+    },
+    {
+      "id": "bd-knowledge-and-intellectual-property-management",
+      "name": "Knowledge and Intellectual Property Management",
+      "type": "business_domain",
+      "description": "Business Domain: Knowledge and Intellectual Property Management"
+    },
+    {
+      "id": "sd-management-manual",
+      "name": "Management Manual",
+      "type": "service_domain",
+      "description": "Service Domain: Management Manual"
+    },
+    {
+      "id": "sd-knowledge-exchange",
+      "name": "Knowledge Exchange",
+      "type": "service_domain",
+      "description": "Service Domain: Knowledge Exchange"
+    },
+    {
+      "id": "sd-intellectual-property-portfolio",
+      "name": "Intellectual Property Portfolio",
+      "type": "service_domain",
+      "description": "Service Domain: Intellectual Property Portfolio"
+    },
+    {
+      "id": "bd-corporate-relations",
+      "name": "Corporate Relations",
+      "type": "business_domain",
+      "description": "Business Domain: Corporate Relations"
+    },
+    {
+      "id": "sd-regulatory-and-legal-authority",
+      "name": "Regulatory And Legal Authority",
+      "type": "service_domain",
+      "description": "Service Domain: Regulatory And Legal Authority"
+    },
+    {
+      "id": "sd-investor-relations",
+      "name": "Investor Relations",
+      "type": "service_domain",
+      "description": "Service Domain: Investor Relations"
+    },
+    {
+      "id": "sd-corporate-relationship",
+      "name": "Corporate Relationship",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Relationship"
+    },
+    {
+      "id": "sd-corporate-communications",
+      "name": "Corporate Communications",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Communications"
+    },
+    {
+      "id": "sd-corporate-alliance-and-stake-holder",
+      "name": "Corporate Alliance and Stake Holder",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Alliance and Stake Holder"
+    },
+    {
+      "id": "bd-business-direction",
+      "name": "Business Direction",
+      "type": "business_domain",
+      "description": "Business Domain: Business Direction"
+    },
+    {
+      "id": "sd-corporate-policies",
+      "name": "Corporate Policies",
+      "type": "service_domain",
+      "description": "Service Domain: Corporate Policies"
+    },
+    {
+      "id": "sd-continuity-planning",
+      "name": "Continuity Planning",
+      "type": "service_domain",
+      "description": "Service Domain: Continuity Planning"
+    },
+    {
+      "id": "sd-enterprise-architecture",
+      "name": "Enterprise Architecture",
+      "type": "service_domain",
+      "description": "Service Domain: Enterprise Architecture"
+    },
+    {
+      "id": "sd-products-and-services-direction",
+      "name": "Products and Services Direction",
+      "type": "service_domain",
+      "description": "Service Domain: Products and Services Direction"
+    },
+    {
+      "id": "bd-document-management-and-archive",
+      "name": "Document Management and Archive",
+      "type": "business_domain",
+      "description": "Business Domain: Document Management and Archive"
+    },
+    {
+      "id": "sd-document-directory",
+      "name": "Document Directory",
+      "type": "service_domain",
+      "description": "Service Domain: Document Directory"
+    },
+    {
+      "id": "sd-correspondence",
+      "name": "Correspondence",
+      "type": "service_domain",
+      "description": "Service Domain: Correspondence"
+    },
+    {
+      "id": "sd-archive-services",
+      "name": "Archive Services",
+      "type": "service_domain",
+      "description": "Service Domain: Archive Services"
+    },
+    {
+      "id": "sd-document-services",
+      "name": "Document Services",
+      "type": "service_domain",
+      "description": "Service Domain: Document Services"
+    }
+  ],
+  "edges": [
+    {
+      "id": "edge-ba-business-support-bd-it-management",
+      "source": "ba-business-support",
+      "target": "bd-it-management",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-it-management-sd-systems-operations",
+      "source": "bd-it-management",
+      "target": "sd-systems-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-systems-assurance",
+      "source": "bd-it-management",
+      "target": "sd-systems-assurance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-systems-administration",
+      "source": "bd-it-management",
+      "target": "sd-systems-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-system-development",
+      "source": "bd-it-management",
+      "target": "sd-system-development",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-system-deployment",
+      "source": "bd-it-management",
+      "target": "sd-system-deployment",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-production-release",
+      "source": "bd-it-management",
+      "target": "sd-production-release",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-platform-operations",
+      "source": "bd-it-management",
+      "target": "sd-platform-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-it-systems-direction",
+      "source": "bd-it-management",
+      "target": "sd-it-systems-direction",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-it-standards-and-guidelines",
+      "source": "bd-it-management",
+      "target": "sd-it-standards-and-guidelines",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-internal-network-operation",
+      "source": "bd-it-management",
+      "target": "sd-internal-network-operation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-development-environment",
+      "source": "bd-it-management",
+      "target": "sd-development-environment",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-systems-help-desk",
+      "source": "bd-it-management",
+      "target": "sd-systems-help-desk",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-it-management-sd-operational-gateway",
+      "source": "bd-it-management",
+      "target": "sd-operational-gateway",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-non-it-and-non-hr-enterprise-services",
+      "source": "ba-business-support",
+      "target": "bd-non-it-and-non-hr-enterprise-services",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-security-assurance",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-security-assurance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-security-advisory",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-security-advisory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-procurement",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-procurement",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-legal-compliance",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-legal-compliance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-internal-audit",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-internal-audit",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-fixed-asset-register",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-fixed-asset-register",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-company-billing-and-payments",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-company-billing-and-payments",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-approved-supplier-directory",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-approved-supplier-directory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-non-it-and-non-hr-enterprise-services-sd-legal-advisory",
+      "source": "bd-non-it-and-non-hr-enterprise-services",
+      "target": "sd-legal-advisory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-buildings-equipment-and-facilities",
+      "source": "ba-business-support",
+      "target": "bd-buildings-equipment-and-facilities",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-buildings-equipment-and-facilities-sd-utilities-administration",
+      "source": "bd-buildings-equipment-and-facilities",
+      "target": "sd-utilities-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-buildings-equipment-and-facilities-sd-site-operations",
+      "source": "bd-buildings-equipment-and-facilities",
+      "target": "sd-site-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-buildings-equipment-and-facilities-sd-site-administration",
+      "source": "bd-buildings-equipment-and-facilities",
+      "target": "sd-site-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-buildings-equipment-and-facilities-sd-property-portfolio",
+      "source": "bd-buildings-equipment-and-facilities",
+      "target": "sd-property-portfolio",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-buildings-equipment-and-facilities-sd-equipment-maintenance",
+      "source": "bd-buildings-equipment-and-facilities",
+      "target": "sd-equipment-maintenance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-buildings-equipment-and-facilities-sd-equipment-administration",
+      "source": "bd-buildings-equipment-and-facilities",
+      "target": "sd-equipment-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-buildings-equipment-and-facilities-sd-building-maintenance",
+      "source": "bd-buildings-equipment-and-facilities",
+      "target": "sd-building-maintenance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-business-command-and-control",
+      "source": "ba-business-support",
+      "target": "bd-business-command-and-control",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-business-command-and-control-sd-business-unit-management",
+      "source": "bd-business-command-and-control",
+      "target": "sd-business-unit-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-command-and-control-sd-business-unit-financial-analysis",
+      "source": "bd-business-command-and-control",
+      "target": "sd-business-unit-financial-analysis",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-command-and-control-sd-business-unit-direction",
+      "source": "bd-business-command-and-control",
+      "target": "sd-business-unit-direction",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-command-and-control-sd-business-unit-accounting",
+      "source": "bd-business-command-and-control",
+      "target": "sd-business-unit-accounting",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-command-and-control-sd-business-unit-financial-operations",
+      "source": "bd-business-command-and-control",
+      "target": "sd-business-unit-financial-operations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-command-and-control-sd-organization-direction",
+      "source": "bd-business-command-and-control",
+      "target": "sd-organization-direction",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-finance",
+      "source": "ba-business-support",
+      "target": "bd-finance",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-finance-sd-financial-statements",
+      "source": "bd-finance",
+      "target": "sd-financial-statements",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-finance-sd-financial-control",
+      "source": "bd-finance",
+      "target": "sd-financial-control",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-finance-sd-financial-compliance",
+      "source": "bd-finance",
+      "target": "sd-financial-compliance",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-finance-sd-enterprise-tax-administration",
+      "source": "bd-finance",
+      "target": "sd-enterprise-tax-administration",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-human-resource-management",
+      "source": "ba-business-support",
+      "target": "bd-human-resource-management",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-workforce-training",
+      "source": "bd-human-resource-management",
+      "target": "sd-workforce-training",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-travel-and-expenses",
+      "source": "bd-human-resource-management",
+      "target": "sd-travel-and-expenses",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-recruitment",
+      "source": "bd-human-resource-management",
+      "target": "sd-recruitment",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-human-resources-direction",
+      "source": "bd-human-resource-management",
+      "target": "sd-human-resources-direction",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-employee-and-contractor-contract",
+      "source": "bd-human-resource-management",
+      "target": "sd-employee-and-contractor-contract",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-employee-payroll-and-incentives",
+      "source": "bd-human-resource-management",
+      "target": "sd-employee-payroll-and-incentives",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-employee-evaluation",
+      "source": "bd-human-resource-management",
+      "target": "sd-employee-evaluation",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-employee-data-management",
+      "source": "bd-human-resource-management",
+      "target": "sd-employee-data-management",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-employee-certification",
+      "source": "bd-human-resource-management",
+      "target": "sd-employee-certification",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-employee-benefits",
+      "source": "bd-human-resource-management",
+      "target": "sd-employee-benefits",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-employee-assignment",
+      "source": "bd-human-resource-management",
+      "target": "sd-employee-assignment",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-human-resource-management-sd-employee-access",
+      "source": "bd-human-resource-management",
+      "target": "sd-employee-access",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-knowledge-and-intellectual-property-management",
+      "source": "ba-business-support",
+      "target": "bd-knowledge-and-intellectual-property-management",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-knowledge-and-intellectual-property-management-sd-management-manual",
+      "source": "bd-knowledge-and-intellectual-property-management",
+      "target": "sd-management-manual",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-knowledge-and-intellectual-property-management-sd-knowledge-exchange",
+      "source": "bd-knowledge-and-intellectual-property-management",
+      "target": "sd-knowledge-exchange",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-knowledge-and-intellectual-property-management-sd-intellectual-property-portfolio",
+      "source": "bd-knowledge-and-intellectual-property-management",
+      "target": "sd-intellectual-property-portfolio",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-corporate-relations",
+      "source": "ba-business-support",
+      "target": "bd-corporate-relations",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-corporate-relations-sd-regulatory-and-legal-authority",
+      "source": "bd-corporate-relations",
+      "target": "sd-regulatory-and-legal-authority",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-corporate-relations-sd-investor-relations",
+      "source": "bd-corporate-relations",
+      "target": "sd-investor-relations",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-corporate-relations-sd-corporate-relationship",
+      "source": "bd-corporate-relations",
+      "target": "sd-corporate-relationship",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-corporate-relations-sd-corporate-communications",
+      "source": "bd-corporate-relations",
+      "target": "sd-corporate-communications",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-corporate-relations-sd-corporate-alliance-and-stake-holder",
+      "source": "bd-corporate-relations",
+      "target": "sd-corporate-alliance-and-stake-holder",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-business-direction",
+      "source": "ba-business-support",
+      "target": "bd-business-direction",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-business-direction-sd-corporate-policies",
+      "source": "bd-business-direction",
+      "target": "sd-corporate-policies",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-direction-sd-continuity-planning",
+      "source": "bd-business-direction",
+      "target": "sd-continuity-planning",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-direction-sd-enterprise-architecture",
+      "source": "bd-business-direction",
+      "target": "sd-enterprise-architecture",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-business-direction-sd-products-and-services-direction",
+      "source": "bd-business-direction",
+      "target": "sd-products-and-services-direction",
+      "label": "implements"
+    },
+    {
+      "id": "edge-ba-business-support-bd-document-management-and-archive",
+      "source": "ba-business-support",
+      "target": "bd-document-management-and-archive",
+      "label": "contains"
+    },
+    {
+      "id": "edge-bd-document-management-and-archive-sd-document-directory",
+      "source": "bd-document-management-and-archive",
+      "target": "sd-document-directory",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-document-management-and-archive-sd-correspondence",
+      "source": "bd-document-management-and-archive",
+      "target": "sd-correspondence",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-document-management-and-archive-sd-archive-services",
+      "source": "bd-document-management-and-archive",
+      "target": "sd-archive-services",
+      "label": "implements"
+    },
+    {
+      "id": "edge-bd-document-management-and-archive-sd-document-services",
+      "source": "bd-document-management-and-archive",
+      "target": "sd-document-services",
+      "label": "implements"
+    }
+  ]
+}

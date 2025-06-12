@@ -16,7 +16,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { NodeIcon } from './NodeIcon';
+import { NodeIcon, NodeType } from './NodeIcons';
 import type { Node } from '../services/architectureService';
 import { architectureService } from '../services/architectureService';
 
@@ -69,7 +69,7 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
     });
   };
 
-  const getTypeLabel = (type: Node['type']): string => {
+  const getTypeLabel = (type: NodeType): string => {
     switch (type) {
       case 'business_area':
         return 'Business Areas';

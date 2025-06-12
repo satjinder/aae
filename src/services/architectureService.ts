@@ -1,6 +1,24 @@
 // Types for our architecture nodes
 export type NodeType = 'business_area' | 'business_domain' | 'service_domain' | 'api' | 'event' | 'bom' | 'system' | 'dev_team' | 'business_team' | 'business_owner';
 
+// Import architecture data from JSON files
+import { allBusinessAreaNodes, allBusinessAreaEdges } from '../data/business_areas';
+import { v4 as uuidv4 } from 'uuid';
+
+// Type assertion for imported JSON data
+const typedBusinessAreaNodes = allBusinessAreaNodes as Array<{ id: string; name: string; type: NodeType; description: string }>;
+
+// Type for business area edges
+interface BusinessAreaEdge {
+  source: string;
+  target: string;
+  type: string;
+  description: string;
+}
+
+// Type assertion for edges
+const typedBusinessAreaEdges = allBusinessAreaEdges as BusinessAreaEdge[];
+
 export type RoadmapAlignment = 'strategic' | 'sunset' | 'maintain' | 'transform' | 'not-aligned';
 export type DomainServiceStatus = 'proposed' | 'endorsed' | 'active' | 'deprecated';
 
@@ -341,20 +359,32 @@ export interface ArchitectureData {
   edges: Edge[];
 }
 
-// Import architecture data from JSON file
-import architectureData from '../data/architecture.json';
-
-// Type assertion to ensure the imported JSON matches our interfaces
-const typedArchitectureData = architectureData as unknown as ArchitectureData;
-
-import { v4 as uuidv4 } from 'uuid';
-
 export class ArchitectureService {
   private static instance: ArchitectureService;
   private data: ArchitectureData;
 
-  private constructor(data: ArchitectureData = typedArchitectureData) {
-    this.data = data;
+  private constructor(data: ArchitectureData = { nodes: [], edges: [] }) {
+    // Initialize with edges data from business areas
+    this.data = {
+      nodes: [],
+      edges: typedBusinessAreaEdges.map((edge: BusinessAreaEdge) => ({
+        id: edge.source + '-' + edge.target,
+        source: edge.source,
+        target: edge.target,
+        label: edge.type
+      }))
+    };
+
+    // Add all nodes from business area files
+    typedBusinessAreaNodes.forEach((nodeData) => {
+      this.data.nodes.push({
+        ...nodeData,
+        visible: true,
+        expanded: true,
+        relatedNodes: [],
+        position: { x: 0, y: 0 }
+      });
+    });
   }
 
   public static getInstance(): ArchitectureService {
