@@ -1,0 +1,118 @@
+{
+  "events": [
+    {
+      "id": "agreement_created",
+      "name": "Agreement Created Event",
+      "type": "event",
+      "description": "Triggered when a new customer agreement is created"
+    },
+    {
+      "id": "agreement_updated",
+      "name": "Agreement Updated Event",
+      "type": "event",
+      "description": "Triggered when an existing customer agreement is modified"
+    },
+    {
+      "id": "profile_created",
+      "name": "Profile Created Event",
+      "type": "event",
+      "description": "Triggered when a new customer profile is created"
+    },
+    {
+      "id": "profile_updated",
+      "name": "Profile Updated Event",
+      "type": "event",
+      "description": "Triggered when a customer profile is updated"
+    },
+    {
+      "id": "product_agreement_created",
+      "name": "Product Agreement Created Event",
+      "type": "event",
+      "description": "Triggered when a new product agreement is created"
+    },
+    {
+      "id": "product_added",
+      "name": "Product Added Event",
+      "type": "event",
+      "description": "Triggered when a new product is added to the catalog"
+    },
+    {
+      "id": "product_updated",
+      "name": "Product Updated Event",
+      "type": "event",
+      "description": "Triggered when a product in the catalog is updated"
+    },
+    {
+      "id": "payment_initiated",
+      "name": "Payment Initiated Event",
+      "type": "event",
+      "description": "Triggered when a payment transaction is initiated"
+    },
+    {
+      "id": "payment_completed",
+      "name": "Payment Completed Event",
+      "type": "event",
+      "description": "Triggered when a payment transaction is completed"
+    },
+    {
+      "id": "payment_failed",
+      "name": "Payment Failed Event",
+      "type": "event",
+      "description": "Triggered when a payment transaction fails"
+    },
+    {
+      "id": "payment_reversed",
+      "name": "Payment Reversed Event",
+      "type": "event",
+      "description": "Triggered when a payment transaction is reversed"
+    },
+    {
+      "id": "payment_instruction_created",
+      "name": "Payment Instruction Created Event",
+      "type": "event",
+      "description": "Triggered when a new payment instruction is created"
+    },
+    {
+      "id": "payment_instruction_updated",
+      "name": "Payment Instruction Updated Event",
+      "type": "event",
+      "description": "Triggered when a payment instruction is updated"
+    },
+    {
+      "id": "payment_instruction_cancelled",
+      "name": "Payment Instruction Cancelled Event",
+      "type": "event",
+      "description": "Triggered when a payment instruction is cancelled"
+    },
+    {
+      "id": "payment_schedule_created",
+      "name": "Payment Schedule Created Event",
+      "type": "event",
+      "description": "Triggered when a new payment schedule is created"
+    },
+    {
+      "id": "account_created",
+      "name": "Account Created Event",
+      "type": "event",
+      "description": "Triggered when a new account is created"
+    },
+    {
+      "id": "account_updated",
+      "name": "Account Updated Event",
+      "type": "event",
+      "description": "Triggered when an account is updated"
+    },
+    {
+      "id": "balance_updated",
+      "name": "Balance Updated Event",
+      "type": "event",
+      "description": "Triggered when an account balance is updated"
+    },
+    {
+      "id": "account_status_changed",
+      "name": "Account Status Changed Event",
+      "type": "event",
+      "description": "Triggered when an account status changes"
+    }
+  ]
+} 

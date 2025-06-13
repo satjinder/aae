@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "source": "customer_agreement_api",
+      "target": "customer_profile_api",
+      "type": "depends_on"
+    },
+    {
+      "source": "product_agreement_api",
+      "target": "customer_agreement_api",
+      "type": "depends_on"
+    },
+    {
+      "source": "product_agreement_api",
+      "target": "product_catalog_api",
+      "type": "depends_on"
+    },
+    {
+      "source": "payment_execution_api",
+      "target": "payment_instruction_api",
+      "type": "depends_on"
+    },
+    {
+      "source": "payment_execution_api",
+      "target": "account_management_api",
+      "type": "depends_on"
+    },
+    {
+      "source": "payment_instruction_api",
+      "target": "customer_agreement_api",
+      "type": "depends_on"
+    },
+    {
+      "source": "account_management_api",
+      "target": "customer_profile_api",
+      "type": "depends_on"
+    },
+    {
+      "source": "customer_agreement_api",
+      "target": "sd-current-account",
+      "type": "belongs_to"
+    },
+    {
+      "source": "customer_profile_api",
+      "target": "sd-party-authentication",
+      "type": "belongs_to"
+    },
+    {
+      "source": "product_agreement_api",
+      "target": "sd-product-inventory-item-management",
+      "type": "belongs_to"
+    },
+    {
+      "source": "product_catalog_api",
+      "target": "sd-product-inventory-distribution",
+      "type": "belongs_to"
+    },
+    {
+      "source": "payment_execution_api",
+      "target": "sd-cash-management-and-account-services",
+      "type": "belongs_to"
+    },
+    {
+      "source": "payment_instruction_api",
+      "target": "sd-standing-order",
+      "type": "belongs_to"
+    },
+    {
+      "source": "account_management_api",
+      "target": "sd-current-account",
+      "type": "belongs_to"
+    }
+  ]
+} 

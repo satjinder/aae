@@ -166,7 +166,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
         <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 2 }}>
           {(() => {
             // Get all possible node types
-            const allTypes: NodeType[] = ['business_area', 'business_domain', 'service_domain', 'api', 'event', 'bom', 'system', 'dev_team'];
+            const allTypes: NodeType[] = ['business_area', 'business_domain', 'service_domain', 'api', 'event', 'bom', 'system', 'dev_team', 'business_team', 'business_owner'];
             
             // Get all possible relations for this node type
             const possibleRelations = allTypes.flatMap(targetType => {

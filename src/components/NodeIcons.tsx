@@ -29,4 +29,29 @@ export const NodeIcon: React.FC<NodeIconProps> = ({ type, ...props }) => {
     default:
       return <CategoryIcon {...props} />;
   }
-}; 
+};
+
+export const getNodeTypeColor = (type: NodeType): string => {
+  switch (type) {
+    case 'business_area':
+      return '#1976d2'; // Blue
+    case 'business_domain':
+      return '#2e7d32'; // Green
+    case 'service_domain':
+      return '#ed6c02'; // Orange
+    case 'api':
+      return '#9c27b0'; // Purple
+    case 'event':
+      return '#d32f2f'; // Red
+    case 'bom':
+      return '#0288d1'; // Light Blue
+    case 'system':
+      return '#7b1fa2'; // Deep Purple
+    case 'dev_team':
+      return '#c2185b'; // Pink
+    default:
+      return '#757575'; // Grey
+  }
+};
+
+export type { NodeType }; 

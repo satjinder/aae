@@ -1,0 +1,99 @@
+{
+  "nodes": [
+    {
+      "source": "customer_agreement_api",
+      "target": "agreement_created",
+      "type": "triggers"
+    },
+    {
+      "source": "customer_agreement_api",
+      "target": "agreement_updated",
+      "type": "triggers"
+    },
+    {
+      "source": "customer_profile_api",
+      "target": "profile_created",
+      "type": "triggers"
+    },
+    {
+      "source": "customer_profile_api",
+      "target": "profile_updated",
+      "type": "triggers"
+    },
+    {
+      "source": "product_agreement_api",
+      "target": "product_agreement_created",
+      "type": "triggers"
+    },
+    {
+      "source": "product_catalog_api",
+      "target": "product_added",
+      "type": "triggers"
+    },
+    {
+      "source": "product_catalog_api",
+      "target": "product_updated",
+      "type": "triggers"
+    },
+    {
+      "source": "payment_execution_api",
+      "target": "payment_initiated",
+      "type": "triggers"
+    },
+    {
+      "source": "payment_execution_api",
+      "target": "payment_completed",
+      "type": "triggers"
+    },
+    {
+      "source": "payment_execution_api",
+      "target": "payment_failed",
+      "type": "triggers"
+    },
+    {
+      "source": "payment_execution_api",
+      "target": "payment_reversed",
+      "type": "triggers"
+    },
+    {
+      "source": "payment_instruction_api",
+      "target": "payment_instruction_created",
+      "type": "triggers"
+    },
+    {
+      "source": "payment_instruction_api",
+      "target": "payment_instruction_updated",
+      "type": "triggers"
+    },
+    {
+      "source": "payment_instruction_api",
+      "target": "payment_instruction_cancelled",
+      "type": "triggers"
+    },
+    {
+      "source": "payment_instruction_api",
+      "target": "payment_schedule_created",
+      "type": "triggers"
+    },
+    {
+      "source": "account_management_api",
+      "target": "account_created",
+      "type": "triggers"
+    },
+    {
+      "source": "account_management_api",
+      "target": "account_updated",
+      "type": "triggers"
+    },
+    {
+      "source": "account_management_api",
+      "target": "balance_updated",
+      "type": "triggers"
+    },
+    {
+      "source": "account_management_api",
+      "target": "account_status_changed",
+      "type": "triggers"
+    }
+  ]
+} 

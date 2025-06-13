@@ -1,0 +1,53 @@
+{
+  "apis": [
+    {
+      "id": "customer_agreement_api",
+      "name": "Customer Agreement API",
+      "type": "api",
+      "description": "API for managing customer agreements and contracts",
+      "bian_link": "https://bian.org/servicelandscape-12-0-0/object_21.html?object=35550"
+    },
+    {
+      "id": "customer_profile_api",
+      "name": "Customer Profile API",
+      "type": "api",
+      "description": "API for managing customer profile information",
+      "bian_link": "https://bian.org/servicelandscape-12-0-0/object_21.html?object=35551"
+    },
+    {
+      "id": "product_agreement_api",
+      "name": "Product Agreement API",
+      "type": "api",
+      "description": "API for managing product-specific agreements",
+      "bian_link": "https://bian.org/servicelandscape-12-0-0/object_21.html?object=35552"
+    },
+    {
+      "id": "product_catalog_api",
+      "name": "Product Catalog API",
+      "type": "api",
+      "description": "API for managing product catalog information",
+      "bian_link": "https://bian.org/servicelandscape-12-0-0/object_21.html?object=35553"
+    },
+    {
+      "id": "payment_execution_api",
+      "name": "Payment Execution API",
+      "type": "api",
+      "description": "API for executing payment transactions",
+      "bian_link": "https://bian.org/servicelandscape-12-0-0/object_21.html?object=35554"
+    },
+    {
+      "id": "payment_instruction_api",
+      "name": "Payment Instruction API",
+      "type": "api",
+      "description": "API for managing payment instructions and schedules",
+      "bian_link": "https://bian.org/servicelandscape-12-0-0/object_21.html?object=35555"
+    },
+    {
+      "id": "account_management_api",
+      "name": "Account Management API",
+      "type": "api",
+      "description": "API for managing customer accounts and balances",
+      "bian_link": "https://bian.org/servicelandscape-12-0-0/object_21.html?object=35556"
+    }
+  ]
+} 

@@ -2,22 +2,22 @@
 export type NodeType = 'business_area' | 'business_domain' | 'service_domain' | 'api' | 'event' | 'bom' | 'system' | 'dev_team' | 'business_team' | 'business_owner';
 
 // Import architecture data from JSON files
-import { allBusinessAreaNodes, allBusinessAreaEdges } from '../data/business_areas';
+import { allNodes, allEdges } from '../data';
 import { v4 as uuidv4 } from 'uuid';
 
 // Type assertion for imported JSON data
-const typedBusinessAreaNodes = allBusinessAreaNodes as Array<{ id: string; name: string; type: NodeType; description: string }>;
+const typedBusinessAreaNodes = allNodes as Array<{ id: string; name: string; type: NodeType; description: string }>;
 
 // Type for business area edges
 interface BusinessAreaEdge {
+  id: string;
   source: string;
   target: string;
-  type: string;
-  description: string;
+  label: string;
 }
 
 // Type assertion for edges
-const typedBusinessAreaEdges = allBusinessAreaEdges as BusinessAreaEdge[];
+const typedBusinessAreaEdges = allEdges as BusinessAreaEdge[];
 
 export type RoadmapAlignment = 'strategic' | 'sunset' | 'maintain' | 'transform' | 'not-aligned';
 export type DomainServiceStatus = 'proposed' | 'endorsed' | 'active' | 'deprecated';
@@ -371,7 +371,7 @@ export class ArchitectureService {
         id: edge.source + '-' + edge.target,
         source: edge.source,
         target: edge.target,
-        label: edge.type
+        label: edge.label
       }))
     };
 
