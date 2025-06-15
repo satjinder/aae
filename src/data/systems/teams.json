@@ -1,0 +1,34 @@
+{
+  "nodes": [
+    {
+      "id": "team-001",
+      "name": "Core Banking Team",
+      "type": "dev_team",
+      "description": "Responsible for core banking system development and maintenance"
+    },
+    {
+      "id": "team-002",
+      "name": "Payments Team",
+      "type": "dev_team",
+      "description": "Manages payment gateway and payment processing systems"
+    },
+    {
+      "id": "team-003",
+      "name": "Digital Experience Team",
+      "type": "dev_team",
+      "description": "Develops and maintains customer-facing digital platforms"
+    },
+    {
+      "id": "team-004",
+      "name": "Risk & Compliance Team",
+      "type": "dev_team",
+      "description": "Handles risk management systems and compliance reporting"
+    },
+    {
+      "id": "team-005",
+      "name": "Data & Analytics Team",
+      "type": "dev_team",
+      "description": "Manages data platforms and analytics solutions"
+    }
+  ]
+} 

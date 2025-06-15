@@ -1,0 +1,64 @@
+{
+  "nodes": [
+    {
+      "source": "team-001",
+      "target": "sys-001",
+      "label": "owns"
+    },
+    {
+      "source": "team-002",
+      "target": "sys-002",
+      "label": "owns"
+    },
+    {
+      "source": "team-003",
+      "target": "sys-003",
+      "label": "owns"
+    },
+    {
+      "source": "team-004",
+      "target": "sys-004",
+      "label": "owns"
+    },
+    {
+      "source": "team-005",
+      "target": "sys-005",
+      "label": "owns"
+    },
+    {
+      "source": "team-001",
+      "target": "team-002",
+      "label": "collaborates with"
+    },
+    {
+      "source": "team-001",
+      "target": "team-003",
+      "label": "collaborates with"
+    },
+    {
+      "source": "team-002",
+      "target": "team-003",
+      "label": "collaborates with"
+    },
+    {
+      "source": "team-001",
+      "target": "team-004",
+      "label": "collaborates with"
+    },
+    {
+      "source": "team-002",
+      "target": "team-004",
+      "label": "collaborates with"
+    },
+    {
+      "source": "team-003",
+      "target": "team-005",
+      "label": "collaborates with"
+    },
+    {
+      "source": "team-004",
+      "target": "team-005",
+      "label": "collaborates with"
+    }
+  ]
+} 

@@ -1,0 +1,64 @@
+{
+  "nodes": [
+    {
+      "id": "sys-001",
+      "name": "Core Banking System",
+      "type": "system",
+      "description": "Main banking system handling core banking operations, account management, and transactions"
+    },
+    {
+      "id": "sys-002",
+      "name": "Payment Gateway",
+      "type": "system",
+      "description": "Handles all payment processing, including card payments, wire transfers, and real-time payments"
+    },
+    {
+      "id": "sys-003",
+      "name": "Customer Portal",
+      "type": "system",
+      "description": "Web and mobile banking platform for customer self-service and account management"
+    },
+    {
+      "id": "sys-004",
+      "name": "Risk Management System",
+      "type": "system",
+      "description": "Monitors and manages financial risks, compliance, and regulatory reporting"
+    },
+    {
+      "id": "sys-005",
+      "name": "Data Analytics Platform",
+      "type": "system",
+      "description": "Big data platform for customer analytics, business intelligence, and reporting"
+    },
+    {
+      "id": "sys-006",
+      "name": "Card Management System",
+      "type": "system",
+      "description": "Manages credit and debit card operations, including card issuance, processing, and fraud monitoring"
+    },
+    {
+      "id": "sys-007",
+      "name": "Real-Time Payment System",
+      "type": "system",
+      "description": "Handles instant payment processing and settlement between banks and financial institutions"
+    },
+    {
+      "id": "sys-008",
+      "name": "International Payment System",
+      "type": "system",
+      "description": "Manages cross-border payments, foreign exchange, and international wire transfers"
+    },
+    {
+      "id": "sys-009",
+      "name": "Payment Reconciliation System",
+      "type": "system",
+      "description": "Handles payment reconciliation, settlement, and reporting across different payment channels"
+    },
+    {
+      "id": "sys-010",
+      "name": "Payment Initiation and Execution Service",
+      "type": "system",
+      "description": "System for initiating and executing various types of payment transactions"
+    }
+  ]
+} 
