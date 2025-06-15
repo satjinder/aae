@@ -36,14 +36,29 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [expandedMainSections, setExpandedMainSections] = useState<Set<string>>(new Set());
+  const [loadedChildNodes, setLoadedChildNodes] = useState<Record<string, Node[]>>({});
 
   const getChildNodes = (nodeId: string): Node[] => {
+    // Return cached child nodes if available
+    if (loadedChildNodes[nodeId]) {
+      return loadedChildNodes[nodeId];
+    }
+
+    // Load child nodes only when needed
     const edges = architectureService.getAllData().edges;
     const childEdges = edges.filter(edge => edge.source === nodeId);
-    return childEdges.map(edge => {
+    const children = childEdges.map(edge => {
       const targetNode = architectureService.getNodeById(edge.target);
       return targetNode!;
     });
+
+    // Cache the loaded child nodes
+    setLoadedChildNodes(prev => ({
+      ...prev,
+      [nodeId]: children
+    }));
+
+    return children;
   };
 
   const toggleSection = (nodeId: string) => {
@@ -98,13 +113,15 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
       node.name.toLowerCase().includes(query) ||
       node.description.toLowerCase().includes(query);
 
-    // Get child nodes
-    const childNodes = getChildNodes(node.id);
-    
-    // Check if any child nodes match
-    const childrenMatch = childNodes.some(child => searchInNode(child, query));
-    
-    return nodeMatches || childrenMatch;
+    // Only get child nodes if the section is expanded or we're searching
+    if (expandedSections[node.id] || query) {
+      const childNodes = getChildNodes(node.id);
+      // Check if any child nodes match
+      const childrenMatch = childNodes.some(child => searchInNode(child, query));
+      return nodeMatches || childrenMatch;
+    }
+
+    return nodeMatches;
   };
 
   const getMatchingNodes = (nodes: Node[], query: string): Node[] => {
@@ -126,13 +143,13 @@ export const NodeBrowser: React.FC<NodeBrowserProps> = ({
       system: getMatchingNodes(groupedNodes.system || [], query),
       dev_team: getMatchingNodes(groupedNodes.dev_team || [], query)
     };
-  }, [groupedNodes, searchQuery]);
+  }, [groupedNodes, searchQuery, expandedSections]);
 
   const renderNode = (node: Node) => {
     const hasChildren = ['business_area', 'business_domain', 'service_domain'].includes(node.type);
     const isExpanded = expandedSections[node.id];
-    const childNodes = hasChildren ? getChildNodes(node.id) : [];
-    const childCount = hasChildren ? childNodes.length : 0;
+    const childNodes = hasChildren && isExpanded ? getChildNodes(node.id) : [];
+    const childCount = hasChildren ? architectureService.getEdgesByNodeId(node.id).length : 0;
 
     // If searching, expand nodes that have matching children
     if (searchQuery && hasChildren && !isExpanded) {

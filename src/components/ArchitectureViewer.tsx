@@ -32,7 +32,6 @@ import { diagramService } from '../services/diagramService';
 import type { Node as ArchitectureNode } from '../services/architectureService';
 import type { DiagramNode } from '../services/diagramService';
 import { ManageNodeVisibilityTool } from '../agents/tools/diagram/manageNodeVisibilityTool';
-import { NodeType } from './NodeIcons';
 
 const nodeTypes: NodeTypes = {
   custom: CustomNode
