@@ -366,25 +366,20 @@ export class ArchitectureService {
   private constructor(data: ArchitectureData = { nodes: [], edges: [] }) {
     // Initialize with edges data from business areas
     this.data = {
-      nodes: [],
-      edges: typedBusinessAreaEdges.map((edge: BusinessAreaEdge) => ({
+      nodes: data.nodes.length > 0 ? data.nodes : typedBusinessAreaNodes.map((nodeData) => ({
+        ...nodeData,
+        visible: true,
+        expanded: true,
+        relatedNodes: [],
+        position: { x: 0, y: 0 }
+      })),
+      edges: data.edges.length > 0 ? data.edges : typedBusinessAreaEdges.map((edge: BusinessAreaEdge) => ({
         id: edge.source + '-' + edge.target,
         source: edge.source,
         target: edge.target,
         label: edge.label
       }))
     };
-
-    // Add all nodes from business area files
-    typedBusinessAreaNodes.forEach((nodeData) => {
-      this.data.nodes.push({
-        ...nodeData,
-        visible: true,
-        expanded: true,
-        relatedNodes: [],
-        position: { x: 0, y: 0 }
-      });
-    });
   }
 
   public static getInstance(): ArchitectureService {

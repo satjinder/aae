@@ -7,7 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddIcon from '@mui/icons-material/Add';
 import { CreateNodeDialog } from '../CreateNodeDialog';
 import { architectureService } from '../../services/architectureService';
-import { NodeIcon, NodeType, getNodeTypeColor } from '../NodeIcons';
+import { NodeIcon, getNodeTypeColor } from '../NodeIcons';
 import type { Node } from '../../services/architectureService';
 
 type NodeType = Node['type'];
@@ -122,7 +122,7 @@ const CustomNode: React.FC<CustomNodeProps> = ({ data }) => {
       <Handle type="target" position={Position.Top} style={{ background: getNodeTypeColor(data.type) }} />
       
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-        <NodeIcon type={data.type} color={getNodeTypeColor(data.type)} />
+        <NodeIcon type={data.type} color="primary" />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {data.name}
         </Typography>
