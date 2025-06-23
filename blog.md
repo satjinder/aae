@@ -1,5 +1,7 @@
 # Building an AI-Powered Architecture Enablement Platform
 
+> **⚠️ Work in Progress:** This project is currently under active development. Features, documentation, and functionality may change frequently. Feedback is welcome!
+
 ## The Meta-Experience: Using AI to Build AI Tools
 
 In the world of software development, we often talk about eating our own dog food. But what about using AI to build AI-powered tools? That's exactly what I set out to explore in my latest project - an Architecture Enablement Platform that uses AI to help teams understand and interact with complex banking architectures.

@@ -1,5 +1,7 @@
 # Banking Industry Architecture Network (BIAN) Visualization Tool
 
+> **⚠️ Work in Progress:** This project is currently under active development. Features, documentation, and functionality may change frequently. Feedback is welcome!
+
 ## Overview
 This project serves two primary objectives:
 1. Exploration of AI capabilities in visualizing and understanding complex architectural patterns
