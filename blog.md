@@ -2,6 +2,36 @@
 
 > **⚠️ Work in Progress:** This project is currently under active development. Features, documentation, and functionality may change frequently. Feedback is welcome!
 
+**Live Demo:** [https://satjinder.github.io/aae/](https://satjinder.github.io/aae/)
+
+**Source Code:** [https://github.com/satjinder/aae](https://github.com/satjinder/aae)
+
+## How the Tool Works
+
+The BIAN Visualization Tool provides an interactive way to explore complex banking architectures. It empowers users to:
+- Search and filter BIAN service domains, systems, and teams using keywords
+- Visualize relationships between service domains, real-world systems, and organizational teams
+- Dynamically bring relevant items onto the board for detailed analysis
+- Use an AI-powered agent to answer natural language queries about the architecture, such as finding specific nodes, understanding relationships, identifying team responsibilities, or performing gap analysis (e.g., checking for missing features like crypto currency support)
+
+The tool operates entirely client-side, with optional AI features enabled by providing your own OpenAI API key (BYOK mode). All AI operations are performed in the browser, ensuring privacy and security.
+
+### Main Architecture Diagram
+![Main Architecture Diagram](assets/diagram.png)
+*Placeholder: Main interactive visualization board showing BIAN domains and relationships.*
+
+### AI Agent: Search by Name and Type
+![Agent Search by Name and Type](assets/agent%20searching%20node%20by%20name%20anbd%20type.png)
+*Placeholder: The AI agent helps users find nodes by name or type using natural language.*
+
+### AI Agent: Reveal Team-Service Relationships
+![Agent Search Related Team to Service](assets/agent%20search%20related%20team%20to%20the%20service%20on%20the%20diagram.png)
+*Placeholder: The agent uncovers which teams are responsible for specific service domains, even if not directly visible.*
+
+### AI Agent: Gap Analysis for Crypto Currency Support
+![Gap Analysis](assets/gap_analysis.png)
+*Placeholder: LLM response to a query about crypto currency support in the Payment Execution service domain, highlighting architectural gaps.*
+
 ## The Meta-Experience: Using AI to Build AI Tools
 
 In the world of software development, we often talk about eating our own dog food. But what about using AI to build AI-powered tools? That's exactly what I set out to explore in my latest project - an Architecture Enablement Platform that uses AI to help teams understand and interact with complex banking architectures.

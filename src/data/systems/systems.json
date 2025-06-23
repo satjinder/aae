@@ -59,6 +59,12 @@
       "name": "Payment Initiation and Execution Service",
       "type": "system",
       "description": "System for initiating and executing various types of payment transactions"
+    },
+    {
+      "id": "sys-011",
+      "name": "Payment Execution Engine",
+      "type": "system",
+      "description": "Executes payment transactions and manages payment workflows, owned by the Payments Team"
     }
   ]
 } 

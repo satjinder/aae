@@ -51,7 +51,7 @@ The application is deployed and available at: [https://satjinder.github.io/aae/]
 - Mapping of conceptual models to real systems
 - Team structure visualization
 - System dependency mapping
-- AI-powered insights and analysis
+- AI-powered insights and analysis, including gap analysis (e.g., identifying missing features like crypto currency support in service domains)
 - Client-side only application with BYOK (Bring Your Own Key) mode
 
 ## AI Integration
@@ -121,11 +121,15 @@ The interactive visualization board allows users to search and filter components
 ### AI Agent Features
 The AI-powered agent enhances the exploration experience by understanding natural language queries. It intelligently identifies relevant node types and relationships based on user input, making it easier to navigate the complex architecture.
 
-![Agent Search by Name and Type](assets/agent%20searching%20node%20by%20name%20anbd%20type.png)
+![Agent Search by Name and Type](assets/agent%20searching%20node%20by%20name%20and%20type.png)
 
 The agent can provide deeper insights into the relationships between services and teams. When users ask about service ownership or team responsibilities, the agent understands the underlying connections and can reveal indirect relationships. For example, it can identify which teams are responsible for implementing specific service domains, even when these relationships aren't directly visible in the initial view.
 
 ![Agent Search Related Team to Service](assets/agent%20search%20related%20team%20to%20the%20service%20on%20the%20diagram.png)
+
+### Gap Analysis: LLM Response to Crypto Currency Support
+![Gap Analysis](assets/gap_analysis.png)
+*Placeholder: Example LLM response when asked about crypto currency support in the Payment Execution service domain, showing architectural gaps or missing features.*
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.

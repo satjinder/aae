@@ -289,6 +289,16 @@
       "source": "ba-business-support",
       "target": "sys-009",
       "label": "integrates with"
+    },
+    {
+      "source": "sys-011",
+      "target": "sd-payment-execution",
+      "label": "implements"
+    },
+    {
+      "source": "team-002",
+      "target": "sys-011",
+      "label": "owns"
     }
   ]
 } 
