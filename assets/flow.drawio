@@ -1,0 +1,73 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/27.0.9 Chrome/134.0.6998.205 Electron/35.4.0 Safari/537.36" version="27.0.9">
+  <diagram name="Page-1" id="tOyg4xztqGXYSDdSJS6L">
+    <mxGraphModel dx="1822" dy="1395" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="340" width="250" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-2" value="AI Agent" style="shape=mxgraph.signs.healthcare.brain;html=1;pointerEvents=1;fillColor=#000000;strokeColor=none;verticalLabelPosition=bottom;verticalAlign=top;align=center;" vertex="1" parent="1">
+          <mxGeometry x="590" y="354" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-3" value="Non-Architect Staff" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="190" y="460" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-4" value="AAE Tool&#xa;(Explore &amp; Propose Changes)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1D5E7;" vertex="1" parent="1">
+          <mxGeometry x="450" y="455" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-5" value="Pull Request Created" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="750" y="460" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-6" value="Architect Reviews PR" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#D5E8D4;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="465" width="200" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-7" value="Change Merged" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="390" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-8" value="Revisions Requested" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="550" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-9" style="endArrow=block;" edge="1" parent="1" source="4blfWX7L6F9WR3PqAxYM-3" target="4blfWX7L6F9WR3PqAxYM-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-10" style="endArrow=block;" edge="1" parent="1" source="4blfWX7L6F9WR3PqAxYM-4" target="4blfWX7L6F9WR3PqAxYM-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-11" style="endArrow=block;" edge="1" parent="1" source="4blfWX7L6F9WR3PqAxYM-5" target="4blfWX7L6F9WR3PqAxYM-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-12" style="endArrow=block;" edge="1" parent="1" source="4blfWX7L6F9WR3PqAxYM-6" target="4blfWX7L6F9WR3PqAxYM-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-13" style="endArrow=block;" edge="1" parent="1" source="4blfWX7L6F9WR3PqAxYM-6" target="4blfWX7L6F9WR3PqAxYM-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-14" value="Dev / PO / BA / Architects" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="254" y="360" width="52" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-15" value="Pull Request" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.git_repository;" vertex="1" parent="1">
+          <mxGeometry x="800" y="353" width="80" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-16" value="Architect" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="1086" y="364" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-17" value="AAE" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.website_generic;pointerEvents=1;" vertex="1" parent="1">
+          <mxGeometry x="465" y="353" width="80" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-18" value="+" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=33;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="540" y="373" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-19" value="THE PROBLEM&lt;br&gt;&lt;br&gt;• Complex BIAN architecture&lt;br&gt;• Hard to navigate&lt;br&gt;• Abstract concepts&lt;br&gt;• Team/system evolution" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="390" y="140" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-20" value="THE SOLUTION&lt;br&gt;&lt;br&gt;• Interactive visualization&lt;br&gt;• AI-powered chat&lt;br&gt;• Natural language queries&lt;br&gt;• Collaborative changes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;align=left;verticalAlign=top;spacingLeft=10;spacingTop=10;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="140" width="200" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="4blfWX7L6F9WR3PqAxYM-21" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;curved=1;strokeWidth=3;strokeColor=#6b7280;" edge="1" parent="1" source="4blfWX7L6F9WR3PqAxYM-19" target="4blfWX7L6F9WR3PqAxYM-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

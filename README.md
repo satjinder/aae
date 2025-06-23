@@ -131,6 +131,26 @@ The agent can provide deeper insights into the relationships between services an
 ![Gap Analysis](assets/gap_analysis.png)
 *Placeholder: Example LLM response when asked about crypto currency support in the Payment Execution service domain, showing architectural gaps or missing features.*
 
+## How It Works: Data, Visualization, and AI Tools
+
+### Data as JSON
+All architecture data (systems, service domains, teams, relationships, etc.) is stored as JSON files. This makes the data easy to update, version, and extend. The application loads these files at runtime to build the architecture graph.
+
+### Visualization with React Flow
+The interactive architecture diagram is rendered using [React Flow](https://reactflow.dev/), as implemented in `ArchitectureViewer.tsx`. Nodes and edges are dynamically created based on the loaded JSON data, and users can interact with the graph to explore relationships, add nodes, or view details.
+
+### Local Service Tools for LLM Context
+- **architectureService.ts**: Provides all core logic for querying, searching, and relating architecture nodes and edges. It exposes methods for gap analysis, path finding, and node/edge management, which are used both by the UI and the AI agent.
+- **diagramService.ts**: Manages the current state of the diagram (which nodes/edges are visible, expanded, etc.), enabling the UI and agent to update the visualization in response to user queries or actions.
+
+These services are used to provide context and actions for the LLM, so the agent can answer questions about the architecture and manipulate the diagram.
+
+### AI Agent and LangChain Integration
+- **/agents**: Contains the definition of the AI agent, tools, and chains. The agent uses LangChain to interpret user queries, invoke the right tools (such as searching nodes, analyzing gaps, or updating the diagram), and return results.
+- **ArchitectureChat.tsx**: Implements the chat UI, connecting user input to the agent. When a user asks a question, the message is sent to the agent, which uses LangChain to reason over the architecture data and tools, then returns a response and (optionally) updates the diagram.
+
+This architecture allows the LLM to iterate over the data, use local tools for precise answers, and provide a seamless, interactive experience for exploring complex banking architectures.
+
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.
 
