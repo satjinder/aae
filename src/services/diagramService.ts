@@ -4,10 +4,13 @@ import type { Node, Edge } from './architectureService';
 interface DiagramState {
   visibleNodes: Set<string>;
   expandedNodes: Set<string>;
+  nodeDimensions: Record<string, { x: number; y: number; width?: number; height?: number }>;
 }
 
 export interface DiagramNode extends Node {
   relatedNodes: Node[];
+  width?: number;
+  height?: number;
 }
 
 export class DiagramService {
@@ -17,7 +20,8 @@ export class DiagramService {
   private constructor() {
     this.state = {
       visibleNodes: new Set(),
-      expandedNodes: new Set()
+      expandedNodes: new Set(),
+      nodeDimensions: {}
     };
     this.initialize();
   }
@@ -49,21 +53,22 @@ export class DiagramService {
   }
 
   public getVisibleNodes(): DiagramNode[] {
-    return Array.from(this.state.visibleNodes)
+    const nodes: (DiagramNode | null)[] = Array.from(this.state.visibleNodes)
       .map(id => {
         const node = architectureService.getNodeById(id);
         if (!node) return null;
-        
-        // Get related nodes for this node
         const relatedNodes = architectureService.getRelatedNodes(id);
-        
-        // Return node with related nodes data
+        const dims = this.getNodeDimensions(id);
         return {
           ...node,
-          relatedNodes
+          relatedNodes,
+          position: dims ? { x: dims.x, y: dims.y } : node.position,
+          width: dims?.width,
+          height: dims?.height
         };
-      })
-      .filter((node): node is DiagramNode => node !== null);
+      });
+    // Remove nulls and ensure type
+    return nodes.filter((node): node is DiagramNode => node !== null);
   }
 
   public getEdges(): Edge[] {
@@ -112,6 +117,14 @@ export class DiagramService {
 
   public refresh() {
     this.initialize();
+  }
+
+  public setNodeDimensions(nodeId: string, dims: { x: number; y: number; width?: number; height?: number }) {
+    this.state.nodeDimensions[nodeId] = { ...dims };
+  }
+
+  public getNodeDimensions(nodeId: string): { x: number; y: number; width?: number; height?: number } | undefined {
+    return this.state.nodeDimensions[nodeId];
   }
 }
 

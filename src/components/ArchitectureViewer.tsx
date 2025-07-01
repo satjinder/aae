@@ -52,38 +52,42 @@ export const ArchitectureViewer: React.FC = () => {
   const [groupedNodes, setGroupedNodes] = useState<Record<string, ArchitectureNode[]>>({});
 
   // Convert architecture node to ReactFlow node
-  const toReactFlowNode = (node: DiagramNode): ReactFlowNode => ({
-    id: node.id,
-    type: 'custom',
-    position: node.position || getRandomPosition(),
-    data: { 
-      ...node,
-      onToggleNode: async (nodeId: string) => {
-        const tool = new ManageNodeVisibilityTool();
-        await tool.execute(JSON.stringify({
-          nodeId,
-          action: diagramService.isNodeVisible(nodeId) ? 'remove' : 'add'
-        }));
-        // Update visible nodes and edges
-        const visibleNodes = diagramService.getVisibleNodes();
-        const visibleEdges = diagramService.getEdges();
-        setNodes(visibleNodes.map(toReactFlowNode));
-        setEdges(visibleEdges);
-      },
-      onToggleVisibility: async (nodeId: string) => {
-        const tool = new ManageNodeVisibilityTool();
-        await tool.execute(JSON.stringify({
-          nodeId,
-          action: diagramService.isNodeVisible(nodeId) ? 'remove' : 'add'
-        }));
-        // Update visible nodes and edges
-        const visibleNodes = diagramService.getVisibleNodes();
-        const visibleEdges = diagramService.getEdges();
-        setNodes(visibleNodes.map(toReactFlowNode));
-        setEdges(visibleEdges);
+  const toReactFlowNode = (node: DiagramNode): ReactFlowNode => {
+    // Get dimensions from diagramService if available
+    const dims = diagramService.getNodeDimensions(node.id);
+    return {
+      id: node.id,
+      type: 'custom',
+      position: dims ? { x: dims.x, y: dims.y } : (node.position || getRandomPosition()),
+      width: dims?.width,
+      height: dims?.height,
+      data: {
+        ...node,
+        onToggleNode: async (nodeId: string) => {
+          const tool = new ManageNodeVisibilityTool();
+          await tool.execute(JSON.stringify({
+            nodeId,
+            action: diagramService.isNodeVisible(nodeId) ? 'remove' : 'add'
+          }));
+          const visibleNodes = diagramService.getVisibleNodes();
+          const visibleEdges = diagramService.getEdges();
+          setNodes(visibleNodes.map(toReactFlowNode));
+          setEdges(visibleEdges);
+        },
+        onToggleVisibility: async (nodeId: string) => {
+          const tool = new ManageNodeVisibilityTool();
+          await tool.execute(JSON.stringify({
+            nodeId,
+            action: diagramService.isNodeVisible(nodeId) ? 'remove' : 'add'
+          }));
+          const visibleNodes = diagramService.getVisibleNodes();
+          const visibleEdges = diagramService.getEdges();
+          setNodes(visibleNodes.map(toReactFlowNode));
+          setEdges(visibleEdges);
+        }
       }
-    }
-  });
+    };
+  };
 
   // Load and group nodes by type
   const loadGroupedNodes = useCallback((nodes: ArchitectureNode[]) => {
@@ -128,7 +132,26 @@ export const ArchitectureViewer: React.FC = () => {
   // Handle node changes
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
-      setNodes((nds) => applyNodeChanges(changes, nds));
+      setNodes((nds) => {
+        const updatedNodes = applyNodeChanges(changes, nds);
+        // Persist position and dimensions for moved nodes
+        changes.forEach(change => {
+          if (change.type === 'position' && change.position && change.id) {
+            // Find the node in updatedNodes
+            const node = updatedNodes.find(n => n.id === change.id);
+            if (node) {
+              // Persist position and dimensions (if available)
+              diagramService.setNodeDimensions(node.id, {
+                x: node.position.x,
+                y: node.position.y,
+                width: node.width,
+                height: node.height
+              });
+            }
+          }
+        });
+        return updatedNodes;
+      });
     },
     []
   );
