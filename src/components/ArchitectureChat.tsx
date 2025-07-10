@@ -112,10 +112,15 @@ export const ArchitectureChat: React.FC<ArchitectureChatProps> = ({
           elevation={3}
           sx={{
             width: 400,
-            height: 600,
+            height: '100vh',
+            maxHeight: '100vh',
             display: 'flex',
             flexDirection: 'column',
-            transition: 'all 0.3s ease'
+            transition: 'all 0.3s ease',
+            position: 'fixed',
+            right: 0,
+            top: 0,
+            zIndex: 1200,
           }}
         >
           <Box sx={{ p: 2, borderBottom: 1, borderColor: 'divider', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>

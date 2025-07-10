@@ -22,7 +22,8 @@ export class CreateNodeTool extends BaseArchitectureTool {
           type: z.string(),
           description: z.string().optional(),
           properties: z.record(z.string()).optional()
-        })
+        }).optional(),
+        error: z.boolean().optional()
       }),
       usageGuidelines: [
         'Use this tool when you need to create a new node in the architecture',
@@ -81,7 +82,8 @@ export class CreateNodeTool extends BaseArchitectureTool {
           type: node.type,
           description: node.description,
           properties: node.data
-        }
+        },
+        error: false
       });
     } catch (error) {
       return this.validateOutput({
@@ -90,4 +92,4 @@ export class CreateNodeTool extends BaseArchitectureTool {
       });
     }
   }
-} 
+}
